@@ -1,0 +1,32 @@
+package es.indios.markn.injection.component;
+
+import android.app.Application;
+import android.content.Context;
+
+import javax.inject.Singleton;
+
+import dagger.Component;
+import es.indios.markn.data.DataManager;
+import es.indios.markn.data.SyncService;
+import es.indios.markn.data.local.DatabaseHelper;
+import es.indios.markn.data.local.PreferencesHelper;
+import es.indios.markn.data.remote.RibotsService;
+import es.indios.markn.injection.module.ApplicationModule;
+import es.indios.markn.injection.ApplicationContext;
+import es.indios.markn.util.RxEventBus;
+
+@Singleton
+@Component(modules = ApplicationModule.class)
+public interface ApplicationComponent {
+
+    void inject(SyncService syncService);
+
+    @ApplicationContext Context context();
+    Application application();
+    RibotsService ribotsService();
+    PreferencesHelper preferencesHelper();
+    DatabaseHelper databaseHelper();
+    DataManager dataManager();
+    RxEventBus eventBus();
+
+}
