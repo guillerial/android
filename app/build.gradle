@@ -119,8 +119,6 @@ dependencies {
     compile "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
     annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
 
-    compile project(":blescanner")
-
     // Replace provided dependency below with official AutoValue once this issue is fixed
     // https://github.com/google/auto/issues/268
     provided "com.jakewharton.auto.value:auto-value-annotations:$AUTO_VALUE_VERSION"
