@@ -1,26 +1,27 @@
 package es.indios.markn.ui.main;
 
-import java.util.List;
+import org.altbeacon.beacon.Beacon;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import es.indios.markn.blescanner.MarknListener;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import es.indios.markn.data.DataManager;
-import es.indios.markn.data.model.Ribot;
 import es.indios.markn.injection.ConfigPersistent;
 import es.indios.markn.ui.base.BasePresenter;
-import es.indios.markn.util.RxUtil;
 
 @ConfigPersistent
-public class MainPresenter extends BasePresenter<MainMvpView> {
+public class MainPresenter extends BasePresenter<MainMvpView> implements MarknListener{
 
     private final DataManager mDataManager;
-    private Disposable mDisposable;
+    private Disposable mDisposableBeacons;
 
     @Inject
     public MainPresenter(DataManager dataManager) {
@@ -35,41 +36,44 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     @Override
     public void detachView() {
         super.detachView();
-        if (mDisposable != null) mDisposable.dispose();
+        if (mDisposableBeacons != null) mDisposableBeacons.dispose();
     }
 
-    public void loadRibots() {
-        checkViewAttached();
-        RxUtil.dispose(mDisposable);
-        mDataManager.getRibots()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Ribot>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        mDisposable = d;
-                    }
 
-                    @Override
-                    public void onNext(@NonNull List<Ribot> ribots) {
-                        if (ribots.isEmpty()) {
-                            getMvpView().showRibotsEmpty();
-                        } else {
-                            getMvpView().showRibots(ribots);
+    @Override
+    public void notifyBluetoothActivationRequired() {
+        Timber.i("You need to activate bluetooth");
+    }
+
+    @Override
+    public void onBeaconsDetected(ArrayList<Beacon> beacons) {
+        if (!beacons.isEmpty()) {
+            Observable.fromArray(beacons).observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Observer<ArrayList<Beacon>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            if (mDisposableBeacons!=null && !mDisposableBeacons.isDisposed())
+                                mDisposableBeacons.dispose();
+                            mDisposableBeacons = d;
                         }
-                    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Timber.e(e, "There was an error loading the ribots.");
-                        getMvpView().showError();
-                    }
+                        @Override
+                        public void onNext(ArrayList<Beacon> beacons) {
+                            getMvpView().showBeacons(beacons);
+                        }
 
-                    @Override
-                    public void onComplete() {
+                        @Override
+                        public void onError(Throwable e) {
+                            Timber.i(e,"ERROR WHEN PRINTING BEACONS");
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
     }
-
 }

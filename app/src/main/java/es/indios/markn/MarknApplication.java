@@ -3,9 +3,8 @@ package es.indios.markn;
 import android.app.Application;
 import android.content.Context;
 
-import com.crashlytics.android.Crashlytics;
 
-import io.fabric.sdk.android.Fabric;
+import es.indios.markn.blescanner.Scanner;
 import timber.log.Timber;
 import es.indios.markn.injection.module.ApplicationModule;
 import es.indios.ribot.androidboilerplate.BuildConfig;
@@ -22,8 +21,9 @@ public class MarknApplication extends Application  {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
-            Fabric.with(this, new Crashlytics());
+            //Fabric.with(this, new Crashlytics());
         }
+        Scanner.getInstance().init(this);
     }
 
     public static MarknApplication get(Context context) {

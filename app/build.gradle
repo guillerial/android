@@ -126,6 +126,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
     annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
 
+    //Bluetooth scanner project
     compile project(":blescanner")
 
     // Replace provided dependency below with official AutoValue once this issue is fixed
