@@ -5,18 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.util.Collections;
-import java.util.List;
+import org.altbeacon.beacon.Beacon;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.indios.markn.blescanner.Scanner;
 import es.indios.markn.data.SyncService;
-import es.indios.markn.data.model.Ribot;
-import es.indios.markn.util.DialogFactory;
 import es.indios.ribot.androidboilerplate.R;
 import es.indios.markn.ui.base.BaseActivity;
 
@@ -26,9 +26,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
             "MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
 
     @Inject MainPresenter mMainPresenter;
-    @Inject RibotsAdapter mRibotsAdapter;
+    @Inject BeaconsAdapter mBeaconsAdapter;
 
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.main_beacon_textview)
+    TextView mTextView;
 
     /**
      * Return an Intent to start this Activity.
@@ -48,10 +50,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mRecyclerView.setAdapter(mRibotsAdapter);
+        mRecyclerView.setAdapter(mBeaconsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMainPresenter.attachView(this);
-        mMainPresenter.loadRibots();
+        Scanner.getInstance().subscribeListener(mMainPresenter);
 
         if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
             startService(SyncService.getStartIntent(this));
@@ -63,27 +65,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onDestroy();
 
         mMainPresenter.detachView();
+        Scanner.getInstance().deleteListeners();
     }
 
     /***** MVP View methods implementation *****/
 
     @Override
-    public void showRibots(List<Ribot> ribots) {
-        mRibotsAdapter.setRibots(ribots);
-        mRibotsAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots))
-                .show();
-    }
-
-    @Override
-    public void showRibotsEmpty() {
-        mRibotsAdapter.setRibots(Collections.<Ribot>emptyList());
-        mRibotsAdapter.notifyDataSetChanged();
-        Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
+    public void showBeacons(ArrayList<Beacon> beacons) {
+        mBeaconsAdapter.setBeacons(beacons);
+        mBeaconsAdapter.notifyDataSetChanged();
     }
 
 }

@@ -4,12 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".MainActivity">
+    tools:context="es.indios.markn.ui.main.MainActivity">
+
+    <TextView
+        android:id="@+id/main_beacon_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/main_beacon_textview"
         android:clipToPadding="false"
         android:paddingBottom="6dp"
         android:paddingTop="6dp"

@@ -1,16 +1,13 @@
 package es.indios.markn.ui.main;
 
-import java.util.List;
+import org.altbeacon.beacon.Beacon;
 
-import es.indios.markn.data.model.Ribot;
+
+import java.util.ArrayList;
+
 import es.indios.markn.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
 
-    void showRibots(List<Ribot> ribots);
-
-    void showRibotsEmpty();
-
-    void showError();
-
+    void showBeacons(ArrayList<Beacon> beacons);
 }
