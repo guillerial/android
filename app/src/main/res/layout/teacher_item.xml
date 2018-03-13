@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/view_hex_color"
             android:textSize="@dimen/text_body"
-            tools:text="Antony Ribot" />
+            tools:text="Luis Álvarez Sabucedo" />
 
         <TextView
             android:id="@+id/text_email"
@@ -39,7 +39,7 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/view_hex_color"
             android:textSize="@dimen/text_small_body"
-            tools:text="developer" />
+            tools:text="LuisSabucedo@det.uvigo.es" />
 
     </RelativeLayout>
 
