@@ -3,6 +3,7 @@ package es.indios.markn.injection.component;
 import dagger.Component;
 import es.indios.markn.injection.ConfigPersistent;
 import es.indios.markn.injection.module.ActivityModule;
+import es.indios.markn.injection.module.FragmentModule;
 import es.indios.markn.ui.base.BaseActivity;
 
 /**
@@ -17,5 +18,6 @@ import es.indios.markn.ui.base.BaseActivity;
 public interface ConfigPersistentComponent {
 
     ActivityComponent activityComponent(ActivityModule activityModule);
+    FragmentComponent fragmentComponent(FragmentModule fragmentModule);
 
 }
