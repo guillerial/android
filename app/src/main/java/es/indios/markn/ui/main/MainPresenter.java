@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import es.indios.markn.blescanner.MarknListener;
+import es.indios.markn.blescanner.models.Topology.Indication;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,7 +39,6 @@ public class MainPresenter extends BasePresenter<MainMvpView> implements MarknLi
         super.detachView();
         if (mDisposableBeacons != null) mDisposableBeacons.dispose();
     }
-
 
     @Override
     public void notifyBluetoothActivationRequired() {
@@ -75,5 +75,10 @@ public class MainPresenter extends BasePresenter<MainMvpView> implements MarknLi
                     });
 
         }
+    }
+
+    @Override
+    public void onNewIndication(Indication indication) {
+
     }
 }
