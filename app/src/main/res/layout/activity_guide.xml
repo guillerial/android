@@ -20,6 +20,14 @@
 
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/guide_location_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_location"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/guide_indication_recycler"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_location"/>

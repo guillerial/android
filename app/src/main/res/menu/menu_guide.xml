@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_guide"
+    <item android:id="@+id/action_exit"
         android:title=""
         android:icon="@drawable/ic_clear_black_24dp" />
     <item android:id="@+id/action_options"

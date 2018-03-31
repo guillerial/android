@@ -5,11 +5,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import es.indios.markn.blescanner.models.Topology.Indication;
+import es.indios.markn.blescanner.models.Topology.Route;
+import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
+import es.indios.markn.data.model.uvigo.Location;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
-import es.indios.markn.data.model.Ribot;
 import es.indios.markn.data.local.DatabaseHelper;
 import es.indios.markn.data.local.PreferencesHelper;
 import es.indios.markn.data.remote.RibotsService;
@@ -33,19 +36,53 @@ public class DataManager {
         return mPreferencesHelper;
     }
 
-    public Observable<Ribot> syncRibots() {
-        return mRibotsService.getRibots()
-                .concatMap(new Function<List<Ribot>, ObservableSource<? extends Ribot>>() {
-                    @Override
-                    public ObservableSource<? extends Ribot> apply(@NonNull List<Ribot> ribots)
-                            throws Exception {
-                        return mDatabaseHelper.setRibots(ribots);
-                    }
-                });
+
+    public Observable<Location> syncLocations(){
+        return mRibotsService.getLocations().concatMap(new Function<List<Location>, ObservableSource<? extends Location>>() {
+            @Override
+            public ObservableSource<? extends Location> apply(List<Location> locations) throws Exception {
+                return mDatabaseHelper.setLocations(locations);
+            }
+        });
     }
 
-    public Observable<List<Ribot>> getRibots() {
-        return mDatabaseHelper.getRibots().distinct();
+    public Observable<List<Location>> getLocations() {
+        return mDatabaseHelper.getLocations().distinct();
+    }
+
+    public Observable<Indication> syncIndications(){
+        return mRibotsService.getIndications().concatMap(new Function<List<Indication>, ObservableSource<? extends Indication>>() {
+            @Override
+            public ObservableSource<? extends Indication> apply(List<Indication> indications) throws Exception {
+                return mDatabaseHelper.setIndications(indications);
+            }
+        });
+    }
+
+    public Observable<List<Indication>> getIndications() {
+        return mDatabaseHelper.getIndications().distinct();
+    }
+
+    public Observable<Route> syncTopology(){
+        return mRibotsService.getTopology().concatMap(new Function<List<Route>, ObservableSource<? extends Route>>() {
+            @Override
+            public ObservableSource<? extends Route> apply(List<Route> routes) throws Exception {
+                return mDatabaseHelper.setTopology(routes);
+            }
+        });
+    }
+
+    public Observable<List<Route>> getTopology() {
+        return mDatabaseHelper.getTopology().distinct();
+    }
+
+    public Observable<IndicationsTopologyWrapper> getIndicationsAndTopology(){
+        return getTopology().zipWith(getIndications(), new BiFunction<List<Route>, List<Indication>, IndicationsTopologyWrapper>() {
+            @Override
+            public IndicationsTopologyWrapper apply(List<Route> routes, List<Indication> indications) throws Exception {
+                return new IndicationsTopologyWrapper(indications, routes);
+            }
+        });
     }
 
 }
