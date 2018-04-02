@@ -51,6 +51,7 @@ public class SyncService extends Service {
         }
 
         RxUtil.dispose(mDisposable);
+        /*
         mDataManager.syncRibots()
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Ribot>() {
@@ -75,7 +76,7 @@ public class SyncService extends Service {
                         stopSelf(startId);
                     }
                 });
-
+*/
         return START_STICKY;
     }
 

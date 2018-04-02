@@ -8,7 +8,7 @@
         android:title=""
         />
     -->
-    <item android:id="@+id/action_scheduler"
+    <item android:id="@+id/action_calendar"
         android:title="scheduler"
         android:icon="@drawable/ic_date_range_black_24dp" />
     <item android:id="@+id/action_options"
