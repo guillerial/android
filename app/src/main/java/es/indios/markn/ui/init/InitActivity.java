@@ -46,6 +46,8 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         mNavigationView.setNavigationItemSelectedListener(this);
         mInitPresenter.attachView(this);
         Scanner.getInstance().subscribeListener(mInitPresenter);
+
+        onNavigationItemSelected(mNavigationView.getMenu().findItem(R.id.action_scheduler));
     }
 
     @Override
