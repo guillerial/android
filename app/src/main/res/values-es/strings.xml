@@ -12,10 +12,10 @@
 
     <!-- Schedules -->
     <string-array name="scheduler_fragment_tabs">
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
     </string-array>
 </resources>
