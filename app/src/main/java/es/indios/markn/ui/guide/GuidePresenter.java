@@ -20,6 +20,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -81,11 +82,13 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             public void onNext(IndicationsTopologyWrapper indicationsTopologyWrapper) {
                 mTopology = new HashMap<>();
                 for (Route route : indicationsTopologyWrapper.mRoutes){
+                    Timber.i(route.getRoute());
                     mTopology.put(route.getRoute(), route);
                 }
 
                 mIndications = new HashMap<>();
                 for (Indication indication : indicationsTopologyWrapper.mIndications) {
+                    Timber.i(indication.getRoute());
                     mIndications.put(indication.getRoute(), indication);
                 }
             }
@@ -108,7 +111,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             mActualDestination = location;
             changes = true;
         }
-        if(changes){
+        if(changes && mActualBeacon!=null && mActualDestination!=null){
             generatePathIndicationList();
         }
     }
@@ -119,7 +122,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             mActualBeacon = nearbyBeacon;
             changes = true;
         }
-        if(changes){
+        if(changes && mActualBeacon!=null && mActualDestination!=null){
             generatePathIndicationList();
         }
     }
@@ -148,7 +151,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             mActualIndication = indication;
             changes = true;
         }
-        if (changes) {
+        if (changes && mActualBeacon!=null && mActualDestination!=null) {
             generatePathIndicationList();
         }
     }
@@ -156,10 +159,9 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
     public void generatePathIndicationList(){
         ArrayList<Indication> indications = new ArrayList<>();
 
-        String actualBeacon = new StringBuilder().append(mActualBeacon.getId2()).append(mActualBeacon.getId3()).toString();
-
+        String actualBeacon = new StringBuilder().append(mActualBeacon.getId3()).toString();
+        Timber.i("Beacon actual:"+actualBeacon+"Beacon destino:"+mActualDestination.getNearby_beacon());
         Route route = mTopology.get(actualBeacon+"-"+mActualDestination.getNearby_beacon());
-
         if(actualBeacon.equals(mActualDestination.getNearby_beacon())){
             //FIXME: añadir que he llegado al destino
 

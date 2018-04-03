@@ -38,7 +38,7 @@ public interface RibotsService {
             @Field("email") String email,
             @Field("password") String password);
 
-    @GET("/locations/")
+    @GET("/classrooms/")
     Observable<List<Location>> getLocations();
 
     @GET("/indications/")

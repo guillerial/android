@@ -14,6 +14,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.blescanner.Scanner;
+import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
+import es.indios.markn.data.sync.IndicationsSyncService;
+import es.indios.markn.data.sync.LocationsSyncService;
+import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.guide.GuideFragment;
 import es.indios.markn.ui.main.BeaconsAdapter;
@@ -47,7 +51,15 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         mInitPresenter.attachView(this);
         Scanner.getInstance().subscribeListener(mInitPresenter);
 
-        onNavigationItemSelected(mNavigationView.getMenu().findItem(R.id.action_scheduler));
+        onNavigationItemSelected(mNavigationView.getMenu().getItem(0));
+
+        syncThings();
+    }
+
+    private void syncThings() {
+        startService(LocationsSyncService.getStartIntent(this));
+        startService(TopologySyncService.getStartIntent(this));
+        startService(IndicationsSyncService.getStartIntent(this));
     }
 
     @Override

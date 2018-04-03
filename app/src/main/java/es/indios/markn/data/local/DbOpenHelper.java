@@ -13,7 +13,7 @@ import es.indios.markn.injection.ApplicationContext;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "ribots.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 5;
 
     @Inject
     public DbOpenHelper(@ApplicationContext Context context) {
@@ -44,7 +44,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion<3){
+        if(oldVersion<5){
             db.execSQL(Db.LocationTable.CREATE);
             db.execSQL(Db.IndicationTable.CREATE);
             db.execSQL(Db.TopologyTable.CREATE);

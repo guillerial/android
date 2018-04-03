@@ -66,7 +66,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     }
 
     class LocationViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.view_hex_color) ImageView color;
+        @BindView(R.id.view_hex_color) View color;
         @BindView(R.id.text_name) TextView locationText;
         @BindView(R.id.teacher_card_view) CardView mCardView;
 

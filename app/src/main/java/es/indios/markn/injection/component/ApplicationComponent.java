@@ -7,10 +7,12 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import es.indios.markn.data.DataManager;
-import es.indios.markn.data.SyncService;
+import es.indios.markn.data.sync.IndicationsSyncService;
 import es.indios.markn.data.local.DatabaseHelper;
 import es.indios.markn.data.local.PreferencesHelper;
 import es.indios.markn.data.remote.RibotsService;
+import es.indios.markn.data.sync.LocationsSyncService;
+import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.injection.module.ApplicationModule;
 import es.indios.markn.injection.ApplicationContext;
 import es.indios.markn.util.RxEventBus;
@@ -19,7 +21,6 @@ import es.indios.markn.util.RxEventBus;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-    void inject(SyncService syncService);
 
     @ApplicationContext Context context();
     Application application();
@@ -29,4 +30,7 @@ public interface ApplicationComponent {
     DataManager dataManager();
     RxEventBus eventBus();
 
+    void inject(IndicationsSyncService indicationsSyncService);
+    void inject(LocationsSyncService locationsSyncService);
+    void inject(TopologySyncService topologySyncService);
 }

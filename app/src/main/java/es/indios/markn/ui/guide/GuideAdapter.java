@@ -46,7 +46,8 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
     @Override
     public void onBindViewHolder(IndicationViewHolder holder, int position) {
         Indication indication = mIndications.get(position);
-        Picasso.get().load(indication.getImage_url()).into(holder.indicationImage);
+        if(!indication.getImage_url().equals(""))
+            Picasso.get().load(indication.getImage_url()).into(holder.indicationImage);
         holder.indicationText.setText(indication.getIndication());
     }
 

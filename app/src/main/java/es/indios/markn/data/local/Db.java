@@ -72,10 +72,14 @@ public class Db {
 
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_NEARBY_BEACON = "nearby_beacon";
+        public static final String COLUMN_LAST_INDICATION = "last_indication";
+        public static final String COLUMN_LAST_IMAGE = "last_image";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME + " TEXT PRIMARY KEY, " +
+                        COLUMN_LAST_IMAGE + " TEXT, " +
+                        COLUMN_LAST_INDICATION + " TEXT, " +
                         COLUMN_NEARBY_BEACON + " TEXT NOT NULL " +
                         " ); ";
 
@@ -83,13 +87,17 @@ public class Db {
             ContentValues values = new ContentValues();
             values.put(COLUMN_NAME, location.getName());
             values.put(COLUMN_NEARBY_BEACON, location.getNearby_beacon());
+            values.put(COLUMN_LAST_INDICATION, location.getLast_indication());
+            values.put(COLUMN_LAST_IMAGE, location.getLast_image());
             return values;
         }
 
         public static Location parseCursor(Cursor cursor) {
             return new Location(
                     cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_NEARBY_BEACON))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NEARBY_BEACON)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LAST_INDICATION)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_LAST_IMAGE))
             );
         }
     }

@@ -1,4 +1,4 @@
-package es.indios.markn.data;
+package es.indios.markn.data.sync;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -9,28 +9,29 @@ import android.os.IBinder;
 
 import javax.inject.Inject;
 
+import es.indios.markn.blescanner.models.Topology.Indication;
+import es.indios.markn.data.DataManager;
 import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-import es.indios.markn.data.model.Ribot;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
 import es.indios.markn.MarknApplication;
 
-public class SyncService extends Service {
+public class IndicationsSyncService extends Service {
 
-    @Inject DataManager mDataManager;
+    @Inject
+    DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, SyncService.class);
+        return new Intent(context, IndicationsSyncService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, SyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, IndicationsSyncService.class);
     }
 
     @Override
@@ -51,32 +52,31 @@ public class SyncService extends Service {
         }
 
         RxUtil.dispose(mDisposable);
-        /*
-        mDataManager.syncRibots()
+
+        mDataManager.syncIndications()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Ribot>() {
+                .subscribe(new Observer<Indication>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        mDisposable = d;
+                    public void onSubscribe(Disposable d) {
+
                     }
 
                     @Override
-                    public void onNext(@NonNull Ribot ribot) {
+                    public void onNext(Indication indication) {
+
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        Timber.w(e, "Error syncing.");
-                        stopSelf(startId);
+                    public void onError(Throwable e) {
+                        Timber.i(e, "Error SyncIndications");
+
                     }
 
                     @Override
                     public void onComplete() {
-                        Timber.i("Synced successfully!");
-                        stopSelf(startId);
+
                     }
                 });
-*/
         return START_STICKY;
     }
 

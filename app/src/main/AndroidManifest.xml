@@ -22,9 +22,27 @@
             </intent-filter>
         </activity>
 
-        <service android:name="es.indios.markn.data.SyncService"/>
+        <service android:name="es.indios.markn.data.sync.IndicationsSyncService"/>
         <receiver
-            android:name="es.indios.markn.data.SyncService$SyncOnConnectionAvailable"
+            android:name="es.indios.markn.data.sync.IndicationsSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="es.indios.markn.data.sync.LocationsSyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.sync.LocationsSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="es.indios.markn.data.sync.TopologySyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.sync.TopologySyncService$SyncOnConnectionAvailable"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
