@@ -18,4 +18,12 @@
         <item>Jueves</item>
         <item>Viernes</item>
     </string-array>
+
+    <!--main-->
+    <string name="navigation_drawer_open">Abrir barra lateral</string>
+    <string name="navigation_drawer_close">Cerrar barra lateral</string>
+
+    <string name="bottom_scheduler">Horario</string>
+    <string name="bottom_professors">Profesores</string>
+    <string name="bottom_guide">Guía</string>
 </resources>

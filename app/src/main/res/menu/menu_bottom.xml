@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_scheduler"
-        android:title="scheduler"
+        android:title="@string/bottom_scheduler"
         android:icon="@drawable/ic_date_range_black_24dp" />
     <item android:id="@+id/action_teachers"
-        android:title="teachers"
+        android:title="@string/bottom_professors"
         android:icon="@drawable/ic_person_black_24dp" />
     <item android:id="@+id/action_guide"
-        android:title="guide"
+        android:title="@string/bottom_guide"
         android:icon="@drawable/ic_my_location_black_24dp" />
 </menu>

@@ -6,6 +6,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -35,8 +38,10 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
 
     @BindView(R.id.bottom_navigation)   BottomNavigationView mBottomNavigation;
+    @BindView(R.id.drawer_layout)       DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation_view)     NavigationView mNavigationView;
     @BindView(R.id.content_main)        FrameLayout mFragmentContainer;
+    @BindView(R.id.toolbar)             Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,17 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         activityComponent().inject(this);
         setContentView(R.layout.activity_init);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                mToolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+
+        toggle.syncState();
 
         mFragmentManager = getSupportFragmentManager();
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
@@ -51,7 +67,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         mInitPresenter.attachView(this);
         Scanner.getInstance().subscribeListener(mInitPresenter);
 
-        onNavigationItemSelected(mNavigationView.getMenu().getItem(0));
+        onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_scheduler));
 
         syncThings();
     }
