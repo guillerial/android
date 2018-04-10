@@ -63,8 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     @Override
     public void onForbiddenLogin() {
-        //TODO: poner el hint en Strings
-        //mEmailEditText.setHint();
+        mEmailEditText.setHint(getResources().getString(R.string.text_user_no_exist));
         mEmailEditText.setHintTextColor(Color.RED);
     }
 
@@ -78,13 +77,11 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                     mLoginPresenter.logIn(email, password);
                 }else{
                     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                        //TODO: poner el hint en Strings
-                        //mEmailEditText.setHint();
+                        mEmailEditText.setHint(getResources().getString(R.string.text_valid_email));
                         mEmailEditText.setHintTextColor(Color.RED);
                     }
                     if(password.equals("")){
-                        //TODO: poner el hint en Strings
-                        //mPassEditText.setHint();
+                        mPassEditText.setHint(getResources().getString(R.string.text_pass_required));
                         mPassEditText.setHintTextColor(Color.RED);
                     }
                 }

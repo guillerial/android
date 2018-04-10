@@ -34,6 +34,20 @@
     <string name="bottom_login">Log in</string>
     <string name="text_create_account">Dont have an account?</string>
     <string name="text_guest_session">Continue as guest</string>
+    <string name="text_valid_email">Enter a valid email</string>
+    <string name="text_pass_required">Password required</string>
+    <string name="text_user_no_exist">User does not exist</string>
+    <!--signup-->
+    <string name="text_username">Name and last name</string>
+    <string name="text_email_signup">Email address</string>
+    <string name="text_password_signup">Password</string>
+    <string name="bottom_signup">Sign up</string>
+    <string name="text_guest_session_signup">Continue as guest</string>
+    <!--menu_navigation-->
+    <string name="icon_notifications">Notifications</string>
+    <string name="icon_settings">Settings</string>
+    <string name="icon_help">Help</string>
+    <string name="icon_logout">Log out</string>
 
-    
+
 </resources>
