@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
+import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.data.model.uvigo.Location;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -85,4 +86,16 @@ public class DataManager {
         });
     }
 
+    public Boolean isLoggedIn(){
+        return mPreferencesHelper.isLoggedIn();
+    }
+
+    public Observable<TokenResponse> login(String email, String password) {
+        return mRibotsService.login(email, password).concatMap(new Function<TokenResponse, ObservableSource<? extends TokenResponse>>() {
+            @Override
+            public ObservableSource<? extends TokenResponse> apply(TokenResponse tokenResponse) throws Exception {
+                return mPreferencesHelper.setToken(tokenResponse);
+            }
+        });
+    }
 }

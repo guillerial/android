@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar" >
         <activity
-            android:name="es.indios.markn.ui.init.InitActivity"
+            android:name="es.indios.markn.ui.login.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="es.indios.markn.ui.init.InitActivity"/>
+
 
         <service android:name="es.indios.markn.data.sync.IndicationsSyncService"/>
         <receiver

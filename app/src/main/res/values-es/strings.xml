@@ -26,4 +26,12 @@
     <string name="bottom_scheduler">Horario</string>
     <string name="bottom_professors">Profesores</string>
     <string name="bottom_guide">Guía</string>
+
+    <!--login-->
+    <string name="text_email">Correo electrónico</string>
+    <string name="text_password">Contraseña</string>
+    <string name="text_forgot_pass">¿Olvidaste la contraseña?</string>
+    <string name="bottom_login">Acceder</string>
+    <string name="text_create_account">No tienes cuenta</string>
+    <string name="text_guest_session">Continuar como invitado</string>
 </resources>

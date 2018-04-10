@@ -26,4 +26,14 @@
     <string name="bottom_scheduler">Schedule</string>
     <string name="bottom_professors">Professors</string>
     <string name="bottom_guide">Guide</string>
+
+    <!--login-->
+    <string name="text_email">Email address</string>
+    <string name="text_password">Password</string>
+    <string name="text_forgot_pass">Forgot password?</string>
+    <string name="bottom_login">Log in</string>
+    <string name="text_create_account">Dont have an account?</string>
+    <string name="text_guest_session">Continue as guest</string>
+
+    
 </resources>
