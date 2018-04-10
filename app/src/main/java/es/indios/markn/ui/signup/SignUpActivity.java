@@ -55,18 +55,15 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
                     mSignUpPresenter.signUp(name, email, password);
                 }else{
                     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                        //TODO: poner el hint en Strings
-                        //mEmailEditText.setHint();
+                        mEmailEditText.setHint(getResources().getString(R.string.text_valid_email));
                         mEmailEditText.setHintTextColor(Color.RED);
                     }
                     if(password.equals("")){
-                        //TODO: poner el hint en Strings
-                        //mPassEditText.setHint();
+                        mPassEditText.setHint(getResources().getString(R.string.text_pass_required));
                         mPassEditText.setHintTextColor(Color.RED);
                     }
                     if(name.equals("")){
-                        //TODO: poner el hint en Strings
-                        //mUsernameEditText.setHint();
+                        mPassEditText.setHint(getResources().getString(R.string.name_required));
                         mUsernameEditText.setHintTextColor(Color.RED);
                     }
                 }
@@ -88,8 +85,6 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
 
     @Override
     public void onForbiddenLogin(int code) {
-        //TODO: poner el hint en Strings
-        //mEmailEditText.setHint();
-        mEmailEditText.setHintTextColor(Color.RED);
+
     }
 }
