@@ -62,6 +62,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
     }
 
     @Override
+    public void onForbiddenLogin() {
+        //TODO: poner el hint en Strings
+        //mEmailEditText.setHint();
+        mEmailEditText.setHintTextColor(Color.RED);
+    }
+
+    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.login_button:

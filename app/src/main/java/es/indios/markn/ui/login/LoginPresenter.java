@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
+import timber.log.Timber;
 
 @ConfigPersistent
 public class LoginPresenter extends BasePresenter<LoginMvpView>{
@@ -49,8 +50,12 @@ public class LoginPresenter extends BasePresenter<LoginMvpView>{
                     @Override
                     public void onError(Throwable e) {
                             if (e instanceof HttpException){
-                                if(getMvpView()!=null)
-                                    getMvpView().onLoggedUser();
+                                if(((HttpException)e).code()==403) {
+                                    if(getMvpView()!=null){
+                                        getMvpView().onForbiddenLogin();
+                                    }
+                                    Timber.i(e, "HTTP ERROR");
+                                }
                             }
                     }
 
