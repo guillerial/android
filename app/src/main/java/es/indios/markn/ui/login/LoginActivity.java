@@ -1,6 +1,7 @@
 package es.indios.markn.ui.login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -68,13 +69,24 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                 String password = mPassEditText.getText().toString();
                 if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.equals("")){
                     mLoginPresenter.logIn(email, password);
+                }else{
+                    if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        //TODO: poner el hint en Strings
+                        //mEmailEditText.setHint();
+                        mEmailEditText.setHintTextColor(Color.RED);
+                    }
+                    if(password.equals("")){
+                        //TODO: poner el hint en Strings
+                        //mPassEditText.setHint();
+                        mPassEditText.setHintTextColor(Color.RED);
+                    }
                 }
                 break;
             case R.id.forgot_password_textview:
 
                 break;
             case R.id.textview_guest_session:
-
+                onLoggedUser();
                 break;
             case R.id.textview_create_account:
 
