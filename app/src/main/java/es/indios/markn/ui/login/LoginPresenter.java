@@ -52,7 +52,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView>{
                             if (e instanceof HttpException){
                                 if(((HttpException)e).code()==403) {
                                     if(getMvpView()!=null){
-                                        getMvpView().onForbiddenLogin();
+                                        //getMvpView().onForbiddenLogin();
                                     }
                                     Timber.i(e, "HTTP ERROR");
                                 }
