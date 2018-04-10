@@ -98,4 +98,13 @@ public class DataManager {
             }
         });
     }
+
+    public Observable<TokenResponse> signup(String name, String email, String password) {
+        return mRibotsService.register(email, name, password).concatMap(new Function<TokenResponse, ObservableSource<? extends TokenResponse>>() {
+            @Override
+            public ObservableSource<? extends TokenResponse> apply(TokenResponse tokenResponse) throws Exception {
+                return mPreferencesHelper.setToken(tokenResponse);
+            }
+        });
+    }
 }

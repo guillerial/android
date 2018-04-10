@@ -19,18 +19,20 @@
             android:layout_alignParentBottom="true">
 
             <TextView
-                android:id="@+id/textview_guest_session"
+                android:id="@+id/signup_textview_guest_session"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:clickable="true"
                 android:textSize="12sp"
                 android:text="Continue as guest"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:focusable="true" />
 
         </RelativeLayout>
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/signup_button"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -42,22 +44,24 @@
             />
 
         <EditText
-            android:id="@+id/password_edittext"
+            android:id="@+id/signup_password_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_above="@+id/login_button"
+            android:layout_above="@+id/signup_button"
+            android:inputType="textPassword"
             android:textSize="12sp"
             android:hint="Password"/>
 
         <EditText
-            android:id="@+id/email_edittext"
+            android:id="@+id/signup_email_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_above="@id/password_edittext"
+            android:layout_above="@id/signup_password_edittext"
+            android:inputType="textEmailAddress"
             android:textSize="12sp"
             android:hint="Email address"/>
 
@@ -67,7 +71,7 @@
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_above="@id/email_edittext"
+            android:layout_above="@id/signup_email_edittext"
             android:textSize="12sp"
             android:hint="User name"/>
 
