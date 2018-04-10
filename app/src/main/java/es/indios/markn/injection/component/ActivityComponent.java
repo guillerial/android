@@ -6,6 +6,7 @@ import es.indios.markn.injection.module.ActivityModule;
 import es.indios.markn.ui.init.InitActivity;
 import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.MainActivity;
+import es.indios.markn.ui.signup.SignUpActivity;
 
 /**
  * This component inject dependencies to all Activities across the application
@@ -19,4 +20,6 @@ public interface ActivityComponent {
     void inject(InitActivity initActivity);
 
     void inject(LoginActivity loginActivity);
+
+    void inject(SignUpActivity signUpActivity);
 }

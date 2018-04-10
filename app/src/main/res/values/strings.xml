@@ -37,12 +37,15 @@
     <string name="text_valid_email">Enter a valid email</string>
     <string name="text_pass_required">Password required</string>
     <string name="text_user_no_exist">User does not exist</string>
+
     <!--signup-->
     <string name="text_username">Name and last name</string>
     <string name="text_email_signup">Email address</string>
     <string name="text_password_signup">Password</string>
     <string name="bottom_signup">Sign up</string>
     <string name="text_guest_session_signup">Continue as guest</string>
+    <string name="name_required">Name required</string>
+
     <!--menu_navigation-->
     <string name="icon_notifications">Notifications</string>
     <string name="icon_settings">Settings</string>

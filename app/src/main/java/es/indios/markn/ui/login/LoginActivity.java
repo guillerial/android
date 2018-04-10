@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.init.InitActivity;
+import es.indios.markn.ui.signup.SignUpActivity;
 import es.indios.ribot.androidboilerplate.R;
 
 public class LoginActivity extends BaseActivity implements LoginMvpView, View.OnClickListener{
@@ -62,7 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
     }
 
     @Override
-    public void onForbiddenLogin() {
+    public void onForbiddenLogin(int code) {
         mEmailEditText.setHint(getResources().getString(R.string.text_user_no_exist));
         mEmailEditText.setHintTextColor(Color.RED);
     }
@@ -93,7 +94,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                 onLoggedUser();
                 break;
             case R.id.textview_create_account:
-
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 break;
