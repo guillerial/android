@@ -40,6 +40,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
         mLoginPresenter.checkLoggedIn();
 
         mLoginButton.setOnClickListener(this);
+        mForgotPassTextView.setOnClickListener(this);
+        mGuestSession.setOnClickListener(this);
+        mCreateAccountTextView.setOnClickListener(this);
     }
 
 
@@ -66,6 +69,15 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                 if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.equals("")){
                     mLoginPresenter.logIn(email, password);
                 }
+                break;
+            case R.id.forgot_password_textview:
+
+                break;
+            case R.id.textview_guest_session:
+
+                break;
+            case R.id.textview_create_account:
+
                 break;
             default:
                 break;
