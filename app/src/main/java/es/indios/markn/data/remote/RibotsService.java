@@ -21,6 +21,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import es.indios.markn.data.model.Ribot;
 import es.indios.markn.util.MyGsonTypeAdapterFactory;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface RibotsService {
@@ -52,6 +54,7 @@ public interface RibotsService {
     @GET("/teachers/")
     Observable<List<Teacher>> getTeachers();
 
+    @Headers("Authorization: Token 3deaf1e83cae91b2af8ef0ec138aa2a4c816344b")
     @GET("/schedules/")
     Observable<List<Schedule>> getSchedules();
 

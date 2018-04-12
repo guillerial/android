@@ -20,6 +20,8 @@ import es.indios.markn.blescanner.Scanner;
 import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
 import es.indios.markn.data.sync.IndicationsSyncService;
 import es.indios.markn.data.sync.LocationsSyncService;
+import es.indios.markn.data.sync.SchedulesSyncService;
+import es.indios.markn.data.sync.TeachersSyncService;
 import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.guide.GuideFragment;
@@ -76,6 +78,8 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         startService(LocationsSyncService.getStartIntent(this));
         startService(TopologySyncService.getStartIntent(this));
         startService(IndicationsSyncService.getStartIntent(this));
+        startService(SchedulesSyncService.getStartIntent(this));
+        startService(TeachersSyncService.getStartIntent(this));
     }
 
     @Override
