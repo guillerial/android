@@ -3,10 +3,13 @@ package es.indios.markn.data.local;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
+import es.indios.markn.data.model.uvigo.Group;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.Profile;
 import es.indios.markn.data.model.Name;
@@ -152,8 +155,7 @@ public class Db {
         public static final String COLUMN_DAY = "day";
         public static final String COLUMN_START_HOUR = "start_hour";
         public static final String COLUMN_FINISH_HOUR = "finish_hour";
-        public static final String COLUMN_GROUP_ID = "group_id";
-        public static final String COLUMN_TEACHER_ID = "teacher_id";
+        public static final String COLUMN_GROUP = "group";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
@@ -161,7 +163,7 @@ public class Db {
                         COLUMN_DAY + " INTEGER, " +
                         COLUMN_START_HOUR + " INTEGER, " +
                         COLUMN_FINISH_HOUR + " INTEGER, " +
-                        COLUMN_GROUP_ID + " TEXT " +
+                        COLUMN_GROUP + " TEXT " +
                         " ); ";
 
         public static ContentValues toContentValues(Schedule schedule) {
@@ -170,7 +172,7 @@ public class Db {
             values.put(COLUMN_DAY, schedule.getDay());
             values.put(COLUMN_START_HOUR, schedule.getStart_hour());
             values.put(COLUMN_FINISH_HOUR, schedule.getFinish_hour());
-            values.put(COLUMN_GROUP_ID, schedule.getGroup());
+            values.put(COLUMN_GROUP, new Gson().toJson(schedule.getGroup()));
             return values;
         }
 
@@ -180,7 +182,7 @@ public class Db {
                     cursor.getInt(cursor.getColumnIndex(COLUMN_DAY)),
                     cursor.getInt(cursor.getColumnIndex(COLUMN_START_HOUR)),
                     cursor.getInt(cursor.getColumnIndex(COLUMN_FINISH_HOUR)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_GROUP_ID))
+                    new Gson().fromJson(cursor.getString(cursor.getColumnIndex(COLUMN_GROUP)), Group.class)
             );
         }
     }
