@@ -12,6 +12,8 @@ import es.indios.markn.data.local.DatabaseHelper;
 import es.indios.markn.data.local.PreferencesHelper;
 import es.indios.markn.data.remote.RibotsService;
 import es.indios.markn.data.sync.LocationsSyncService;
+import es.indios.markn.data.sync.SchedulesSyncService;
+import es.indios.markn.data.sync.TeachersSyncService;
 import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.injection.module.ApplicationModule;
 import es.indios.markn.injection.ApplicationContext;
@@ -33,4 +35,6 @@ public interface ApplicationComponent {
     void inject(IndicationsSyncService indicationsSyncService);
     void inject(LocationsSyncService locationsSyncService);
     void inject(TopologySyncService topologySyncService);
+    void inject(SchedulesSyncService schedulesSyncService);
+    void inject(TeachersSyncService teachersSyncService);
 }
