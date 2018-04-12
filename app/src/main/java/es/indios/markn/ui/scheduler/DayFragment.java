@@ -3,14 +3,18 @@ package es.indios.markn.ui.scheduler;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.ui.base.BaseFragment;
 import es.indios.ribot.androidboilerplate.R;
 
@@ -25,7 +29,8 @@ public class DayFragment extends BaseFragment implements DayMvpView {
     @Inject
     DayAdapter mDayAdapter;
 
-
+    @BindView(R.id.day_recycler_view)
+    RecyclerView mDayRecyclerView;
 
     public static final int MONDAY      = 1;
     public static final int TUESDAY     = 2;
@@ -58,6 +63,15 @@ public class DayFragment extends BaseFragment implements DayMvpView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.day_item, container, false);
         ButterKnife.bind(this, view);
+
+        mDayRecyclerView.setAdapter(mDayAdapter);
+
+        mDayPresenter.getSchedules();
         return view;
+    }
+
+    @Override
+    public void setSchedules(ArrayList<Schedule> schedules) {
+        mDayAdapter.setSchedules(schedules);
     }
 }
