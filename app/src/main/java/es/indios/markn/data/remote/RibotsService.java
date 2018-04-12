@@ -54,7 +54,7 @@ public interface RibotsService {
     @GET("/teachers/")
     Observable<List<Teacher>> getTeachers();
 
-    @Headers("Authorization: Token 3deaf1e83cae91b2af8ef0ec138aa2a4c816344b")
+    @Headers("Authorization:Token 3deaf1e83cae91b2af8ef0ec138aa2a4c816344b")
     @GET("/schedules/")
     Observable<List<Schedule>> getSchedules();
 

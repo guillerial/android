@@ -54,6 +54,24 @@
             </intent-filter>
         </receiver>
 
+        <service android:name="es.indios.markn.data.sync.SchedulesSyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.sync.SchedulesSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="es.indios.markn.data.sync.TeachersSyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.sync.TeachersSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

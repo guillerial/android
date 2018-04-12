@@ -27,6 +27,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import es.indios.markn.data.model.Ribot;
+import timber.log.Timber;
 
 @Singleton
 public class DatabaseHelper {
@@ -196,6 +197,7 @@ public class DatabaseHelper {
                         long result = mDb.insert(Db.SchedulesTable.TABLE_NAME,
                                 Db.SchedulesTable.toContentValues(schedule),
                                 SQLiteDatabase.CONFLICT_REPLACE);
+                        Timber.i("Schedule: "+schedule.getGroup().getCode());
                         if (result >= 0) emitter.onNext(schedule);
                     }
                     transaction.markSuccessful();
