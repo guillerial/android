@@ -16,9 +16,11 @@ import javax.inject.Singleton;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.model.uvigo.Location;
+import es.indios.markn.data.model.uvigo.Teacher;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Scheduler;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
@@ -43,40 +45,6 @@ public class DatabaseHelper {
 
     public BriteDatabase getBriteDb() {
         return mDb;
-    }
-
-    public Observable<Ribot> setRibots(final Collection<Ribot> newRibots) {
-        return Observable.create(new ObservableOnSubscribe<Ribot>() {
-            @Override
-            public void subscribe(ObservableEmitter<Ribot> emitter) throws Exception {
-                if (emitter.isDisposed()) return;
-                BriteDatabase.Transaction transaction = mDb.newTransaction();
-                try {
-                    mDb.delete(Db.RibotProfileTable.TABLE_NAME, null);
-                    for (Ribot ribot : newRibots) {
-                        long result = mDb.insert(Db.RibotProfileTable.TABLE_NAME,
-                                Db.RibotProfileTable.toContentValues(ribot.profile()),
-                                SQLiteDatabase.CONFLICT_REPLACE);
-                        if (result >= 0) emitter.onNext(ribot);
-                    }
-                    transaction.markSuccessful();
-                    emitter.onComplete();
-                } finally {
-                    transaction.end();
-                }
-            }
-        });
-    }
-
-    public Observable<List<Ribot>> getRibots() {
-        return mDb.createQuery(Db.RibotProfileTable.TABLE_NAME,
-                "SELECT * FROM " + Db.RibotProfileTable.TABLE_NAME)
-                .mapToList(new Function<Cursor, Ribot>() {
-                    @Override
-                    public Ribot apply(@NonNull Cursor cursor) throws Exception {
-                        return Ribot.create(Db.RibotProfileTable.parseCursor(cursor));
-                    }
-                });
     }
 
     public Observable<Location> setLocations(final Collection<Location> newLocations){
@@ -177,6 +145,40 @@ public class DatabaseHelper {
                     @Override
                     public Route apply(@NonNull Cursor cursor) throws Exception {
                         return Db.TopologyTable.parseCursor(cursor);
+                    }
+                });
+    }
+
+    public ObservableSource<? extends Teacher> setTeachers(final Collection<Teacher> newTeachers) {
+        return Observable.create(new ObservableOnSubscribe<Teacher>() {
+            @Override
+            public void subscribe(ObservableEmitter<Teacher> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
+                BriteDatabase.Transaction transaction = mDb.newTransaction();
+                try {
+                    mDb.delete(Db.ProfessorsTable.TABLE_NAME, null);
+                    for (Teacher teacher : newTeachers) {
+                        long result = mDb.insert(Db.ProfessorsTable.TABLE_NAME,
+                                Db.ProfessorsTable.toContentValues(teacher),
+                                SQLiteDatabase.CONFLICT_REPLACE);
+                        if (result >= 0) emitter.onNext(teacher);
+                    }
+                    transaction.markSuccessful();
+                    emitter.onComplete();
+                } finally {
+                    transaction.end();
+                }
+            }
+        });
+    }
+
+    public Observable<List<Teacher>> getTeachers() {
+        return mDb.createQuery(Db.ProfessorsTable.TABLE_NAME,
+                "SELECT * FROM " + Db.ProfessorsTable.TABLE_NAME)
+                .mapToList(new Function<Cursor, Teacher>() {
+                    @Override
+                    public Teacher apply(@NonNull Cursor cursor) throws Exception {
+                        return Db.ProfessorsTable.parseCursor(cursor);
                     }
                 });
     }

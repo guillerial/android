@@ -10,6 +10,7 @@ import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
 import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.data.model.uvigo.Location;
+import es.indios.markn.data.model.uvigo.Teacher;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.BiFunction;
@@ -106,5 +107,18 @@ public class DataManager {
                 return mPreferencesHelper.setToken(tokenResponse);
             }
         });
+    }
+
+    public Observable<Teacher> syncTeachers(){
+        return mRibotsService.getTeachers().concatMap(new Function<List<Teacher>, ObservableSource<? extends Teacher>>() {
+            @Override
+            public ObservableSource<? extends Teacher> apply(List<Teacher> teachers) throws Exception {
+                return mDatabaseHelper.setTeachers(teachers);
+            }
+        });
+    }
+
+    public Observable<List<Teacher>> getTeachers() {
+        return mDatabaseHelper.getTeachers().distinct();
     }
 }

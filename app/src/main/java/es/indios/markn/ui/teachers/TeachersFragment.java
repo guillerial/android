@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.indios.markn.data.model.uvigo.Teacher;
 import es.indios.markn.ui.base.BaseFragment;
 import es.indios.ribot.androidboilerplate.R;
 
@@ -58,5 +62,10 @@ public class TeachersFragment extends BaseFragment implements TeachersMvpView {
     public void onDestroy() {
         mTeachersPresenter.detachView();
         super.onDestroy();
+    }
+
+    @Override
+    public void setTeachers(ArrayList<Teacher> teachers) {
+        mTeachersAdapter.setTeachers(teachers);
     }
 }

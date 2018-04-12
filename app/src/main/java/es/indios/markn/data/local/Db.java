@@ -10,62 +10,11 @@ import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.Profile;
 import es.indios.markn.data.model.Name;
+import es.indios.markn.data.model.uvigo.Teacher;
 
 public class Db {
 
     public Db() { }
-
-    public abstract static class RibotProfileTable {
-        public static final String TABLE_NAME = "ribot_profile";
-
-        public static final String COLUMN_EMAIL = "email";
-        public static final String COLUMN_FIRST_NAME = "first_name";
-        public static final String COLUMN_LAST_NAME = "last_name";
-        public static final String COLUMN_HEX_COLOR = "hex_color";
-        public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
-        public static final String COLUMN_AVATAR = "avatar";
-        public static final String COLUMN_BIO = "bio";
-
-        public static final String CREATE =
-                "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_EMAIL + " TEXT PRIMARY KEY, " +
-                        COLUMN_FIRST_NAME + " TEXT NOT NULL, " +
-                        COLUMN_LAST_NAME + " TEXT NOT NULL, " +
-                        COLUMN_HEX_COLOR + " TEXT NOT NULL, " +
-                        COLUMN_DATE_OF_BIRTH + " INTEGER NOT NULL, " +
-                        COLUMN_AVATAR + " TEXT, " +
-                        COLUMN_BIO + " TEXT" +
-                " ); ";
-
-        public static ContentValues toContentValues(Profile profile) {
-            ContentValues values = new ContentValues();
-            values.put(COLUMN_EMAIL, profile.email());
-            values.put(COLUMN_FIRST_NAME, profile.name().first());
-            values.put(COLUMN_LAST_NAME, profile.name().last());
-            values.put(COLUMN_HEX_COLOR, profile.hexColor());
-            values.put(COLUMN_DATE_OF_BIRTH, profile.dateOfBirth().getTime());
-            values.put(COLUMN_AVATAR, profile.avatar());
-            if (profile.bio() != null) values.put(COLUMN_BIO, profile.bio());
-            return values;
-        }
-
-        public static Profile parseCursor(Cursor cursor) {
-            Name name = Name.create(
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME)));
-            long dobTime = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH));
-
-            return Profile.builder()
-                    .setName(name)
-                    .setEmail(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL)))
-                    .setHexColor(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HEX_COLOR)))
-                    .setDateOfBirth(new Date(dobTime))
-                    .setAvatar(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVATAR)))
-                    .setBio(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_BIO)))
-                    .build();
-        }
-    }
-
 
     public abstract static class LocationTable{
         public static final String TABLE_NAME = "location";
@@ -156,6 +105,41 @@ public class Db {
             return new Route(
                     cursor.getString(cursor.getColumnIndex(COLUMN_ROUTE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_NEXT))
+            );
+        }
+    }
+
+    public abstract static class ProfessorsTable{
+        public static final String TABLE_NAME = "teachers";
+
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_OFFICE = "office";
+
+        public static final String CREATE =
+                "CREATE TABLE " + TABLE_NAME + " (" +
+                        COLUMN_ID + " TEXT PRIMARY KEY, " +
+                        COLUMN_NAME + " TEXT, " +
+                        COLUMN_EMAIL + " TEXT, " +
+                        COLUMN_OFFICE + " TEXT " +
+                        " ); ";
+
+        public static ContentValues toContentValues(Teacher teacher) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID, teacher.getId());
+            values.put(COLUMN_NAME, teacher.getName());
+            values.put(COLUMN_EMAIL, teacher.getEmail());
+            values.put(COLUMN_OFFICE, teacher.getOffice());
+            return values;
+        }
+
+        public static Teacher parseCursor(Cursor cursor) {
+            return new Teacher(
+                    cursor.getString(cursor.getColumnIndex(COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_OFFICE))
             );
         }
     }

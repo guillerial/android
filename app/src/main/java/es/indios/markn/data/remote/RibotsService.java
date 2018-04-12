@@ -9,6 +9,7 @@ import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.data.model.uvigo.Location;
+import es.indios.markn.data.model.uvigo.Teacher;
 import es.indios.ribot.androidboilerplate.BuildConfig;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
@@ -46,6 +47,9 @@ public interface RibotsService {
 
     @GET("/topology/")
     Observable<List<Route>> getTopology();
+
+    @GET("/teachers/")
+    Observable<List<Teacher>> getTeachers();
 
 
     /******** Helper class that sets up a new services *******/
