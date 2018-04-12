@@ -135,4 +135,8 @@ public class DataManager {
     public Observable<List<Schedule>> getSchedules(){
         return mDatabaseHelper.getSchedules().distinct();
     }
+
+    public Observable<List<Schedule>> getSchedulesByDay(int day){
+        return mDatabaseHelper.getSchedulesByday(day).distinct();
+    }
 }

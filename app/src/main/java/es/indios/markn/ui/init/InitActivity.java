@@ -106,10 +106,13 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
                 transaction.commit();
                 break;
             case R.id.action_notifications:
-                break;
-            case R.id.action_settings:
+
                 break;
             case R.id.action_help:
+
+                break;
+            case R.id.action_logout:
+
                 break;
             default:
                 return false;
