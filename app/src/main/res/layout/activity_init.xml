@@ -78,7 +78,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/navigation_header"
-            app:itemIconTint="@color/primary"
+            app:itemIconTint="@color/blue"
             app:menu="@menu/menu_navigation"
             android:fitsSystemWindows="true"/>
 

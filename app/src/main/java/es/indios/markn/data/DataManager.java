@@ -10,6 +10,7 @@ import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
 import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.data.model.uvigo.Location;
+import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -120,5 +121,18 @@ public class DataManager {
 
     public Observable<List<Teacher>> getTeachers() {
         return mDatabaseHelper.getTeachers().distinct();
+    }
+
+    public Observable<Schedule> syncSchedules(){
+        return mRibotsService.getSchedules().concatMap(new Function<List<Schedule>, ObservableSource<? extends Schedule>>() {
+            @Override
+            public ObservableSource<? extends Schedule> apply(List<Schedule> schedules) throws Exception {
+                return mDatabaseHelper.setSchedules(schedules);
+            }
+        });
+    }
+
+    public Observable<List<Schedule>> getSchedules(){
+        return mDatabaseHelper.getSchedules().distinct();
     }
 }

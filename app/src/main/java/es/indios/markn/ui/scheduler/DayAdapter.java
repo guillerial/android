@@ -39,7 +39,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.LocationViewHold
         this.mListener = mListener;
     }
 
-    public void setData(ArrayList<Schedule> schedules){
+    public void setSchedules(ArrayList<Schedule> schedules){
         mSchedules = schedules;
     }
 
