@@ -39,7 +39,7 @@
     <string name="text_user_no_exist">El usuario no existe</string>
 
     <!--signup-->
-    <string name="text_username">Nombre y apellidos</string>
+    <string name="text_username">Apellidos, Nombre</string>
     <string name="text_email_signup">Correo electrónico</string>
     <string name="text_password_signup">Contraseña</string>
     <string name="bottom_signup">Registrarse</string>
