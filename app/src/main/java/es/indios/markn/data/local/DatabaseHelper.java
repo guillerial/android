@@ -16,6 +16,7 @@ import javax.inject.Singleton;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.model.uvigo.Location;
+import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -179,6 +180,40 @@ public class DatabaseHelper {
                     @Override
                     public Teacher apply(@NonNull Cursor cursor) throws Exception {
                         return Db.ProfessorsTable.parseCursor(cursor);
+                    }
+                });
+    }
+
+    public ObservableSource<? extends Schedule> setSchedules(final Collection<Schedule> newSchedules) {
+        return Observable.create(new ObservableOnSubscribe<Schedule>() {
+            @Override
+            public void subscribe(ObservableEmitter<Schedule> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
+                BriteDatabase.Transaction transaction = mDb.newTransaction();
+                try {
+                    mDb.delete(Db.SchedulesTable.TABLE_NAME, null);
+                    for (Schedule schedule : newSchedules) {
+                        long result = mDb.insert(Db.SchedulesTable.TABLE_NAME,
+                                Db.SchedulesTable.toContentValues(schedule),
+                                SQLiteDatabase.CONFLICT_REPLACE);
+                        if (result >= 0) emitter.onNext(schedule);
+                    }
+                    transaction.markSuccessful();
+                    emitter.onComplete();
+                } finally {
+                    transaction.end();
+                }
+            }
+        });
+    }
+
+    public Observable<List<Schedule>> getSchedules() {
+        return mDb.createQuery(Db.SchedulesTable.TABLE_NAME,
+                "SELECT * FROM " + Db.SchedulesTable.TABLE_NAME)
+                .mapToList(new Function<Cursor, Schedule>() {
+                    @Override
+                    public Schedule apply(@NonNull Cursor cursor) throws Exception {
+                        return Db.SchedulesTable.parseCursor(cursor);
                     }
                 });
     }

@@ -10,6 +10,7 @@ import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.Profile;
 import es.indios.markn.data.model.Name;
+import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
 
 public class Db {
@@ -140,6 +141,46 @@ public class Db {
                     cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_OFFICE))
+            );
+        }
+    }
+
+    public abstract static class SchedulesTable{
+        public static final String TABLE_NAME = "schedules";
+
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_DAY = "day";
+        public static final String COLUMN_START_HOUR = "start_hour";
+        public static final String COLUMN_FINISH_HOUR = "finish_hour";
+        public static final String COLUMN_GROUP_ID = "group_id";
+        public static final String COLUMN_TEACHER_ID = "teacher_id";
+
+        public static final String CREATE =
+                "CREATE TABLE " + TABLE_NAME + " (" +
+                        COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_DAY + " INTEGER, " +
+                        COLUMN_START_HOUR + " INTEGER, " +
+                        COLUMN_FINISH_HOUR + " INTEGER, " +
+                        COLUMN_GROUP_ID + " TEXT " +
+                        " ); ";
+
+        public static ContentValues toContentValues(Schedule schedule) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_ID, schedule.getId());
+            values.put(COLUMN_DAY, schedule.getDay());
+            values.put(COLUMN_START_HOUR, schedule.getStart_hour());
+            values.put(COLUMN_FINISH_HOUR, schedule.getFinish_hour());
+            values.put(COLUMN_GROUP_ID, schedule.getGroup_id());
+            return values;
+        }
+
+        public static Schedule parseCursor(Cursor cursor) {
+            return new Schedule(
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_DAY)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_START_HOUR)),
+                    cursor.getInt(cursor.getColumnIndex(COLUMN_FINISH_HOUR)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_GROUP_ID))
             );
         }
     }
