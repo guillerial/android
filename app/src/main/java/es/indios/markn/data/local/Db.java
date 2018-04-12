@@ -155,7 +155,7 @@ public class Db {
         public static final String COLUMN_DAY = "day";
         public static final String COLUMN_START_HOUR = "start_hour";
         public static final String COLUMN_FINISH_HOUR = "finish_hour";
-        public static final String COLUMN_GROUP = "group";
+        public static final String COLUMN_GROUP = "group_payload";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
@@ -164,7 +164,7 @@ public class Db {
                         COLUMN_START_HOUR + " INTEGER, " +
                         COLUMN_FINISH_HOUR + " INTEGER, " +
                         COLUMN_GROUP + " TEXT " +
-                        " ); ";
+                        ");";
 
         public static ContentValues toContentValues(Schedule schedule) {
             ContentValues values = new ContentValues();
