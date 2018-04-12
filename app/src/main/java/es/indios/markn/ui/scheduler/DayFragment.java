@@ -22,6 +22,11 @@ public class DayFragment extends BaseFragment implements DayMvpView {
 
     @Inject
     DayPresenter mDayPresenter;
+    @Inject
+    DayAdapter mDayAdapter;
+
+    @Bind
+
 
     public static final int MONDAY      = 1;
     public static final int TUESDAY     = 2;
@@ -46,6 +51,7 @@ public class DayFragment extends BaseFragment implements DayMvpView {
 
         mDayPresenter.attachView(this);
         mDayPresenter.setDay(mDay);
+
     }
 
     @Nullable
