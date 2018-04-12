@@ -64,7 +64,7 @@ public class SchedulesSyncService extends Service {
 
                     @Override
                     public void onNext(Schedule schedule) {
-
+                        Timber.i("Metidos en BB.DD: "+schedule.getGroup());
                     }
 
                     @Override

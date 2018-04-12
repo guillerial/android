@@ -222,7 +222,7 @@ public class DatabaseHelper {
 
     public Observable<List<Schedule>> getSchedulesByday(int day) {
         return mDb.createQuery(Db.SchedulesTable.TABLE_NAME,
-                "SELECT * FROM " + Db.SchedulesTable.TABLE_NAME + " WHERE " + Db.SchedulesTable.COLUMN_DAY + " == " + day)
+                "SELECT * FROM " + Db.SchedulesTable.TABLE_NAME + " WHERE " + Db.SchedulesTable.COLUMN_DAY + " == '" + day+"'")
                 .mapToList(new Function<Cursor, Schedule>() {
                     @Override
                     public Schedule apply(@NonNull Cursor cursor) throws Exception {

@@ -12,6 +12,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -34,7 +35,7 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
     }
 
     public void getSchedules() {
-        mDataManager.getSchedules().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        mDataManager.getSchedulesByDay(mDay).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Schedule>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -43,13 +44,17 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
 
                     @Override
                     public void onNext(List<Schedule> schedules) {
+                        Timber.i("DAY "+ mDay + "schedules: "+schedules.size());
+                        for(Schedule schedule : schedules){
+                            Timber.i("Schedule: "+schedule.getGroup());
+                        }
                         if(getMvpView()!=null)
                             getMvpView().setSchedules(new ArrayList<>(schedules));
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Timber.i("ERROR EN DAY: "+mDay);
                     }
 
                     @Override

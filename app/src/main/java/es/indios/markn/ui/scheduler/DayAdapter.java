@@ -54,8 +54,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.LocationViewHold
     public void onBindViewHolder(LocationViewHolder holder, final int position) {
         final Schedule schedule = mSchedules.get(position);
         holder.mScheduleHour.setText(schedule.getStart_hour()+":00 - "+schedule.getFinish_hour()+":00");
-        holder.mScheduleGroup.setText(schedule.getGroup().getSubject_name()+" "+schedule.getGroup().getNumber());
-        holder.mScheduleClassroom.setText(schedule.getGroup().getClassroom().getName());
+        //holder.mScheduleGroup.setText(schedule.getGroup().getSubject_name()+" "+schedule.getGroup().getNumber());
+        //holder.mScheduleClassroom.setText(schedule.getGroup().getClassroom().getName());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
