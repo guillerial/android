@@ -170,7 +170,7 @@ public class Db {
             values.put(COLUMN_DAY, schedule.getDay());
             values.put(COLUMN_START_HOUR, schedule.getStart_hour());
             values.put(COLUMN_FINISH_HOUR, schedule.getFinish_hour());
-            values.put(COLUMN_GROUP_ID, schedule.getGroup_id());
+            values.put(COLUMN_GROUP_ID, schedule.getGroup());
             return values;
         }
 
