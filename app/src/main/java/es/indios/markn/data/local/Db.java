@@ -3,6 +3,7 @@ package es.indios.markn.data.local;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+
 import com.google.gson.Gson;
 
 import java.util.Date;
@@ -163,7 +164,7 @@ public class Db {
                         COLUMN_DAY + " INTEGER, " +
                         COLUMN_START_HOUR + " INTEGER, " +
                         COLUMN_FINISH_HOUR + " INTEGER, " +
-                        COLUMN_GROUP + " TEXT " +
+                        COLUMN_GROUP + " TEXT" +
                         " ); ";
 
         public static ContentValues toContentValues(Schedule schedule) {
