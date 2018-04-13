@@ -3,6 +3,7 @@ package es.indios.markn.ui.scheduler;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,7 @@ public class DayFragment extends BaseFragment implements DayMvpView {
         ButterKnife.bind(this, view);
 
         mDayRecyclerView.setAdapter(mDayAdapter);
+        mDayRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mDayPresenter.getSchedules();
         return view;

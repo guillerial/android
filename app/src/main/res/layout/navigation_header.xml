@@ -9,7 +9,7 @@
         android:id="@+id/header_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cabecerauvigo2"
+        android:src="@drawable/birretedegraduacioncoloreardefinitivo"
         android:layout_marginRight="20dp"/>
 
     <RelativeLayout

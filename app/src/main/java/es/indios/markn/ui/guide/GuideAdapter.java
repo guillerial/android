@@ -34,6 +34,7 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
 
     public void setIndications(ArrayList<Indication> indications){
         mIndications = indications;
+        notifyDataSetChanged();
     }
 
     @Override

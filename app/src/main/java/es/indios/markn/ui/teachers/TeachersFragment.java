@@ -53,8 +53,6 @@ public class TeachersFragment extends BaseFragment implements TeachersMvpView {
 
         mTeachersPresenter.getTeachers();
 
-
-
         return view;
     }
 

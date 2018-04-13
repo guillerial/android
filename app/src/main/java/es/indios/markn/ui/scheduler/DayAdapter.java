@@ -41,6 +41,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.LocationViewHold
 
     public void setSchedules(ArrayList<Schedule> schedules){
         mSchedules = schedules;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -54,8 +55,19 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.LocationViewHold
     public void onBindViewHolder(LocationViewHolder holder, final int position) {
         final Schedule schedule = mSchedules.get(position);
         holder.mScheduleHour.setText(schedule.getStart_hour()+":00 - "+schedule.getFinish_hour()+":00");
-        //holder.mScheduleGroup.setText(schedule.getGroup().getSubject_name()+" "+schedule.getGroup().getNumber());
-        //holder.mScheduleClassroom.setText(schedule.getGroup().getClassroom().getName());
+        if(schedule.getGroup().getNumber()!=0) {
+            holder.mScheduleGroup.setText(schedule.getGroup().getSubject_name() + " B" + schedule.getGroup().getNumber());
+        }else {
+
+            holder.mScheduleGroup.setText(schedule.getGroup().getSubject_name() + " " +schedule.getGroup().getCode().split("_")[1]);
+        }
+
+        if(schedule.getGroup().getClassroom()!=null) {
+            holder.mScheduleClassroom.setText(schedule.getGroup().getClassroom().getName());
+        }else {
+            holder.mScheduleClassroom.setVisibility(View.GONE);
+        }
+
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

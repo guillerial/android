@@ -160,7 +160,7 @@ public class Db {
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT, " +
                         COLUMN_DAY + " INTEGER, " +
                         COLUMN_START_HOUR + " INTEGER, " +
                         COLUMN_FINISH_HOUR + " INTEGER, " +
@@ -169,7 +169,6 @@ public class Db {
 
         public static ContentValues toContentValues(Schedule schedule) {
             ContentValues values = new ContentValues();
-            values.put(COLUMN_ID, schedule.getId());
             values.put(COLUMN_DAY, schedule.getDay());
             values.put(COLUMN_START_HOUR, schedule.getStart_hour());
             values.put(COLUMN_FINISH_HOUR, schedule.getFinish_hour());

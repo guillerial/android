@@ -139,4 +139,8 @@ public class DataManager {
     public Observable<List<Schedule>> getSchedulesByDay(int day){
         return mDatabaseHelper.getSchedulesByday(day).distinct();
     }
+
+    public void logout() {
+        mPreferencesHelper.logout();
+    }
 }

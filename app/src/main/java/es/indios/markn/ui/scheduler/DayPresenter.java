@@ -44,10 +44,6 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
 
                     @Override
                     public void onNext(List<Schedule> schedules) {
-                        Timber.i("DAY "+ mDay + "schedules: "+schedules.size());
-                        for(Schedule schedule : schedules){
-                            Timber.i("Schedule: "+schedule.getGroup());
-                        }
                         if(getMvpView()!=null)
                             getMvpView().setSchedules(new ArrayList<>(schedules));
                     }

@@ -40,6 +40,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Locati
 
     public void setTeachers(ArrayList<Teacher> teachers){
         mTeachers = teachers;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -56,4 +56,8 @@ public class PreferencesHelper {
             }
         });
     }
+
+    public void logout() {
+        clear();
+    }
 }

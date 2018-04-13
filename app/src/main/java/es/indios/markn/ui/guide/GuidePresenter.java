@@ -61,7 +61,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
             @Override
             public void onError(Throwable e) {
-
+                Timber.i(e,"Error GuidePresenter");
             }
 
             @Override
@@ -95,7 +95,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
             @Override
             public void onError(Throwable e) {
-
+                Timber.i(e,"Error GuidePresenter");
             }
 
             @Override

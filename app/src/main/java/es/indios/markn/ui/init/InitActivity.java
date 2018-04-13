@@ -1,5 +1,6 @@
 package es.indios.markn.ui.init;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +26,7 @@ import es.indios.markn.data.sync.TeachersSyncService;
 import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.guide.GuideFragment;
+import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.BeaconsAdapter;
 import es.indios.markn.ui.scheduler.SchedulerFragment;
 import es.indios.markn.ui.teachers.TeachersFragment;
@@ -70,8 +72,6 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         Scanner.getInstance().subscribeListener(mInitPresenter);
 
         onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_scheduler));
-
-        syncThings();
     }
 
     private void syncThings() {
@@ -80,6 +80,12 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         startService(IndicationsSyncService.getStartIntent(this));
         startService(SchedulesSyncService.getStartIntent(this));
         startService(TeachersSyncService.getStartIntent(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        syncThings();
     }
 
     @Override
@@ -116,7 +122,10 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
                 break;
             case R.id.action_logout:
-
+                mInitPresenter.logout();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 return false;
