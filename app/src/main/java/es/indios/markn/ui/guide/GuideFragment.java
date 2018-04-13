@@ -45,8 +45,6 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         super.onCreate(savedInstanceState);
         fragmentComponent().inject(this);
         mGuidePresenter.attachView(this);
-
-
     }
 
     @Nullable
@@ -64,6 +62,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         mGuidePresenter.getIndicationsAndTopologies();
 
         mSearchView.setOnQueryTextListener(mGuidePresenter);
+        mSearchView.setIconifiedByDefault(false);
 
         return view;
     }

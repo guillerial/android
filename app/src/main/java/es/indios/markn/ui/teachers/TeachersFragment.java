@@ -52,6 +52,7 @@ public class TeachersFragment extends BaseFragment implements TeachersMvpView {
         mTeachersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mTeachersPresenter.getTeachers();
+        mSearchView.setIconifiedByDefault(false);
 
         return view;
     }
