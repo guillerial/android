@@ -95,4 +95,8 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     public void setNearbyBeacon(Beacon nearbyBeacon) {
         mGuidePresenter.setNearbyBeacon(nearbyBeacon);
     }
+
+    public void onShareButtonClick() {
+
+    }
 }

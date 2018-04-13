@@ -11,7 +11,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import javax.inject.Inject;
 
@@ -46,6 +48,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
     @BindView(R.id.navigation_view)     NavigationView mNavigationView;
     @BindView(R.id.content_main)        FrameLayout mFragmentContainer;
     @BindView(R.id.toolbar)             Toolbar mToolbar;
+    @BindView(R.id.share_button)        ImageButton mShareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
                 mToolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.orange));
         mDrawerLayout.setDrawerListener(toggle);
 
         toggle.syncState();
@@ -72,6 +76,8 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         Scanner.getInstance().subscribeListener(mInitPresenter);
 
         onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_scheduler));
+
+        mShareButton.setOnClickListener(this::onShareButtonClick);
     }
 
     private void syncThings() {
@@ -131,6 +137,24 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
                 return false;
         }
         return true;
+
+    }
+
+    public void onShareButtonClick(View v){
+        ImageButton shareButton = (ImageButton) v;
+        SchedulerFragment scheduler = (SchedulerFragment) mFragmentManager.findFragmentByTag("Scheduler");
+        TeachersFragment teachers = (TeachersFragment) mFragmentManager.findFragmentByTag("Teachers");
+        GuideFragment guide = (GuideFragment) mFragmentManager.findFragmentByTag("Guide");
+
+        if(scheduler!= null && scheduler.isVisible()){
+            scheduler.onShareButtonClick();
+        }
+        if(teachers!= null && teachers.isVisible()){
+            teachers.onShareButtonClick();
+        }
+        if(guide!= null && guide.isVisible()){
+            guide.onShareButtonClick();
+        }
 
     }
 

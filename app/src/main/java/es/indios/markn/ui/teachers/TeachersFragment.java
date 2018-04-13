@@ -66,4 +66,8 @@ public class TeachersFragment extends BaseFragment implements TeachersMvpView {
     public void setTeachers(ArrayList<Teacher> teachers) {
         mTeachersAdapter.setTeachers(teachers);
     }
+
+    public void onShareButtonClick() {
+
+    }
 }
