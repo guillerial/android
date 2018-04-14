@@ -12,35 +12,48 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="30dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/footer_layout"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/textview_create_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:clickable="true"
-                android:text="@string/text_create_account"
-                android:layout_alignParentLeft="true"
-                android:focusable="true" />
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:stretchColumns="0,1">
+                    <TableRow>
 
-            <TextView
-                android:id="@+id/textview_guest_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:clickable="true"
-                android:text="@string/text_guest_session"
-                android:layout_alignParentRight="true"
-                android:focusable="true" />
+                    <Button
+                        android:id="@+id/textview_create_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/text_create_account"
+                        android:background="@color/orange"
+                        />
 
-        </RelativeLayout>
+                    <Button
+                        android:id="@+id/textview_guest_session"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/text_guest_session"
+                        android:background="@color/orange"
+                        android:focusable="true" />
+
+                    </TableRow>
+                </TableLayout>
+        </LinearLayout>
 
 
 
@@ -58,16 +71,6 @@
             android:background="@color/primary"
             />
 
-        <TextView
-            android:id="@+id/forgot_password_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/login_button"
-            android:text="@string/text_forgot_pass"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:clickable="true"
-            android:focusable="true"/>
 
         <EditText
             android:id="@+id/password_edittext"
@@ -75,7 +78,7 @@
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
-            android:layout_above="@+id/forgot_password_textview"
+            android:layout_above="@+id/login_button"
             android:textSize="12sp"
             android:inputType="textPassword"
             android:hint="@string/text_password"/>
@@ -96,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:text=" маяки"
+            android:textColor="@color/orange"
             android:textAlignment="center"
             android:textSize="70dp" />
 
