@@ -22,7 +22,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     @BindView(R.id.email_edittext)              EditText mEmailEditText;
     @BindView(R.id.password_edittext)           EditText mPassEditText;
-    //@BindView(R.id.forgot_password_textview)    TextView mForgotPassTextView;
     @BindView(R.id.login_button)                Button mLoginButton;
     @BindView(R.id.textview_create_account)     TextView mCreateAccountTextView;
     @BindView(R.id.textview_guest_session)      TextView mGuestSession;
@@ -42,7 +41,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
         mLoginPresenter.checkLoggedIn();
 
         mLoginButton.setOnClickListener(this);
-        //mForgotPassTextView.setOnClickListener(this);
         mGuestSession.setOnClickListener(this);
         mCreateAccountTextView.setOnClickListener(this);
     }
@@ -87,16 +85,12 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                     }
                 }
                 break;
-            //case R.id.forgot_password_textview:
-
-               // break;
             case R.id.textview_guest_session:
                 onLoggedUser();
                 break;
             case R.id.textview_create_account:
                 Intent intent = new Intent(this, SignUpActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             default:
                 break;
