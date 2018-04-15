@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">маяки uvigo</string>
+    <string name="app_name">маяки</string>
 
     <string name="action_settings">Settings</string>
 
@@ -53,4 +53,16 @@
     <string name="icon_help">Ayuda</string>
     <string name="icon_logout">Cerrar sesión</string>
 
+    <!--help-->
+    <string name="help">Help </string>
+    <string name="help_shecule">
+        En la ventana de horarios puedes ver las clases que tienes cada día de la semana: la hora de inicio y fin, la asignatura y el aula donde se imparte. Haz click en una de ellas para guiarte. </string>
+    <string name="help_teachers">
+        En la ventana de profesores puedes ver una lista de los profesores de la escuela y sus correos electrónicos y buscarlos por nombre. Haz click en uno de ellos para ver más información, como su despacho y su horaio de tutorias. Haz que la app te guíe a su despacho. </ string>
+    <string name="help_guide">
+        En la ventana de guía puedes indicar a dónde deseas ir. Aparecerán una serie de indicaciones y fotos de los lugares por los que debes ir para llegar a tu destino. </ string>
+    <string name="help_menu">Menú</string>
+    <string name="help_menu_text">
+        En el menú recives no tificaciones de los cambios que hacen los profesores en tus materias y en sus tutorías.</string>
 </resources>
+

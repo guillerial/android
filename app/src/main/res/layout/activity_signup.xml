@@ -12,46 +12,25 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="30dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/footer_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
-            <TableLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:stretchColumns="0,1">
-            <TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:textAllCaps="false"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/text_student"
-                    />
+            <Button
+                android:id="@+id/signup_textview_guest_session"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:text="@string/text_guest_session_signup"
+                android:background="@color/orange"
+                android:focusable="true" />
 
-                <Button
-                    android:id="@+id/signup_textview_guest_session"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textColor="@color/white"
-                    android:clickable="true"
-                    android:textSize="12sp"
-                    android:textAllCaps="false"
-                    android:text="@string/text_guest_session_signup"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:background="@color/orange"
-                    android:focusable="true" />
-
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/signup_button"
@@ -103,6 +82,7 @@
             android:layout_alignParentTop="true"
             android:text=" маяки"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="70dp" />
 
     </RelativeLayout>

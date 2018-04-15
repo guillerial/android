@@ -23,12 +23,16 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
     @Inject
     SignUpPresenter mSignUpPresenter;
 
-    @BindView(R.id.name_edittext) EditText mUsernameEditText;
-    @BindView(R.id.signup_email_edittext) EditText mEmailEditText;
-    @BindView(R.id.signup_password_edittext) EditText mPassEditText;
-    @BindView(R.id.signup_textview_guest_session) TextView mGuestSessionTextView;
-    @BindView(R.id.signup_button) Button mSignUpButton;
-
+    @BindView(R.id.name_edittext)
+    EditText mUsernameEditText;
+    @BindView(R.id.signup_email_edittext)
+    EditText mEmailEditText;
+    @BindView(R.id.signup_password_edittext)
+    EditText mPassEditText;
+    @BindView(R.id.signup_textview_guest_session)
+    TextView mGuestSessionTextView;
+    @BindView(R.id.signup_button)
+    Button mSignUpButton;
 
 
     @Override
@@ -46,23 +50,23 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.signup_button:
                 String name = mUsernameEditText.getText().toString();
                 String email = mEmailEditText.getText().toString();
                 String password = mPassEditText.getText().toString();
-                if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.equals("")&& !name.equals("")){
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && !password.equals("") && !name.equals("")) {
                     mSignUpPresenter.signUp(name, email, password);
-                }else{
-                    if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                } else {
+                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         mEmailEditText.setHint(getResources().getString(R.string.text_valid_email));
                         mEmailEditText.setHintTextColor(Color.RED);
                     }
-                    if(password.equals("")){
+                    if (password.equals("")) {
                         mPassEditText.setHint(getResources().getString(R.string.text_pass_required));
                         mPassEditText.setHintTextColor(Color.RED);
                     }
-                    if(name.equals("")){
+                    if (name.equals("")) {
                         mPassEditText.setHint(getResources().getString(R.string.name_required));
                         mUsernameEditText.setHintTextColor(Color.RED);
                     }
@@ -87,4 +91,6 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
     public void onForbiddenLogin(int code) {
 
     }
+
+
 }
