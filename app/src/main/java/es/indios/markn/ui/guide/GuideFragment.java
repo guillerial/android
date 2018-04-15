@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.ui.base.BaseFragment;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 /**
  * Created by CristinaPosada on 22/03/2018.

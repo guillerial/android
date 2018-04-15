@@ -33,7 +33,7 @@ import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.BeaconsAdapter;
 import es.indios.markn.ui.scheduler.SchedulerFragment;
 import es.indios.markn.ui.teachers.TeachersFragment;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 public class InitActivity extends BaseActivity implements InitMvpView, BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
     @Inject

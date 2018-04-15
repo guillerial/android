@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.blescanner.models.Topology.Indication;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 /**
  * Created by guille on 11/03/18.

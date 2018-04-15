@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 import es.indios.markn.MarknApplication;
 import es.indios.markn.data.local.PreferencesHelper;
 import es.indios.markn.util.MyGsonTypeAdapterFactory;
-import es.indios.ribot.androidboilerplate.BuildConfig;
+import es.indios.markn.BuildConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;

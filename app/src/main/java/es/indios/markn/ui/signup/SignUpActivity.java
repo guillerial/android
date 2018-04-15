@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.init.InitActivity;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.OnClickListener {
 

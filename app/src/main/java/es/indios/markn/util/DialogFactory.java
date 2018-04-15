@@ -6,7 +6,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 public final class DialogFactory {
 

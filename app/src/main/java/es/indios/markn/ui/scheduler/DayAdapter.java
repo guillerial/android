@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 /**
  * Created by guille on 11/03/18.
