@@ -61,7 +61,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
             @Override
             public void onError(Throwable e) {
-
+                Timber.i(e,"Error GuidePresenter");
             }
 
             @Override
@@ -72,7 +72,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
     }
 
     public void getIndicationsAndTopologies(){
-        mDataManager.getIndicationsAndTopology().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<IndicationsTopologyWrapper>() {
+        mDataManager.getIndicationsAndTopology().subscribe(new Observer<IndicationsTopologyWrapper>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -95,7 +95,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
             @Override
             public void onError(Throwable e) {
-
+                Timber.i(e,"Error GuidePresenter");
             }
 
             @Override
@@ -136,7 +136,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
     public boolean onQueryTextChange(String newText) {
         ArrayList<Location> newLocations = new ArrayList<>();
         for (Location location : mLocations){
-            if(location.getName().contains(newText)){
+            if(location.getName().toLowerCase().contains(newText.toLowerCase())){
                 newLocations.add(location);
             }
         }

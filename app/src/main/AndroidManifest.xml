@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="es.indios.ribot.androidboilerplate">
+    package="es.indios.markn">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,12 +9,28 @@
     <application
         android:name="es.indios.markn.MarknApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logofinal"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar" >
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logofinal" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/primary" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
+
         <activity
-            android:name="es.indios.markn.ui.init.InitActivity"
-            android:label="@string/app_name" >
+            android:name="es.indios.markn.ui.login.LoginActivity"
+            android:label="маяки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,32 +38,70 @@
             </intent-filter>
         </activity>
 
-        <service android:name="es.indios.markn.data.sync.IndicationsSyncService"/>
+        <activity android:name="es.indios.markn.ui.init.InitActivity"/>
+
+        <activity android:name="es.indios.markn.ui.signup.SignUpActivity"/>
+        <activity android:name="es.indios.markn.ui.help.HelpActivity"/>
+
+
+        <service android:name="es.indios.markn.data.services.IndicationsSyncService"/>
         <receiver
-            android:name="es.indios.markn.data.sync.IndicationsSyncService$SyncOnConnectionAvailable"
+            android:name="es.indios.markn.data.services.IndicationsSyncService$SyncOnConnectionAvailable"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <service android:name="es.indios.markn.data.sync.LocationsSyncService"/>
+        <service android:name="es.indios.markn.data.services.LocationsSyncService"/>
         <receiver
-            android:name="es.indios.markn.data.sync.LocationsSyncService$SyncOnConnectionAvailable"
+            android:name="es.indios.markn.data.services.LocationsSyncService$SyncOnConnectionAvailable"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <service android:name="es.indios.markn.data.sync.TopologySyncService"/>
+        <service android:name="es.indios.markn.data.services.TopologySyncService"/>
         <receiver
-            android:name="es.indios.markn.data.sync.TopologySyncService$SyncOnConnectionAvailable"
+            android:name="es.indios.markn.data.services.TopologySyncService$SyncOnConnectionAvailable"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <service android:name="es.indios.markn.data.services.SchedulesSyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.services.SchedulesSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="es.indios.markn.data.services.TeachersSyncService"/>
+        <receiver
+            android:name="es.indios.markn.data.services.TeachersSyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".data.services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".data.services.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

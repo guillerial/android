@@ -53,4 +53,8 @@ public class InitPresenter extends BasePresenter<InitMvpView> implements MarknLi
         if (getGuideFragment()!=null)
             getGuideFragment().onNewIndication(indication);
     }
+
+    public void logout() {
+        mDataManager.logout();
+    }
 }

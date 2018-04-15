@@ -13,7 +13,7 @@ import es.indios.markn.injection.ApplicationContext;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "ribots.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 8;
 
     @Inject
     public DbOpenHelper(@ApplicationContext Context context) {
@@ -31,10 +31,11 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.beginTransaction();
         try {
-            db.execSQL(Db.RibotProfileTable.CREATE);
+            db.execSQL(Db.ProfessorsTable.CREATE);
             db.execSQL(Db.LocationTable.CREATE);
             db.execSQL(Db.IndicationTable.CREATE);
             db.execSQL(Db.TopologyTable.CREATE);
+            db.execSQL(Db.SchedulesTable.CREATE);
             //Add other tables here
             db.setTransactionSuccessful();
         } finally {
@@ -44,13 +45,17 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion<5){
+        if(oldVersion<DATABASE_VERSION){
             db.execSQL("DROP TABLE IF EXISTS "+Db.LocationTable.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS "+Db.IndicationTable.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS "+Db.TopologyTable.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS "+Db.ProfessorsTable.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS "+Db.SchedulesTable.TABLE_NAME);
             db.execSQL(Db.LocationTable.CREATE);
             db.execSQL(Db.IndicationTable.CREATE);
             db.execSQL(Db.TopologyTable.CREATE);
+            db.execSQL(Db.ProfessorsTable.CREATE);
+            db.execSQL(Db.SchedulesTable.CREATE);
         }
     }
 

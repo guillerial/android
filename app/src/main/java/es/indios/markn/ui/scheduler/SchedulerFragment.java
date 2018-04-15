@@ -1,5 +1,6 @@
 package es.indios.markn.ui.scheduler;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.ui.base.BaseFragment;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -52,6 +53,15 @@ public class SchedulerFragment extends BaseFragment {
 
         SchedulesPagerAdapter adapter = new SchedulesPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(adapter);
+    }
+
+    public void onShareButtonClick() {
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String shareBodyText = "Your shearing message goes here";
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject/Title");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+        getActivity().startActivity(Intent.createChooser(intent, "Choose sharing method"));
     }
 
     public class SchedulesPagerAdapter extends FragmentPagerAdapter {

@@ -7,7 +7,7 @@ import android.content.Context;
 import es.indios.markn.blescanner.Scanner;
 import timber.log.Timber;
 import es.indios.markn.injection.module.ApplicationModule;
-import es.indios.ribot.androidboilerplate.BuildConfig;
+import es.indios.markn.BuildConfig;
 import es.indios.markn.injection.component.ApplicationComponent;
 import es.indios.markn.injection.component.DaggerApplicationComponent;
 
@@ -42,5 +42,9 @@ public class MarknApplication extends Application  {
     // Needed to replace the component with a test specific one
     public void setComponent(ApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
+    }
+
+    public static Context getContext(){
+        return getContext();
     }
 }

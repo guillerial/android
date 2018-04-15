@@ -7,7 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import es.indios.markn.data.remote.RibotsService;
+import es.indios.markn.data.remote.MarknApi;
+import es.indios.markn.data.remote.MarknService;
 import es.indios.markn.injection.ApplicationContext;
 
 /**
@@ -34,8 +35,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    RibotsService provideRibotsService() {
-        return RibotsService.Creator.newRibotsService();
+    MarknApi provideRibotsService() {
+        return new MarknService().newRibotsService(mApplication.getApplicationContext());
     }
 
 }

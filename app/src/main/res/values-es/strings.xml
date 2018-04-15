@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">маяки</string>
 
+    <string name="default_notification_channel_id">markn</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="dialog_action_ok">OK</string>
@@ -26,4 +28,43 @@
     <string name="bottom_scheduler">Horario</string>
     <string name="bottom_professors">Profesores</string>
     <string name="bottom_guide">Guía</string>
+
+    <!--login-->
+    <string name="text_email">Correo electrónico</string>
+    <string name="text_password">Contraseña</string>
+    <string name="text_forgot_pass">¿Olvidaste la contraseña?</string>
+    <string name="bottom_login">Acceder</string>
+    <string name="text_create_account">Crear cuenta</string>
+    <string name="text_guest_session">Continuar como invitado</string>
+    <string name="text_valid_email">Introduce un email válido</string>
+    <string name="text_pass_required">Contraseña obligatoria</string>
+    <string name="text_user_no_exist">El usuario no existe</string>
+
+    <!--signup-->
+    <string name="text_username">Apellidos, Nombre</string>
+    <string name="text_email_signup">Correo electrónico</string>
+    <string name="text_password_signup">Contraseña</string>
+    <string name="bottom_signup">Registrarse</string>
+    <string name="text_guest_session_signup">Continuar como invitado</string>
+    <string name="name_required">Nombre requerido</string>
+    <string name="text_student">¿No eres estudiante \nde esta escuela? </string>
+
+    <!--menu_navigation-->
+    <string name="icon_notifications">Notificaciones</string>
+    <string name="icon_settings">Ajustes</string>
+    <string name="icon_help">Ayuda</string>
+    <string name="icon_logout">Cerrar sesión</string>
+
+    <!--help-->
+    <string name="help">Help </string>
+    <string name="help_shecule">
+        En la ventana de horarios puedes ver las clases que tienes cada día de la semana: la hora de inicio y fin, la asignatura y el aula donde se imparte. Haz click en una de ellas para guiarte. </string>
+    <string name="help_teachers">
+        En la ventana de profesores puedes ver una lista de los profesores de la escuela y sus correos electrónicos y buscarlos por nombre. Haz click en uno de ellos para ver más información, como su despacho y su horaio de tutorias. Haz que la app te guíe a su despacho. </string>
+    <string name="help_guide">
+        En la ventana de guía puedes indicar a dónde deseas ir. Aparecerán una serie de indicaciones y fotos de los lugares por los que debes ir para llegar a tu destino. </string>
+    <string name="help_menu">Menú</string>
+    <string name="help_menu_text">
+        En el menú recives no tificaciones de los cambios que hacen los profesores en tus materias y en sus tutorías.</string>
 </resources>
+

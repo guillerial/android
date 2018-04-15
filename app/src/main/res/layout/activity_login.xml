@@ -12,35 +12,48 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="30dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/footer_layout"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/textview_create_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:text="Dont have an account?"
-                android:layout_alignParentLeft="true"/>
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:stretchColumns="0,1">
+                    <TableRow>
 
-            <TextView
-                android:id="@+id/textview_guest_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:text="Continue as guest"
-                android:layout_alignParentRight="true"/>
+                    <Button
+                        android:id="@+id/textview_create_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/text_create_account"
+                        android:background="@drawable/cambio_color"
+                        />
 
-        </RelativeLayout>
+                    <Button
+                        android:id="@+id/textview_guest_session"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/text_guest_session"
+                        android:background="@drawable/cambio_color"
+                        android:focusable="true" />
 
-
-
-
+                    </TableRow>
+                </TableLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/login_button"
@@ -49,45 +62,41 @@
             android:layout_marginTop="30dp"
             android:layout_above="@+id/footer_layout"
             android:textAllCaps="false"
-            android:text="Log in"
+            android:text="@string/bottom_login"
             android:textSize="12sp"
-            android:background="@color/primary"
+            android:background="@drawable/cambio_color_clarity"
             />
 
-        <TextView
-            android:id="@+id/forgot_password_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/login_button"
-            android:text="Forgot password?"
-            android:textColor="@color/white"
-            android:textSize="12sp"/>
 
         <EditText
             android:id="@+id/password_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
-            android:layout_above="@+id/forgot_password_textview"
+            android:layout_above="@+id/login_button"
             android:textSize="12sp"
-            android:hint="Password"/>
+            android:inputType="textPassword"
+            android:hint="@string/text_password"/>
 
         <EditText
             android:id="@+id/email_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@id/password_edittext"
+            android:inputType="textEmailAddress"
             android:textSize="12sp"
-            android:hint="Email address"/>
+            android:layout_marginBottom="5dp"
+            android:hint="@string/text_email"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:text=" маяки"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="70dp" />
 

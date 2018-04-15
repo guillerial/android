@@ -6,6 +6,7 @@ import es.indios.markn.injection.module.FragmentModule;
 import es.indios.markn.ui.guide.GuideFragment;
 import es.indios.markn.ui.scheduler.DayFragment;
 import es.indios.markn.ui.scheduler.SchedulerFragment;
+import es.indios.markn.ui.teachers.TeachersFragment;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -19,4 +20,6 @@ public interface FragmentComponent {
     void inject(SchedulerFragment schedulerFragment);
 
     void inject(DayFragment dayFragment);
+
+    void inject(TeachersFragment teachersFragment);
 }

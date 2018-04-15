@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.blescanner.Scanner;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 import es.indios.markn.ui.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements MainMvpView {

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">маяки</string>
 
+    <string name="default_notification_channel_id">markn</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="dialog_action_ok">OK</string>
@@ -26,4 +28,43 @@
     <string name="bottom_scheduler">Schedule</string>
     <string name="bottom_professors">Professors</string>
     <string name="bottom_guide">Guide</string>
+
+    <!--login-->
+    <string name="text_email">Email address</string>
+    <string name="text_password">Password</string>
+    <string name="text_forgot_pass">Forgot password?</string>
+    <string name="bottom_login">Log in</string>
+    <string name="text_create_account">Create account</string>
+    <string name="text_guest_session">Continue as guest</string>
+    <string name="text_valid_email">Enter a valid email</string>
+    <string name="text_pass_required">Password required</string>
+    <string name="text_user_no_exist">User does not exist</string>
+
+    <!--signup-->
+    <string name="text_username">Last name, Name</string>
+    <string name="text_email_signup">Email address</string>
+    <string name="text_password_signup">Password</string>
+    <string name="bottom_signup">Sign up</string>
+    <string name="text_guest_session_signup">Continue as guest</string>
+    <string name="name_required">Name required</string>
+    <string name="text_student">You are not a student \nof this college?</string>
+
+    <!--menu_navigation-->
+    <string name="icon_notifications">Notifications</string>
+    <string name="icon_settings">Settings</string>
+    <string name="icon_help">Help</string>
+    <string name="icon_logout">Log out</string>
+
+    <!--help-->
+    <string name="help">Help </string>
+    <string name="help_shecule">
+        In the schedule window you can see the classes you have each day of the week: the start and end time, the subject and the classroom where it is taught. Click on it to guide you</string>
+    <string name="help_teachers">
+        In the professors window you can see a list of the professors of the school and their emails and search them by name. Click on one of them to see more information such as his office and his tutorial schedule. Make the app guide you to his office. </string>
+    <string name="help_guide">
+        In the guide window, you can indicate where you want to go. They appear a series of indications and photos of the places where you must go to reach your destination </string>
+    <string name="help_menu">Menu</string>
+    <string name="help_menu_text">
+    In the menu you receive notifications of changes made by professors in your subjects or their tutorials.</string>
+
 </resources>

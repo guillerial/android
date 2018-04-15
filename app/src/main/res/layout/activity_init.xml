@@ -49,14 +49,32 @@
                     android:elevation="3dp"
                     app:elevation="3dp"
                     >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/app_name"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="100dp"
+                            android:textAlignment="center"
+                            android:textSize="25sp"
+                            android:layout_centerInParent="true"/>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_name"
-                        android:textSize="25sp"
-                        android:layout_gravity="center"/>
+                        <ImageButton
+                            android:id="@+id/share_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_share_black_24dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true"
+                            android:background="?attr/selectableItemBackground"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+
                 </android.support.v7.widget.Toolbar>
 
                 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,7 +96,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/navigation_header"
-            app:itemIconTint="@color/primary"
+            app:itemIconTint="@color/orange"
             app:menu="@menu/menu_navigation"
             android:fitsSystemWindows="true"/>
 

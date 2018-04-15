@@ -1,5 +1,9 @@
 package es.indios.markn.ui.teachers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import es.indios.markn.data.model.uvigo.Teacher;
 import es.indios.markn.ui.base.MvpView;
 
 /**
@@ -7,4 +11,5 @@ import es.indios.markn.ui.base.MvpView;
  */
 
 public interface TeachersMvpView extends MvpView {
+    void setTeachers(ArrayList<Teacher> teachers);
 }

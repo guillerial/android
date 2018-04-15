@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.ui.base.BaseFragment;
-import es.indios.ribot.androidboilerplate.R;
+import es.indios.markn.R;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -45,8 +45,6 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         super.onCreate(savedInstanceState);
         fragmentComponent().inject(this);
         mGuidePresenter.attachView(this);
-
-
     }
 
     @Nullable
@@ -64,6 +62,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         mGuidePresenter.getIndicationsAndTopologies();
 
         mSearchView.setOnQueryTextListener(mGuidePresenter);
+        mSearchView.setIconifiedByDefault(false);
 
         return view;
     }
@@ -77,10 +76,15 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     }
 
     @Override
-    public void setIndicationList(ArrayList<Indication> indications) {
-        mLocationRecyclerView.setVisibility(View.GONE);
-        mIndicationRecyclerView.setVisibility(View.VISIBLE);
-        mGuideAdapter.setIndications(indications);
+    public void setIndicationList(final ArrayList<Indication> indications) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mLocationRecyclerView.setVisibility(View.GONE);
+                mIndicationRecyclerView.setVisibility(View.VISIBLE);
+                mGuideAdapter.setIndications(indications);
+            }
+        });
     }
 
     @Override
@@ -94,5 +98,9 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
 
     public void setNearbyBeacon(Beacon nearbyBeacon) {
         mGuidePresenter.setNearbyBeacon(nearbyBeacon);
+    }
+
+    public void onShareButtonClick() {
+
     }
 }
