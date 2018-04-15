@@ -76,10 +76,15 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     }
 
     @Override
-    public void setIndicationList(ArrayList<Indication> indications) {
+    public void setIndicationList(final ArrayList<Indication> indications) {
         mLocationRecyclerView.setVisibility(View.GONE);
         mIndicationRecyclerView.setVisibility(View.VISIBLE);
-        mGuideAdapter.setIndications(indications);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mGuideAdapter.setIndications(indications);
+            }
+        });
     }
 
     @Override
