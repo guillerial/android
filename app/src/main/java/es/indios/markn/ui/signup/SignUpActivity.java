@@ -1,10 +1,13 @@
 package es.indios.markn.ui.signup;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +48,12 @@ public class SignUpActivity extends BaseActivity implements SignUpMvpView, View.
 
         mSignUpButton.setOnClickListener(this);
         mGuestSessionTextView.setOnClickListener(this);
+    }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(mUsernameEditText.getWindowToken(), 0);
+        return super.onTouchEvent(event);
     }
 
 

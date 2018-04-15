@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.NoActionBar" >
         <activity
             android:name="es.indios.markn.ui.login.LoginActivity"
-            android:label="маяки" >
+            android:label="маяки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
