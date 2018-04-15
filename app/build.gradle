@@ -32,10 +32,10 @@ android {
         // Run: export APP_KEY={password}
         // TODO Add your release keystore in /keystore folder
         release {
-            storeFile file('/home/guille/Personal/android/keystore.jks')
-            keyAlias 'Markndebugkey'
-            storePassword 'gk782015a'
-            keyPassword 'CCDGJ1303'
+            storeFile file('keystore/keystore.jks')
+            keyAlias 'markndebugkey'
+            storePassword "android"
+            keyPassword "android"
         }
         debug {
             storeFile file('keystore/debug.keystore')
@@ -130,7 +130,8 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
 
     //Bluetooth scanner project
-    compile project(':blescanner')
+    compile project(":blescanner")
+
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Replace provided dependency below with official AutoValue once this issue is fixed
