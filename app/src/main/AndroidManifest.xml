@@ -9,7 +9,7 @@
     <application
         android:name="es.indios.markn.MarknApplication"
         android:allowBackup="false"
-        android:icon="@drawable/logomarkn55"
+        android:icon="@drawable/logofinal"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.NoActionBar" >
         <activity

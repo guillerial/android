@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">маяки Uvigo</string>
+    <string name="app_name">маяки uvigo</string>
 
     <string name="action_settings">Settings</string>
 
@@ -32,7 +32,7 @@
     <string name="text_password">Contraseña</string>
     <string name="text_forgot_pass">¿Olvidaste la contraseña?</string>
     <string name="bottom_login">Acceder</string>
-    <string name="text_create_account">No tienes cuenta</string>
+    <string name="text_create_account">Crear cuenta</string>
     <string name="text_guest_session">Continuar como invitado</string>
     <string name="text_valid_email">Introduce un email válido</string>
     <string name="text_pass_required">Contraseña obligatoria</string>
@@ -45,6 +45,7 @@
     <string name="bottom_signup">Registrarse</string>
     <string name="text_guest_session_signup">Continuar como invitado</string>
     <string name="name_required">Nombre requerido</string>
+    <string name="text_student">¿No eres estudiante \nde esta escuela? </string>
 
     <!--menu_navigation-->
     <string name="icon_notifications">Notificaciones</string>
