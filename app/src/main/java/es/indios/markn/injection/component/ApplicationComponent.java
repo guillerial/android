@@ -10,7 +10,7 @@ import es.indios.markn.data.DataManager;
 import es.indios.markn.data.sync.IndicationsSyncService;
 import es.indios.markn.data.local.DatabaseHelper;
 import es.indios.markn.data.local.PreferencesHelper;
-import es.indios.markn.data.remote.RibotsService;
+import es.indios.markn.data.remote.MarknApi;
 import es.indios.markn.data.sync.LocationsSyncService;
 import es.indios.markn.data.sync.SchedulesSyncService;
 import es.indios.markn.data.sync.TeachersSyncService;
@@ -26,7 +26,7 @@ public interface ApplicationComponent {
 
     @ApplicationContext Context context();
     Application application();
-    RibotsService ribotsService();
+    MarknApi ribotsService();
     PreferencesHelper preferencesHelper();
     DatabaseHelper databaseHelper();
     DataManager dataManager();

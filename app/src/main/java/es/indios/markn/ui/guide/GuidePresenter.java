@@ -136,7 +136,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
     public boolean onQueryTextChange(String newText) {
         ArrayList<Location> newLocations = new ArrayList<>();
         for (Location location : mLocations){
-            if(location.getName().contains(newText)){
+            if(location.getName().toLowerCase().contains(newText.toLowerCase())){
                 newLocations.add(location);
             }
         }

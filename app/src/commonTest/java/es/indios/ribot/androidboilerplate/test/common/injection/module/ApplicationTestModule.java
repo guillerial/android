@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import es.indios.markn.data.DataManager;
-import es.indios.markn.data.remote.RibotsService;
+import es.indios.markn.data.remote.MarknApi;
 import es.indios.markn.injection.ApplicationContext;
 
 import static org.mockito.Mockito.mock;
@@ -47,8 +47,8 @@ public class ApplicationTestModule {
 
     @Provides
     @Singleton
-    RibotsService provideRibotsService() {
-        return mock(RibotsService.class);
+    MarknApi provideRibotsService() {
+        return mock(MarknApi.class);
     }
 
 }

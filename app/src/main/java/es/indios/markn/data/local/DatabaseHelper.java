@@ -197,7 +197,6 @@ public class DatabaseHelper {
                         long result = mDb.insert(Db.SchedulesTable.TABLE_NAME,
                                 Db.SchedulesTable.toContentValues(schedule),
                                 SQLiteDatabase.CONFLICT_REPLACE);
-                        Timber.i("Schedule: "+schedule.getGroup().getSubject_name()+" con result: "+result);
                         if (result >= 0) emitter.onNext(schedule);
                     }
                     transaction.markSuccessful();
