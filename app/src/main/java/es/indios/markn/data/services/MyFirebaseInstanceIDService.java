@@ -1,4 +1,4 @@
-package es.indios.markn.data.sync;
+package es.indios.markn.data.services;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import es.indios.markn.MarknApplication;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.DataManager;
-import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -21,18 +20,18 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class LocationsSyncService extends Service {
+public class MyFirebaseInstanceIDService extends Service {
 
     @Inject
     DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, LocationsSyncService.class);
+        return new Intent(context, MyFirebaseInstanceIDService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, LocationsSyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, MyFirebaseInstanceIDService.class);
     }
 
     @Override
@@ -54,22 +53,22 @@ public class LocationsSyncService extends Service {
 
         RxUtil.dispose(mDisposable);
 
-        mDataManager.syncLocations()
+        mDataManager.syncIndications()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Location>() {
+                .subscribe(new Observer<Indication>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Location location) {
+                    public void onNext(Indication indication) {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncLocations");
+                        Timber.i(e, "Error SyncIndications");
 
                     }
 

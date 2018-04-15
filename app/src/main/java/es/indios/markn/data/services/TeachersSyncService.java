@@ -1,4 +1,4 @@
-package es.indios.markn.data.sync;
+package es.indios.markn.data.services;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -9,29 +9,29 @@ import android.os.IBinder;
 
 import javax.inject.Inject;
 
-import es.indios.markn.blescanner.models.Topology.Indication;
+import es.indios.markn.MarknApplication;
 import es.indios.markn.data.DataManager;
+import es.indios.markn.data.model.uvigo.Teacher;
+import es.indios.markn.util.AndroidComponentUtil;
+import es.indios.markn.util.NetworkUtil;
+import es.indios.markn.util.RxUtil;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-import es.indios.markn.util.AndroidComponentUtil;
-import es.indios.markn.util.NetworkUtil;
-import es.indios.markn.util.RxUtil;
-import es.indios.markn.MarknApplication;
 
-public class IndicationsSyncService extends Service {
+public class TeachersSyncService extends Service {
 
     @Inject
     DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, IndicationsSyncService.class);
+        return new Intent(context, TeachersSyncService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, IndicationsSyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, TeachersSyncService.class);
     }
 
     @Override
@@ -53,23 +53,22 @@ public class IndicationsSyncService extends Service {
 
         RxUtil.dispose(mDisposable);
 
-        mDataManager.syncIndications()
+        mDataManager.syncTeachers()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Indication>() {
+                .subscribe(new Observer<Teacher>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Indication indication) {
+                    public void onNext(Teacher teacher) {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncIndications");
-
+                        Timber.i(e, "Error SyncTeachers");
                     }
 
                     @Override

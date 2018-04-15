@@ -1,4 +1,4 @@
-package es.indios.markn.data.sync;
+package es.indios.markn.data.services;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import es.indios.markn.MarknApplication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.DataManager;
-import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -21,18 +20,18 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class SchedulesSyncService extends Service {
+public class TopologySyncService extends Service {
 
     @Inject
     DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, SchedulesSyncService.class);
+        return new Intent(context, TopologySyncService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, SchedulesSyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, TopologySyncService.class);
     }
 
     @Override
@@ -54,21 +53,22 @@ public class SchedulesSyncService extends Service {
 
         RxUtil.dispose(mDisposable);
 
-        mDataManager.syncSchedules()
+        mDataManager.syncTopology()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Schedule>() {
+                .subscribe(new Observer<Route>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Schedule schedule) {
+                    public void onNext(Route route) {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncSchedules");
+                        Timber.i(e, "Error SyncTopology");
                     }
 
                     @Override

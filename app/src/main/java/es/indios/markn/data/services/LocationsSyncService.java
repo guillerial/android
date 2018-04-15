@@ -1,4 +1,4 @@
-package es.indios.markn.data.sync;
+package es.indios.markn.data.services;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,9 +10,8 @@ import android.os.IBinder;
 import javax.inject.Inject;
 
 import es.indios.markn.MarknApplication;
-import es.indios.markn.blescanner.models.Topology.Indication;
-import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.data.DataManager;
+import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -21,18 +20,18 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class TopologySyncService extends Service {
+public class LocationsSyncService extends Service {
 
     @Inject
     DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, TopologySyncService.class);
+        return new Intent(context, LocationsSyncService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, TopologySyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, LocationsSyncService.class);
     }
 
     @Override
@@ -54,22 +53,23 @@ public class TopologySyncService extends Service {
 
         RxUtil.dispose(mDisposable);
 
-        mDataManager.syncTopology()
+        mDataManager.syncLocations()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Route>() {
+                .subscribe(new Observer<Location>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Route route) {
+                    public void onNext(Location location) {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncTopology");
+                        Timber.i(e, "Error SyncLocations");
+
                     }
 
                     @Override

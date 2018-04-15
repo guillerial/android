@@ -1,4 +1,4 @@
-package es.indios.markn.data.sync;
+package es.indios.markn.data.services;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import es.indios.markn.MarknApplication;
 import es.indios.markn.data.DataManager;
 import es.indios.markn.data.model.uvigo.Schedule;
-import es.indios.markn.data.model.uvigo.Teacher;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -21,18 +20,18 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class TeachersSyncService extends Service {
+public class SchedulesSyncService extends Service {
 
     @Inject
     DataManager mDataManager;
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, TeachersSyncService.class);
+        return new Intent(context, SchedulesSyncService.class);
     }
 
     public static boolean isRunning(Context context) {
-        return AndroidComponentUtil.isServiceRunning(context, TeachersSyncService.class);
+        return AndroidComponentUtil.isServiceRunning(context, SchedulesSyncService.class);
     }
 
     @Override
@@ -54,22 +53,21 @@ public class TeachersSyncService extends Service {
 
         RxUtil.dispose(mDisposable);
 
-        mDataManager.syncTeachers()
+        mDataManager.syncSchedules()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Teacher>() {
+                .subscribe(new Observer<Schedule>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Teacher teacher) {
-
+                    public void onNext(Schedule schedule) {
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncTeachers");
+                        Timber.i(e, "Error SyncSchedules");
                     }
 
                     @Override
