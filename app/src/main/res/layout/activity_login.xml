@@ -35,7 +35,7 @@
                         android:textAllCaps="false"
                         android:layout_marginRight="5dp"
                         android:text="@string/text_create_account"
-                        android:background="@color/orange"
+                        android:background="@drawable/borde_redondo_blue"
                         />
 
                     <Button
@@ -48,7 +48,7 @@
                         android:textAllCaps="false"
                         android:layout_marginLeft="5dp"
                         android:text="@string/text_guest_session"
-                        android:background="@color/orange"
+                        android:background="@drawable/borde_redondo_blue"
                         android:focusable="true" />
 
                     </TableRow>
@@ -64,7 +64,7 @@
             android:textAllCaps="false"
             android:text="@string/bottom_login"
             android:textSize="12sp"
-            android:background="@color/primary"
+            android:background="@drawable/borde_redondo_blue_clarity"
             />
 
 
@@ -72,7 +72,7 @@
             android:id="@+id/password_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@+id/login_button"
             android:textSize="12sp"
@@ -83,11 +83,12 @@
             android:id="@+id/email_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@id/password_edittext"
             android:inputType="textEmailAddress"
             android:textSize="12sp"
+            android:layout_marginBottom="5dp"
             android:hint="@string/text_email"/>
 
         <TextView

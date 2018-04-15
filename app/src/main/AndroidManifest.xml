@@ -25,6 +25,7 @@
         <activity android:name="es.indios.markn.ui.init.InitActivity"/>
 
         <activity android:name="es.indios.markn.ui.signup.SignUpActivity"/>
+        <activity android:name="es.indios.markn.ui.help.HelpActivity"/>
 
 
         <service android:name="es.indios.markn.data.sync.IndicationsSyncService"/>

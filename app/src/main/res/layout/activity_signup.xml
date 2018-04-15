@@ -27,7 +27,7 @@
                 android:textSize="12sp"
                 android:textAllCaps="false"
                 android:text="@string/text_guest_session_signup"
-                android:background="@color/orange"
+                android:background="@drawable/borde_redondo_blue"
                 android:focusable="true" />
 
         </RelativeLayout>
@@ -41,36 +41,38 @@
             android:textAllCaps="false"
             android:text="@string/bottom_signup"
             android:textSize="12sp"
-            android:background="@color/primary"
+            android:background="@drawable/borde_redondo_blue_clarity"
             />
 
         <EditText
             android:id="@+id/signup_password_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@+id/signup_button"
             android:inputType="textPassword"
             android:textSize="12sp"
+            android:layout_marginTop="5dp"
             android:hint="@string/text_password_signup"/>
 
         <EditText
             android:id="@+id/signup_email_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@id/signup_password_edittext"
             android:inputType="textEmailAddress"
             android:textSize="12sp"
+            android:layout_marginTop="5dp"
             android:hint="@string/text_email_signup"/>
 
         <EditText
             android:id="@+id/name_edittext"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/borde_redondo"
             android:gravity="center"
             android:layout_above="@id/signup_email_edittext"
             android:textSize="12sp"
