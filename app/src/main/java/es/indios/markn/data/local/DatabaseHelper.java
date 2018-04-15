@@ -229,4 +229,8 @@ public class DatabaseHelper {
                     }
                 });
     }
+
+    public void removeSchedules() {
+        mDb.delete(Db.SchedulesTable.TABLE_NAME, null);
+    }
 }

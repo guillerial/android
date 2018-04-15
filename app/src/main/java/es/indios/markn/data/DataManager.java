@@ -142,5 +142,6 @@ public class DataManager {
 
     public void logout() {
         mPreferencesHelper.logout();
+        mDatabaseHelper.removeSchedules();
     }
 }
