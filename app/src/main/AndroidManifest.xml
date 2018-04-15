@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.NoActionBar" >
         <activity
             android:name="es.indios.markn.ui.login.LoginActivity"
-            android:label="маяки" >
+            android:label="маяки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +25,7 @@
         <activity android:name="es.indios.markn.ui.init.InitActivity"/>
 
         <activity android:name="es.indios.markn.ui.signup.SignUpActivity"/>
+        <activity android:name="es.indios.markn.ui.help.HelpActivity"/>
 
 
         <service android:name="es.indios.markn.data.sync.IndicationsSyncService"/>

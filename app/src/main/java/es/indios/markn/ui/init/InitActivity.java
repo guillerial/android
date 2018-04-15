@@ -28,6 +28,7 @@ import es.indios.markn.data.sync.TeachersSyncService;
 import es.indios.markn.data.sync.TopologySyncService;
 import es.indios.markn.ui.base.BaseActivity;
 import es.indios.markn.ui.guide.GuideFragment;
+import es.indios.markn.ui.help.HelpActivity;
 import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.BeaconsAdapter;
 import es.indios.markn.ui.scheduler.SchedulerFragment;
@@ -125,7 +126,8 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
                 break;
             case R.id.action_help:
-
+                Intent intent_help = new Intent(this, HelpActivity.class);
+                startActivity(intent_help);
                 break;
             case R.id.action_logout:
                 mInitPresenter.logout();

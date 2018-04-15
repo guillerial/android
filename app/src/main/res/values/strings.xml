@@ -56,13 +56,13 @@
     <!--help-->
     <string name="help">Help </string>
     <string name="help_shecule">
-        In the schedule window you can see the classes you have each day of the week: the start and end time, the subject and the classroom where it is taught.\nClick on it to guide you</string>
+        In the schedule window you can see the classes you have each day of the week: the start and end time, the subject and the classroom where it is taught. Click on it to guide you</string>
     <string name="help_teachers">
         In the professors window you can see a list of the professors of the school and their emails and search them by name. Click on one of them to see more information such as his office and his tutorial schedule. Make the app guide you to his office. </string>
     <string name="help_guide">
         In the guide window, you can indicate where you want to go. They appear a series of indications and photos of the places where you must go to reach your destination </string>
     <string name="help_menu">Menu</string>
     <string name="help_menu_text">
-    In the menu you receive notifications of changes made by professors in your subjects or their tutorials</string>
+    In the menu you receive notifications of changes made by professors in your subjects or their tutorials.</string>
 
 </resources>
