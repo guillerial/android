@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">маяки</string>
 
+    <string name="default_notification_channel_id">markn</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="dialog_action_ok">OK</string>

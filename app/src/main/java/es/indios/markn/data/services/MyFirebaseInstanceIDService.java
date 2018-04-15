@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.IBinder;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+
 import javax.inject.Inject;
 
 import es.indios.markn.MarknApplication;
@@ -20,7 +23,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MyFirebaseInstanceIDService extends Service {
+public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Inject
     DataManager mDataManager;
@@ -41,54 +44,33 @@ public class MyFirebaseInstanceIDService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, final int startId) {
-        Timber.i("Starting sync...");
+    public void onTokenRefresh() {
+        // Get updated InstanceID token.
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Timber.i("Refreshed token: " + refreshedToken);
 
-        if (!NetworkUtil.isNetworkConnected(this)) {
-            Timber.i("Sync canceled, connection not available");
-            AndroidComponentUtil.toggleComponent(this, SyncOnConnectionAvailable.class, true);
-            stopSelf(startId);
-            return START_NOT_STICKY;
-        }
+        // If you want to send messages to this application instance or
+        // manage this apps subscriptions on the server side, send the
+        // Instance ID token to your app server.
+        sendRegistrationToServer(refreshedToken);
+    }
 
-        RxUtil.dispose(mDisposable);
-
-        mDataManager.syncIndications()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Indication>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Indication indication) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncIndications");
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-        return START_STICKY;
+    /**
+     * Persist token to third-party servers.
+     *
+     * Modify this method to associate the user's FCM InstanceID token with any server-side account
+     * maintained by your application.
+     *
+     * @param token The new token.
+     */
+    private void sendRegistrationToServer(String token) {
+        // TODO: Implement this method to send token to your app server.
     }
 
     @Override
     public void onDestroy() {
         if (mDisposable != null) mDisposable.dispose();
         super.onDestroy();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 
     public static class SyncOnConnectionAvailable extends BroadcastReceiver {

@@ -1,5 +1,6 @@
 package es.indios.markn.ui.init;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import javax.inject.Inject;
 
@@ -69,6 +73,10 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
         toggle.syncState();
 
+        if(!isGooglePlayServicesAvailable(this)){
+            finish();
+        }
+
         mFragmentManager = getSupportFragmentManager();
         mBottomNavigation.setOnNavigationItemSelectedListener(this);
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -78,6 +86,18 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_scheduler));
 
         mShareButton.setOnClickListener(this::onShareButtonClick);
+    }
+
+    public boolean isGooglePlayServicesAvailable(Activity activity) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if(status != ConnectionResult.SUCCESS) {
+            if(googleApiAvailability.isUserResolvableError(status)) {
+                googleApiAvailability.makeGooglePlayServicesAvailable(activity);
+            }
+            return false;
+        }
+        return true;
     }
 
     private void syncThings() {
@@ -91,6 +111,9 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isGooglePlayServicesAvailable(this)){
+            finish();
+        }
         syncThings();
     }
 

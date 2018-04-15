@@ -148,6 +148,7 @@ dependencies {
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     compile "com.google.firebase:firebase-core:$PLAY_SERVICES_VERSION"
     compile "com.google.firebase:firebase-messaging:$PLAY_SERVICES_VERSION"
+    compile 'com.firebase:firebase-jobdispatcher:0.8.5'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     //Required by Dagger2

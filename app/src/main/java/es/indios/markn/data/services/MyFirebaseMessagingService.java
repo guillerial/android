@@ -1,17 +1,32 @@
 package es.indios.markn.data.services;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
 import javax.inject.Inject;
 
 import es.indios.markn.MarknApplication;
+import es.indios.markn.R;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.DataManager;
+import es.indios.markn.ui.init.InitActivity;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -20,7 +35,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MyFirebaseMessagingService extends Service {
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Inject
     DataManager mDataManager;
@@ -41,54 +56,94 @@ public class MyFirebaseMessagingService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, final int startId) {
-        Timber.i("Starting sync...");
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        // ...
 
-        if (!NetworkUtil.isNetworkConnected(this)) {
-            Timber.i("Sync canceled, connection not available");
-            AndroidComponentUtil.toggleComponent(this, SyncOnConnectionAvailable.class, true);
-            stopSelf(startId);
-            return START_NOT_STICKY;
+        // TODO(developer): Handle FCM messages here.
+        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
+        Timber.i("From: " + remoteMessage.getFrom());
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            Timber.i("Message data payload: " + remoteMessage.getData());
+
+            if (/* Check if data needs to be processed by long running job */ false) {
+                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+                scheduleJob();
+            } else {
+                // Handle message within 10 seconds
+                handleNow();
+            }
+
         }
 
-        RxUtil.dispose(mDisposable);
+        // Check if message contains a notification payload.
+        if (remoteMessage.getNotification() != null) {
+            sendNotification(remoteMessage.getNotification().getBody());
+        }
 
-        mDataManager.syncIndications()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Indication>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        // Also if you intend on generating your own notifications as a result of a received FCM
+        // message, here is where that should be initiated. See sendNotification method below.
+    }
 
-                    }
+    /**
+     * Schedule a job using FirebaseJobDispatcher.
+     */
+    private void scheduleJob() {
+        // [START dispatch_job]
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+        Job myJob = dispatcher.newJobBuilder().build();
+        dispatcher.schedule(myJob);
+        // [END dispatch_job]
+    }
 
-                    @Override
-                    public void onNext(Indication indication) {
+    /**
+     * Handle time allotted to BroadcastReceivers.
+     */
+    private void handleNow() {
+        Timber.i("Short lived task is done.");
+    }
 
-                    }
+    /**
+     * Create and show a simple notification containing the received FCM message.
+     *
+     * @param messageBody FCM message body received.
+     */
+    private void sendNotification(String messageBody) {
+        Intent intent = new Intent(this, InitActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.i(e, "Error SyncIndications");
+        String channelId = getString(R.string.default_notification_channel_id);
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.logofinal)
+                        .setContentTitle("FCM Message")
+                        .setContentText(messageBody)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
 
-                    }
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    @Override
-                    public void onComplete() {
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
 
-                    }
-                });
-        return START_STICKY;
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
     @Override
     public void onDestroy() {
         if (mDisposable != null) mDisposable.dispose();
         super.onDestroy();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 
     public static class SyncOnConnectionAvailable extends BroadcastReceiver {
