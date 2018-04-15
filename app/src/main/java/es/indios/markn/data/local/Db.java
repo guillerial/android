@@ -160,7 +160,7 @@ public class Db {
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_ID + " INTEGER PRIMARY KEY AUTO_INCREMENT, " +
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_DAY + " INTEGER, " +
                         COLUMN_START_HOUR + " INTEGER, " +
                         COLUMN_FINISH_HOUR + " INTEGER, " +
