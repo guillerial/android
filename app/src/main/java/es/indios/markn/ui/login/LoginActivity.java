@@ -91,10 +91,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
             case R.id.textview_create_account:
                 Intent intent = new Intent(this, SignUpActivity.class);
                 startActivity(intent);
-<<<<<<< HEAD
-                //finish();
-=======
->>>>>>> 99f73515b38641d16e602404d9928d2ee313f743
                 break;
             default:
                 break;
