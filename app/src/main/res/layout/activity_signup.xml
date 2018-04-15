@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/AppTheme.NoActionBar"
     android:background="@drawable/image_uvigo">
@@ -27,7 +29,7 @@
                 android:textSize="12sp"
                 android:textAllCaps="false"
                 android:text="@string/text_guest_session_signup"
-                android:background="@drawable/borde_redondo_blue"
+                android:background="@drawable/cambio_color"
                 android:focusable="true" />
 
         </RelativeLayout>
@@ -41,8 +43,9 @@
             android:textAllCaps="false"
             android:text="@string/bottom_signup"
             android:textSize="12sp"
-            android:background="@drawable/borde_redondo_blue_clarity"
-            />
+            android:background="@drawable/cambio_color_clarity"/>
+
+        />
 
         <EditText
             android:id="@+id/signup_password_edittext"

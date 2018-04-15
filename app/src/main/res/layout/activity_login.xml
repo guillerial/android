@@ -35,7 +35,7 @@
                         android:textAllCaps="false"
                         android:layout_marginRight="5dp"
                         android:text="@string/text_create_account"
-                        android:background="@drawable/borde_redondo_blue"
+                        android:background="@drawable/cambio_color"
                         />
 
                     <Button
@@ -48,7 +48,7 @@
                         android:textAllCaps="false"
                         android:layout_marginLeft="5dp"
                         android:text="@string/text_guest_session"
-                        android:background="@drawable/borde_redondo_blue"
+                        android:background="@drawable/cambio_color"
                         android:focusable="true" />
 
                     </TableRow>
@@ -64,7 +64,7 @@
             android:textAllCaps="false"
             android:text="@string/bottom_login"
             android:textSize="12sp"
-            android:background="@drawable/borde_redondo_blue_clarity"
+            android:background="@drawable/cambio_color_clarity"
             />
 
 
