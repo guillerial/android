@@ -46,4 +46,10 @@ public interface MarknApi {
     @AuthenticatedEndpoint
     @GET("/schedules/")
     Observable<List<Schedule>> getSchedules();
+
+    @AuthenticatedEndpoint
+    @FormUrlEncoded
+    @POST("/firebase-instance/")
+    Observable<String> sendFirebaseToken(
+            @Field("firebase_token") String firebase_token);
 }

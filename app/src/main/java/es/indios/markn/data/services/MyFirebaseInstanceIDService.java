@@ -27,6 +27,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     @Inject
     DataManager mDataManager;
+
     private Disposable mDisposable;
 
     public static Intent getStartIntent(Context context) {
@@ -41,18 +42,42 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onCreate() {
         super.onCreate();
         MarknApplication.get(this).getComponent().inject(this);
+        onTokenRefresh();
     }
 
     @Override
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Timber.i("Refreshed token: " + refreshedToken);
-
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(refreshedToken);
+        if (mDataManager.isLoggedIn()) {
+            Timber.i("Refreshed token: " + refreshedToken);
+            mDataManager.sendFirebaseToken(refreshedToken).subscribeOn(Schedulers.io()).subscribe(new Observer<String>(
+
+            ) {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(String s) {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Timber.i(e, "Error sending Firebase token");
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        }
     }
 
     /**
