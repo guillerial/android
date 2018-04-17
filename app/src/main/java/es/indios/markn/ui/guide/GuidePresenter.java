@@ -161,6 +161,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
         String actualBeacon = new StringBuilder().append(mActualBeacon.getId3()).toString();
         Timber.i("Beacon actual:"+actualBeacon+"Beacon destino:"+mActualDestination.getNearby_beacon());
         Route route = mTopology.get(actualBeacon+"-"+mActualDestination.getNearby_beacon());
+        Route actualRoute = route;
         if(actualBeacon.equals(mActualDestination.getNearby_beacon())){
             indications.add(new Indication(mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
         }else {
@@ -183,7 +184,8 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
                 }
                 getMvpView().setIndicationList(indications);
             }else{
-                getMvpView().scrollToIndication(mActualIndication.getRoute());
+                getMvpView().scrollToIndication(indications.get(0).getRoute());
+
             }
         }
     }

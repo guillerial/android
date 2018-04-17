@@ -40,6 +40,8 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     @BindView(R.id.guide_indication_recycler)       RecyclerView mIndicationRecyclerView;
     @BindView(R.id.guide_location_recycler)         RecyclerView mLocationRecyclerView;
 
+    private RecyclerView.LayoutManager indicationLayoutManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
 
         mIndicationRecyclerView.setAdapter(mGuideAdapter);
         mLocationRecyclerView.setAdapter(mLocationAdapter);
-        LinearLayoutManager indicationLayoutManager = new LinearLayoutManager(getContext());
+        indicationLayoutManager = new LinearLayoutManager(getContext());
         mIndicationRecyclerView.setLayoutManager(indicationLayoutManager);
         mGuideAdapter.setManager(indicationLayoutManager);
         mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -94,7 +96,9 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mGuideAdapter.scrollToIndication(route);
+                if(mGuideAdapter.getRoutePosition(route)!=500){
+                    mIndicationRecyclerView.smoothScrollToPosition(mGuideAdapter.getRoutePosition(route));
+                }
             }
         });
     }

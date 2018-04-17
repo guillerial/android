@@ -2,6 +2,7 @@ package es.indios.markn.ui.guide;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import es.indios.markn.R;
 
 public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationViewHolder> {
     private ArrayList<Indication> mIndications;
-    private LinearLayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Inject
     public GuideAdapter() {
@@ -61,15 +62,15 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
         return mIndications.size();
     }
 
-    public void scrollToIndication(String route) {
+    public int getRoutePosition(String route) {
         for(int i=0; i<mIndications.size(); i++){
             if(mIndications.get(i).getRoute().equals(route))
-                mLayoutManager.scrollToPositionWithOffset(i, 20);
-
+                return i;
         }
+        return 500;
     }
 
-    public void setManager(LinearLayoutManager indicationLayoutManager) {
+    public void setManager(RecyclerView.LayoutManager indicationLayoutManager) {
         mLayoutManager = indicationLayoutManager;
     }
 
