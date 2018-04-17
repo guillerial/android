@@ -14,6 +14,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by imasdetres on 17/04/18.
@@ -43,7 +44,7 @@ public class NotificationsPresenter extends BasePresenter<NotificationsMvpView> 
 
             @Override
             public void onError(Throwable e) {
-
+                Timber.i(e, "Error obteniendo notificaciones");
             }
 
             @Override

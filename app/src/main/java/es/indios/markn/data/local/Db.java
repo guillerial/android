@@ -198,10 +198,10 @@ public class Db {
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_ID + " integer PRIMARY KEY, " +
-                        COLUMN_AUTHOR + " TEXT , " +
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        COLUMN_AUTHOR + " TEXT, " +
                         COLUMN_TITLE + " TEXT, " +
-                        COLUMN_BODY + " TEXT " +
+                        COLUMN_BODY + " TEXT" +
                         " ); ";
 
         public static ContentValues toContentValues(MarknNotification notification) {

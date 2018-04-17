@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import es.indios.markn.R;
 import es.indios.markn.data.model.user.MarknNotification;
 import es.indios.markn.data.model.uvigo.Teacher;
+import timber.log.Timber;
 
 /**
  * Created by guille on 11/03/18.

@@ -75,7 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            sendNotification(remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -108,7 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             author = remoteMessage.getData().get("author");
 
             MarknNotification notification = new MarknNotification(author, title, body);
-
+            Timber.i("Notificacion creada: "+notification.getBody());
             mDataManager.saveNotification(notification).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<MarknNotification>() {
                         @Override
@@ -118,7 +118,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                         @Override
                         public void onNext(MarknNotification notification) {
-
+                            Timber.i("Notification received"+notification.getBody());
                         }
 
                         @Override
@@ -139,7 +139,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, String title) {
         Intent intent = new Intent(this, InitActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -150,7 +150,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.logofinal)
-                        .setContentTitle("FCM Message")
+                        .setContentTitle(title)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)

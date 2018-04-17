@@ -148,12 +148,12 @@ public class DataManager {
         mDatabaseHelper.removeSchedules();
     }
 
-    public Observable<String> sendFirebaseToken(String refreshedToken) {
+    public Observable<TokenResponse> sendFirebaseToken(String refreshedToken) {
         return mMarknApi.sendFirebaseToken(refreshedToken);
     }
 
     public Observable<List<MarknNotification>> getNotifications() {
-        return mDatabaseHelper.getNotifications().distinct();
+        return mDatabaseHelper.getNotifications();
     }
 
 

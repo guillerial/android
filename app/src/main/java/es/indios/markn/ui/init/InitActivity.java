@@ -35,6 +35,7 @@ import es.indios.markn.ui.guide.GuideFragment;
 import es.indios.markn.ui.help.HelpActivity;
 import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.BeaconsAdapter;
+import es.indios.markn.ui.notifications.NotificationsActivity;
 import es.indios.markn.ui.scheduler.SchedulerFragment;
 import es.indios.markn.ui.teachers.TeachersFragment;
 import es.indios.markn.R;
@@ -147,7 +148,8 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
                 transaction.commit();
                 break;
             case R.id.action_notifications:
-
+                Intent intent_notification = new Intent(this, NotificationsActivity.class);
+                startActivity(intent_notification);
                 break;
             case R.id.action_help:
                 Intent intent_help = new Intent(this, HelpActivity.class);

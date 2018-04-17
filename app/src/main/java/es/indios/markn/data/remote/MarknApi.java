@@ -50,6 +50,6 @@ public interface MarknApi {
     @AuthenticatedEndpoint
     @FormUrlEncoded
     @POST("/firebase-instance/")
-    Observable<String> sendFirebaseToken(
+    Observable<TokenResponse> sendFirebaseToken(
             @Field("firebase_token") String firebase_token);
 }

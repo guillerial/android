@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import es.indios.markn.MarknApplication;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.DataManager;
+import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
@@ -54,22 +55,19 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Instance ID token to your app server.
         if (mDataManager.isLoggedIn()) {
             Timber.i("Refreshed token: " + refreshedToken);
-            mDataManager.sendFirebaseToken(refreshedToken).subscribeOn(Schedulers.io()).subscribe(new Observer<String>(
-
-            ) {
+            mDataManager.sendFirebaseToken(refreshedToken).subscribeOn(Schedulers.io()).subscribe(new Observer<TokenResponse>() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(String s) {
+                public void onNext(TokenResponse tokenResponse) {
 
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    Timber.i(e, "Error sending Firebase token");
                 }
 
                 @Override

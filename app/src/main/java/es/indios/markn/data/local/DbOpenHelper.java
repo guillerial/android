@@ -13,7 +13,7 @@ import es.indios.markn.injection.ApplicationContext;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "ribots.db";
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 10;
 
     @Inject
     public DbOpenHelper(@ApplicationContext Context context) {
@@ -36,6 +36,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             db.execSQL(Db.IndicationTable.CREATE);
             db.execSQL(Db.TopologyTable.CREATE);
             db.execSQL(Db.SchedulesTable.CREATE);
+            db.execSQL(Db.NotificationTable.CREATE);
             //Add other tables here
             db.setTransactionSuccessful();
         } finally {
@@ -51,11 +52,13 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS "+Db.TopologyTable.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS "+Db.ProfessorsTable.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS "+Db.SchedulesTable.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS "+Db.NotificationTable.TABLE_NAME);
             db.execSQL(Db.LocationTable.CREATE);
             db.execSQL(Db.IndicationTable.CREATE);
             db.execSQL(Db.TopologyTable.CREATE);
             db.execSQL(Db.ProfessorsTable.CREATE);
             db.execSQL(Db.SchedulesTable.CREATE);
+            db.execSQL(Db.NotificationTable.CREATE);
         }
     }
 
