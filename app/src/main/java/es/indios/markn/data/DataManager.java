@@ -13,6 +13,8 @@ import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
@@ -143,5 +145,9 @@ public class DataManager {
     public void logout() {
         mPreferencesHelper.logout();
         mDatabaseHelper.removeSchedules();
+    }
+
+    public Observable<String> sendFirebaseToken(String refreshedToken) {
+        return mMarknApi.sendFirebaseToken(refreshedToken);
     }
 }

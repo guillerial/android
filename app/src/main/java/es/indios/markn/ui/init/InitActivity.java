@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import es.indios.markn.blescanner.Scanner;
 import es.indios.markn.data.services.IndicationsSyncService;
 import es.indios.markn.data.services.LocationsSyncService;
+import es.indios.markn.data.services.MyFirebaseInstanceIDService;
 import es.indios.markn.data.services.SchedulesSyncService;
 import es.indios.markn.data.services.TeachersSyncService;
 import es.indios.markn.data.services.TopologySyncService;
@@ -106,6 +107,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         startService(IndicationsSyncService.getStartIntent(this));
         startService(SchedulesSyncService.getStartIntent(this));
         startService(TeachersSyncService.getStartIntent(this));
+        startService(MyFirebaseInstanceIDService.getStartIntent(this));
     }
 
     @Override

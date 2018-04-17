@@ -21,6 +21,7 @@ public class PreferencesHelper {
     public static final String PREF_USER_ACCOUNT = "pref_user_account";
     public static final String PREF_USER_TOKEN = "pref_user_token";
     public static final String PREF_USER_NAME = "pref_user_name";
+    public static final String PREF_FIREBASE_TOKEN = "pref_firebase_token";
 
     private final SharedPreferences mPref;
 
@@ -59,5 +60,14 @@ public class PreferencesHelper {
 
     public void logout() {
         clear();
+    }
+
+    public boolean checkCurrentToken(String refreshedToken) {
+        if (mPref.getString(PREF_FIREBASE_TOKEN,"").equals(refreshedToken)){
+            return false;
+        }else{
+            mPref.edit().putString(PREF_FIREBASE_TOKEN,refreshedToken).apply();
+            return true;
+        }
     }
 }

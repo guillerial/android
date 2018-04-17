@@ -19,6 +19,7 @@ android {
 
         // Custom settings.
         buildConfigField "String", "MARKN_API_HOST", '"http://193.146.210.95:8000/"'
+        //buildConfigField "String", "MARKN_API_HOST", '"http://192.168.0.4:8000/"'
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -54,6 +55,8 @@ android {
 
             ext.betaDistributionReleaseNotesFilePath =
                     file('../crashlytics_release_notes.txt').absolutePath
+
+            buildConfigField "String", "MARKN_API_HOST", '"http://193.146.210.95:8000/"'
         }
 
         debug {
