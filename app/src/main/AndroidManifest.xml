@@ -42,6 +42,7 @@
 
         <activity android:name="es.indios.markn.ui.signup.SignUpActivity"/>
         <activity android:name="es.indios.markn.ui.help.HelpActivity"/>
+        <activity android:name=".ui.notifications.NotificationsActivity" />
 
 
         <service android:name="es.indios.markn.data.services.IndicationsSyncService"/>
