@@ -6,6 +6,8 @@ import android.database.Cursor;
 
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import es.indios.markn.blescanner.models.Topology.Indication;
@@ -195,28 +197,41 @@ public class Db {
         public static final String COLUMN_AUTHOR = "author";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_BODY = "body";
+        public static final String COLUMN_DATE = "date";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_AUTHOR + " TEXT, " +
                         COLUMN_TITLE + " TEXT, " +
-                        COLUMN_BODY + " TEXT" +
+                        COLUMN_BODY + " TEXT, " +
+                        COLUMN_DATE + " TEXT" +
                         " ); ";
+
+        static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         public static ContentValues toContentValues(MarknNotification notification) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_AUTHOR, notification.getAuthor());
             values.put(COLUMN_TITLE, notification.getTitle());
             values.put(COLUMN_BODY, notification.getBody());
+            String date = format.format(notification.getDate());
+            values.put(COLUMN_DATE, date);
             return values;
         }
 
         public static MarknNotification parseCursor(Cursor cursor) {
+            Date date = new Date();
+            try {
+                date = format.parse(cursor.getString(cursor.getColumnIndex(COLUMN_DATE)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             return new MarknNotification(
                     cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_BODY))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_BODY)),
+                    date
             );
         }
     }

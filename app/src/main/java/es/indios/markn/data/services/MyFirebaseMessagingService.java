@@ -20,6 +20,8 @@ import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import es.indios.markn.MarknApplication;
@@ -105,9 +107,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
             if(remoteMessage.getData().containsKey("author"))
-            author = remoteMessage.getData().get("author");
-
-            MarknNotification notification = new MarknNotification(author, title, body);
+                author = remoteMessage.getData().get("author");
+            Date date = new Date();
+            MarknNotification notification = new MarknNotification(author, title, body, date);
             Timber.i("Notificacion creada: "+notification.getBody());
             mDataManager.saveNotification(notification).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<MarknNotification>() {

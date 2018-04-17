@@ -13,7 +13,7 @@ import es.indios.markn.injection.ApplicationContext;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "ribots.db";
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 11;
 
     @Inject
     public DbOpenHelper(@ApplicationContext Context context) {
