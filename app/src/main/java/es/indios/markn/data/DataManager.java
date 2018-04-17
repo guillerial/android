@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
 import es.indios.markn.blescanner.models.Topology.IndicationsTopologyWrapper;
+import es.indios.markn.data.model.user.MarknNotification;
 import es.indios.markn.data.model.user.TokenResponse;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.uvigo.Schedule;
@@ -149,5 +150,14 @@ public class DataManager {
 
     public Observable<String> sendFirebaseToken(String refreshedToken) {
         return mMarknApi.sendFirebaseToken(refreshedToken);
+    }
+
+    public Observable<List<MarknNotification>> getNotifications() {
+        return mDatabaseHelper.getNotifications().distinct();
+    }
+
+
+    public Observable<MarknNotification> saveNotification(MarknNotification notification) {
+        return mDatabaseHelper.saveNotification(notification);
     }
 }

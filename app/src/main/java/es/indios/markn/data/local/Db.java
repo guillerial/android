@@ -10,6 +10,7 @@ import java.util.Date;
 
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
+import es.indios.markn.data.model.user.MarknNotification;
 import es.indios.markn.data.model.uvigo.Group;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.Profile;
@@ -183,6 +184,39 @@ public class Db {
                     cursor.getInt(cursor.getColumnIndex(COLUMN_START_HOUR)),
                     cursor.getInt(cursor.getColumnIndex(COLUMN_FINISH_HOUR)),
                     new Gson().fromJson(cursor.getString(cursor.getColumnIndex(COLUMN_GROUP)), Group.class)
+            );
+        }
+    }
+
+    public abstract static class NotificationTable{
+        public static final String TABLE_NAME = "notification";
+
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_AUTHOR = "author";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_BODY = "body";
+
+        public static final String CREATE =
+                "CREATE TABLE " + TABLE_NAME + " (" +
+                        COLUMN_ID + " integer PRIMARY KEY, " +
+                        COLUMN_AUTHOR + " TEXT , " +
+                        COLUMN_TITLE + " TEXT, " +
+                        COLUMN_BODY + " TEXT " +
+                        " ); ";
+
+        public static ContentValues toContentValues(MarknNotification notification) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_AUTHOR, notification.getAuthor());
+            values.put(COLUMN_TITLE, notification.getTitle());
+            values.put(COLUMN_BODY, notification.getBody());
+            return values;
+        }
+
+        public static MarknNotification parseCursor(Cursor cursor) {
+            return new MarknNotification(
+                    cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_BODY))
             );
         }
     }

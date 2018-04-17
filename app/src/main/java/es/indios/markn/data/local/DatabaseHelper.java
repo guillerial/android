@@ -15,6 +15,7 @@ import javax.inject.Singleton;
 
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
+import es.indios.markn.data.model.user.MarknNotification;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.data.model.uvigo.Schedule;
 import es.indios.markn.data.model.uvigo.Teacher;
@@ -232,5 +233,36 @@ public class DatabaseHelper {
 
     public void removeSchedules() {
         mDb.delete(Db.SchedulesTable.TABLE_NAME, null);
+    }
+
+    public Observable<List<MarknNotification>> getNotifications() {
+        return mDb.createQuery(Db.NotificationTable.TABLE_NAME,
+                "SELECT * FROM " + Db.NotificationTable.TABLE_NAME)
+                .mapToList(new Function<Cursor, MarknNotification>() {
+                    @Override
+                    public MarknNotification apply(@NonNull Cursor cursor) throws Exception {
+                        return Db.NotificationTable.parseCursor(cursor);
+                    }
+                });
+    }
+
+    public Observable<MarknNotification> saveNotification(MarknNotification notification) {
+        return Observable.create(new ObservableOnSubscribe<MarknNotification>() {
+            @Override
+            public void subscribe(ObservableEmitter<MarknNotification> emitter) throws Exception {
+                if (emitter.isDisposed()) return;
+                BriteDatabase.Transaction transaction = mDb.newTransaction();
+                try {
+                    long result = mDb.insert(Db.NotificationTable.TABLE_NAME,
+                            Db.NotificationTable.toContentValues(notification),
+                            SQLiteDatabase.CONFLICT_REPLACE);
+                    if (result >= 0) emitter.onNext(notification);
+                    transaction.markSuccessful();
+                    emitter.onComplete();
+                } finally {
+                    transaction.end();
+                }
+            }
+        });
     }
 }

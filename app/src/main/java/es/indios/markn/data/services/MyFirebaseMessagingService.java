@@ -26,11 +26,13 @@ import es.indios.markn.MarknApplication;
 import es.indios.markn.R;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.DataManager;
+import es.indios.markn.data.model.user.MarknNotification;
 import es.indios.markn.ui.init.InitActivity;
 import es.indios.markn.util.AndroidComponentUtil;
 import es.indios.markn.util.NetworkUtil;
 import es.indios.markn.util.RxUtil;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -67,13 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Timber.i("Message data payload: " + remoteMessage.getData());
 
-            if (/* Check if data needs to be processed by long running job */ false) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
-            }
+            handleNow(remoteMessage);
 
         }
 
@@ -100,8 +96,42 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     /**
      * Handle time allotted to BroadcastReceivers.
      */
-    private void handleNow() {
-        Timber.i("Short lived task is done.");
+    private void handleNow(RemoteMessage remoteMessage) {
+
+        String title = "";
+        String body = "";
+        String author = "";
+        if(remoteMessage.getNotification()!=null) {
+            title = remoteMessage.getNotification().getTitle();
+            body = remoteMessage.getNotification().getBody();
+            if(remoteMessage.getData().containsKey("author"))
+            author = remoteMessage.getData().get("author");
+
+            MarknNotification notification = new MarknNotification(author, title, body);
+
+            mDataManager.saveNotification(notification).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<MarknNotification>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(MarknNotification notification) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Timber.i(e, "Error saving notification");
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        }
     }
 
     /**

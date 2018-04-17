@@ -6,6 +6,7 @@ import es.indios.markn.injection.module.ActivityModule;
 import es.indios.markn.ui.init.InitActivity;
 import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.MainActivity;
+import es.indios.markn.ui.notifications.NotificationsActivity;
 import es.indios.markn.ui.signup.SignUpActivity;
 
 /**
@@ -22,4 +23,6 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(SignUpActivity signUpActivity);
+
+    void inject(NotificationsActivity notificationsActivity);
 }
