@@ -96,7 +96,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(mGuideAdapter.getRoutePosition(route)!=500){
+                if(mGuideAdapter.getRoutePosition(route)!=-1){
                     mIndicationRecyclerView.smoothScrollToPosition(mGuideAdapter.getRoutePosition(route));
                 }
             }

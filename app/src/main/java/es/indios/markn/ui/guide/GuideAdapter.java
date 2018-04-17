@@ -67,7 +67,7 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
             if(mIndications.get(i).getRoute().equals(route))
                 return i;
         }
-        return 500;
+        return -1;
     }
 
     public void setManager(RecyclerView.LayoutManager indicationLayoutManager) {
