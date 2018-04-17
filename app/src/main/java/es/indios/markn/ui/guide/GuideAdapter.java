@@ -1,5 +1,6 @@
 package es.indios.markn.ui.guide;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import es.indios.markn.R;
 
 public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationViewHolder> {
     private ArrayList<Indication> mIndications;
+    private LinearLayoutManager mLayoutManager;
 
     @Inject
     public GuideAdapter() {
@@ -49,12 +51,26 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
         Indication indication = mIndications.get(position);
         if(!indication.getImage_url().equals(""))
             Picasso.get().load(indication.getImage_url()).into(holder.indicationImage);
+        else
+            holder.indicationImage.setVisibility(View.GONE);
         holder.indicationText.setText(indication.getIndication());
     }
 
     @Override
     public int getItemCount() {
         return mIndications.size();
+    }
+
+    public void scrollToIndication(String route) {
+        for(int i=0; i<mIndications.size(); i++){
+            if(mIndications.get(i).getRoute().equals(route))
+                mLayoutManager.scrollToPositionWithOffset(i, 20);
+
+        }
+    }
+
+    public void setManager(LinearLayoutManager indicationLayoutManager) {
+        mLayoutManager = indicationLayoutManager;
     }
 
     class IndicationViewHolder extends RecyclerView.ViewHolder {

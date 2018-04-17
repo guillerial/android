@@ -34,6 +34,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
     private HashMap<String, Route> mTopology;
     private HashMap<String, Indication> mIndications;
+    private HashMap<String, Indication> mActualIndicationMap;
 
     private Indication mActualIndication;
     private Location mActualDestination;
@@ -82,13 +83,11 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             public void onNext(IndicationsTopologyWrapper indicationsTopologyWrapper) {
                 mTopology = new HashMap<>();
                 for (Route route : indicationsTopologyWrapper.mRoutes){
-                    Timber.i(route.getRoute());
                     mTopology.put(route.getRoute(), route);
                 }
 
                 mIndications = new HashMap<>();
                 for (Indication indication : indicationsTopologyWrapper.mIndications) {
-                    Timber.i(indication.getRoute());
                     mIndications.put(indication.getRoute(), indication);
                 }
             }
@@ -163,8 +162,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
         Timber.i("Beacon actual:"+actualBeacon+"Beacon destino:"+mActualDestination.getNearby_beacon());
         Route route = mTopology.get(actualBeacon+"-"+mActualDestination.getNearby_beacon());
         if(actualBeacon.equals(mActualDestination.getNearby_beacon())){
-            //FIXME: añadir que he llegado al destino
-
+            indications.add(new Indication(mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
         }else {
             do {
                 indications.add(mIndications.get(actualBeacon+"-"+route.getNext()));
@@ -174,10 +172,19 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
                     route = mTopology.get(route.getNext()+"-"+mActualDestination.getNearby_beacon());
                 }
             } while (!actualBeacon.equals(mActualDestination.getNearby_beacon()));
+            indications.add(new Indication("last", mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
         }
 
         if(getMvpView()!=null){
-            getMvpView().setIndicationList(indications);
+            if(mActualIndicationMap ==null || !mActualIndicationMap.containsKey(indications.get(0).getRoute())){
+                mActualIndicationMap = new HashMap<String, Indication>();
+                for (Indication indication : indications){
+                    mActualIndicationMap.put(indication.getRoute(), indication);
+                }
+                getMvpView().setIndicationList(indications);
+            }else{
+                getMvpView().scrollToIndication(mActualIndication.getRoute());
+            }
         }
     }
 

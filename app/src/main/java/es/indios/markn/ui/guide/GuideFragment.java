@@ -55,7 +55,9 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
 
         mIndicationRecyclerView.setAdapter(mGuideAdapter);
         mLocationRecyclerView.setAdapter(mLocationAdapter);
-        mIndicationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager indicationLayoutManager = new LinearLayoutManager(getContext());
+        mIndicationRecyclerView.setLayoutManager(indicationLayoutManager);
+        mGuideAdapter.setManager(indicationLayoutManager);
         mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mGuidePresenter.getLocations();
@@ -83,6 +85,16 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
                 mLocationRecyclerView.setVisibility(View.GONE);
                 mIndicationRecyclerView.setVisibility(View.VISIBLE);
                 mGuideAdapter.setIndications(indications);
+            }
+        });
+    }
+
+    @Override
+    public void scrollToIndication(String route) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mGuideAdapter.scrollToIndication(route);
             }
         });
     }

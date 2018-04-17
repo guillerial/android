@@ -14,4 +14,6 @@ public interface GuideMvpView extends MvpView {
     void setLocationList(ArrayList<Location> locations);
 
     void setIndicationList(ArrayList<Indication> indications);
+
+    void scrollToIndication(String route);
 }
