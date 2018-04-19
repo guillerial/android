@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             tools:text="Manuel Fernández Veiga"/>
 
         <TextView
@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="24-12-2018 08:30:06"
+            android:layout_marginRight="5dp"
             android:gravity="right"
             android:textStyle="italic"
             android:textSize="15sp"/>

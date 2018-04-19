@@ -59,10 +59,12 @@ public class DatabaseHelper {
                 try {
                     mDb.delete(Db.LocationTable.TABLE_NAME, null);
                     for (Location location : newLocations) {
-                        long result = mDb.insert(Db.LocationTable.TABLE_NAME,
-                                Db.LocationTable.toContentValues(location),
-                                SQLiteDatabase.CONFLICT_REPLACE);
-                        if (result >= 0) emitter.onNext(location);
+                        if(location.getNearby_beacon()!=null){
+                            long result = mDb.insert(Db.LocationTable.TABLE_NAME,
+                                    Db.LocationTable.toContentValues(location),
+                                    SQLiteDatabase.CONFLICT_REPLACE);
+                            if (result >= 0) emitter.onNext(location);
+                        }
                     }
                     transaction.markSuccessful();
                     emitter.onComplete();

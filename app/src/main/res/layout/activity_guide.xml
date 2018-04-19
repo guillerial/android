@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/guide_location_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        tools:visibility="gone">
 
         <android.support.v7.widget.SearchView
             android:id="@+id/search_location"
@@ -18,22 +20,37 @@
             android:layout_marginLeft="10dp"
             android:queryHint="Search teacher"/>
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/guide_location_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_location"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/guide_indication_recycler"
-            android:visibility="gone"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/guide_indication_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/route_title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/search_location"/>
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_margin="10dp"
+            tools:text="Ruta hasta el aula B-003"
+            android:background="@drawable/borde_redondo"
+            android:elevation="5dp"
+            />
 
-
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/guide_indication_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/route_title_textview"/>
     </RelativeLayout>
 
 </LinearLayout>

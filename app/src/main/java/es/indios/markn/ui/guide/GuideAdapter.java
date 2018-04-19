@@ -1,5 +1,6 @@
 package es.indios.markn.ui.guide;
 
+import android.content.res.Resources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;

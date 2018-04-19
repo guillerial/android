@@ -65,8 +65,21 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
 
     @Override
     public void onForbiddenLogin(int code) {
-        mEmailEditText.setHint(getResources().getString(R.string.text_user_no_exist));
-        mEmailEditText.setHintTextColor(Color.RED);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (code) {
+                    case 403:
+                        mEmailEditText.setHint(getResources().getString(R.string.text_user_no_exist));
+                        mEmailEditText.setHintTextColor(Color.RED);
+                        mEmailEditText.setText("");
+                        mPassEditText.setText("");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -91,10 +104,12 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                         mEmailEditText.setHint(getResources().getString(R.string.text_valid_email));
                         mEmailEditText.setHintTextColor(Color.RED);
+                        mEmailEditText.setText("");
                     }
                     if(password.equals("")){
                         mPassEditText.setHint(getResources().getString(R.string.text_pass_required));
                         mPassEditText.setHintTextColor(Color.RED);
+                        mPassEditText.setText("");
                     }
                 }
                 break;

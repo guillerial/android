@@ -160,4 +160,8 @@ public class DataManager {
     public Observable<MarknNotification> saveNotification(MarknNotification notification) {
         return mDatabaseHelper.saveNotification(notification);
     }
+
+    public String getName(){
+        return mPreferencesHelper.getName();
+    }
 }

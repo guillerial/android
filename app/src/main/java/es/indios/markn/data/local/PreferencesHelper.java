@@ -48,7 +48,7 @@ public class PreferencesHelper {
                 if(e.isDisposed()) return;
                 String authToken = tokenResponse.getToken();
                 String email = tokenResponse.getEmail();
-                String username = tokenResponse.getUsername();
+                String username = tokenResponse.getName();
                 mPref.edit().putString(PREF_USER_TOKEN, authToken).apply();
                 mPref.edit().putString(PREF_USER_ACCOUNT, email).apply();
                 mPref.edit().putString(PREF_USER_NAME, username).apply();
@@ -69,5 +69,9 @@ public class PreferencesHelper {
             mPref.edit().putString(PREF_FIREBASE_TOKEN,refreshedToken).apply();
             return true;
         }
+    }
+
+    public String getName() {
+        return mPref.getString(PREF_USER_NAME,"Usuario invitado");
     }
 }

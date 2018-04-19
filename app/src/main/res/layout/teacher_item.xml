@@ -11,7 +11,8 @@
     android:layout_marginTop="6dp"
     card_view:cardCornerRadius="2dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -20,8 +21,8 @@
 
         <View
             android:id="@+id/view_hex_color"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginRight="10dp"
             android:background="@android:color/holo_blue_dark" />
 
@@ -42,6 +43,15 @@
             android:layout_toRightOf="@id/view_hex_color"
             android:textSize="@dimen/text_small_body"
             tools:text="LuisSabucedo@det.uvigo.es" />
+        <TextView
+            android:id="@+id/text_office"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_email"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/view_hex_color"
+            android:textSize="12dp"
+            tools:text="Despacho B-305" />
 
     </RelativeLayout>
 

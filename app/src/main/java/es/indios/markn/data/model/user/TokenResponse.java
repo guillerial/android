@@ -4,7 +4,7 @@ public class TokenResponse {
 
     private String token;
     private String email;
-    private String username;
+    private String name;
 
     public String getToken() {
         return token;
@@ -14,7 +14,7 @@ public class TokenResponse {
         return email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 }

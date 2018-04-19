@@ -6,4 +6,6 @@ import es.indios.markn.ui.base.MvpView;
 
 public interface InitMvpView extends MvpView {
     FragmentManager getMFragmentManager();
+
+    void setName(String name);
 }

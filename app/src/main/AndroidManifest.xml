@@ -29,7 +29,7 @@
             android:value="@string/default_notification_channel_id"/>
 
         <activity
-            android:name="es.indios.markn.ui.login.LoginActivity"
+            android:name="es.indios.markn.ui.main.MainActivity"
             android:label="маяки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

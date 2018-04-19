@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_centerHorizontal="true"
@@ -44,11 +44,12 @@
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/borde_redondo"
                     android:src="@drawable/ic_date_range_black_24dp"
+                    android:elevation="5dp"
                     />
                     <TextView
                         android:id="@+id/help_scheduler"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -56,6 +57,7 @@
                         android:text="@string/bottom_scheduler"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/text_help_schedule"
@@ -67,6 +69,12 @@
                         android:text="@string/help_shecule"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="10dp"
                         />
 
                     <ImageView
@@ -79,11 +87,12 @@
                         android:layout_below="@+id/text_help_schedule"
                         android:src="@drawable/ic_person_black_24dp"
                         android:layout_marginTop="30dp"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/help_teachers"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_below="@+id/image_teachers_help"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -91,6 +100,7 @@
                         android:text="@string/bottom_professors"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
 
                         />
                     <TextView
@@ -103,6 +113,12 @@
                         android:text="@string/help_teachers"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
                         />
                     <ImageView
                         android:id="@+id/image_guide_help"
@@ -114,11 +130,12 @@
                         android:background="@drawable/borde_redondo"
                         android:src="@drawable/ic_my_location_black_24dp"
                         android:layout_marginTop="30dp"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/help_guide"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_below="@+id/image_guide_help"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -126,6 +143,7 @@
                         android:text="@string/bottom_guide"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/text_help_guide"
@@ -137,6 +155,12 @@
                         android:text="@string/help_guide"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
                         />
                     <ImageView
                         android:id="@+id/image_menu_help"
@@ -148,11 +172,12 @@
                         android:layout_below="@+id/text_help_guide"
                         android:src="@drawable/ic_notifications_black_24dp"
                         android:background="@drawable/borde_redondo"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/help_menu"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="30dp"
                         android:layout_below="@+id/image_menu_help"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -160,6 +185,7 @@
                         android:text="@string/help_menu"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:elevation="5dp"
                         />
                     <TextView
                         android:id="@+id/text_help_menu"
@@ -171,6 +197,13 @@
                         android:text="@string/help_menu_text"
                         android:background="@drawable/borde_redondo"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
                         />
 
         </RelativeLayout>

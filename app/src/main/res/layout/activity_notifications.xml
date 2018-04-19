@@ -23,10 +23,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:text="@string/icon_notifications"
                 android:textAlignment="center"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:layout_centerInParent="true"/>
 
         </RelativeLayout>

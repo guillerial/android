@@ -56,6 +56,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Locati
         holder.mTeacherName.setText(teacher.getName());
         holder.color.setBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
         holder.mTeacherEmail.setText(teacher.getEmail());
+        holder.mTeacherOffice.setText(teacher.getOffice());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +75,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Locati
         @BindView(R.id.view_hex_color) View color;
         @BindView(R.id.text_name) TextView mTeacherName;
         @BindView(R.id.text_email) TextView mTeacherEmail;
+        @BindView(R.id.text_office) TextView mTeacherOffice;
         @BindView(R.id.teacher_card_view) CardView mCardView;
 
         public LocationViewHolder(View itemView) {

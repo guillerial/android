@@ -5,9 +5,10 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="dialog_action_ok">OK</string>
-    <string name="dialog_action_cancel">Cancel</string>
+    <string name="dialog_action_ok">Aceptar</string>
+    <string name="dialog_action_cancel">Cancelar</string>
     <string name="dialog_error_title">Sorry</string>
+    <string name="dialog_message">Parece que no estás en la escuela de Telecomunicaciones.\n¿Quieres abrir el GPS para llegar hasta ella?</string>
 
     <string name="empty_ribots">There aren\'t any ribots</string>
     <string name="error_loading_ribots">There was a problem loading the ribots</string>
@@ -66,5 +67,12 @@
     <string name="help_menu">Menú</string>
     <string name="help_menu_text">
         En el menú recives no tificaciones de los cambios que hacen los profesores en tus materias y en sus tutorías.</string>
+
+    <!-- Teachers -->
+    <string name="email_message_body">\n\n Email enviado desde маяки.</string>
+    <string name="email_message_chooser">Enviar email desde...</string>
+    <string name="email_message_error">No hay aplicaciones de email instaladas.</string>
+
+
 </resources>
 

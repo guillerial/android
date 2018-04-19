@@ -8,6 +8,8 @@
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_error_title">Sorry</string>
+    <string name="dialog_message">It seems you are not in Telecommunications college.\n Do you want to open the GPS to get there?</string>
+
 
     <string name="empty_ribots">There aren\'t any ribots</string>
     <string name="error_loading_ribots">There was a problem loading the ribots</string>
@@ -66,5 +68,10 @@
     <string name="help_menu">Menu</string>
     <string name="help_menu_text">
     In the menu you receive notifications of changes made by professors in your subjects or their tutorials.</string>
+
+    <!-- Teachers -->
+    <string name="email_message_body">\n\n Email sent from маяки.</string>
+    <string name="email_message_chooser">Send email using...</string>
+    <string name="email_message_error">No email clients installed.</string>
 
 </resources>

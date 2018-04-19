@@ -57,4 +57,11 @@ public class InitPresenter extends BasePresenter<InitMvpView> implements MarknLi
     public void logout() {
         mDataManager.logout();
     }
+
+    public void initUser() {
+        if(mDataManager.isLoggedIn()){
+            if(getMvpView()!=null)
+            getMvpView().setName(mDataManager.getName());
+        }
+    }
 }

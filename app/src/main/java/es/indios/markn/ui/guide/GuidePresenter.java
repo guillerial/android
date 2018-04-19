@@ -5,6 +5,7 @@ import android.support.v7.widget.SearchView;
 import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,9 +41,12 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
     private Location mActualDestination;
     private Beacon mActualBeacon;
 
+    private boolean windowResume = false;
+
     @Inject
     public GuidePresenter(DataManager dataManager) {
         mDataManager = dataManager;
+        windowResume = true;
     }
 
     public void getLocations(){
@@ -55,6 +59,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             @Override
             public void onNext(List<Location> locations) {
                 mLocations = new ArrayList<Location>(locations);
+                Collections.sort(mLocations, (location, t1) -> location.getName().compareTo(t1.getName()));
                 if(getMvpView()!=null)
                     getMvpView().setLocationList(mLocations);
 
@@ -112,6 +117,9 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
         }
         if(changes && mActualBeacon!=null && mActualDestination!=null){
             generatePathIndicationList();
+        }else if(mActualBeacon==null){
+            if(getMvpView()!=null)
+                getMvpView().askForGPS();
         }
     }
 
@@ -121,7 +129,8 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             mActualBeacon = nearbyBeacon;
             changes = true;
         }
-        if(changes && mActualBeacon!=null && mActualDestination!=null){
+        if((changes || windowResume) && mActualBeacon!=null && mActualDestination!=null){
+            windowResume = false;
             generatePathIndicationList();
         }
     }
@@ -155,39 +164,42 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
         }
     }
 
-    public void generatePathIndicationList(){
+    public void generatePathIndicationList() {
         ArrayList<Indication> indications = new ArrayList<>();
 
         String actualBeacon = new StringBuilder().append(mActualBeacon.getId3()).toString();
-        Timber.i("Beacon actual:"+actualBeacon+"Beacon destino:"+mActualDestination.getNearby_beacon());
-        Route route = mTopology.get(actualBeacon+"-"+mActualDestination.getNearby_beacon());
+        Timber.i("Beacon actual:" + actualBeacon + "Beacon destino:" + mActualDestination.getNearby_beacon());
+        Route route = mTopology.get(actualBeacon + "-" + mActualDestination.getNearby_beacon());
         Route actualRoute = route;
-        if(actualBeacon.equals(mActualDestination.getNearby_beacon())){
-            indications.add(new Indication(mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
-        }else {
+        if (actualBeacon.equals(mActualDestination.getNearby_beacon())) {
+            indications.add(new Indication("last", mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
+        } else {
             do {
-                indications.add(mIndications.get(actualBeacon+"-"+route.getNext()));
+                indications.add(mIndications.get(actualBeacon + "-" + route.getNext()));
 
                 actualBeacon = route.getNext();
-                if(!route.getNext().equals(mActualDestination.getNearby_beacon())){
-                    route = mTopology.get(route.getNext()+"-"+mActualDestination.getNearby_beacon());
+                if (!route.getNext().equals(mActualDestination.getNearby_beacon())) {
+                    route = mTopology.get(route.getNext() + "-" + mActualDestination.getNearby_beacon());
                 }
             } while (!actualBeacon.equals(mActualDestination.getNearby_beacon()));
             indications.add(new Indication("last", mActualDestination.getLast_indication(), mActualDestination.getLast_image()));
         }
 
-        if(getMvpView()!=null){
-            if(mActualIndicationMap ==null || !mActualIndicationMap.containsKey(indications.get(0).getRoute())){
+        if (getMvpView() != null) {
+            if (mActualIndicationMap == null || !mActualIndicationMap.containsKey(indications.get(0).getRoute())) {
                 mActualIndicationMap = new HashMap<String, Indication>();
-                for (Indication indication : indications){
+                for (Indication indication : indications) {
                     mActualIndicationMap.put(indication.getRoute(), indication);
                 }
                 getMvpView().setIndicationList(indications);
-            }else{
+            } else {
                 getMvpView().scrollToIndication(indications.get(0).getRoute());
 
             }
         }
     }
 
+    public void setWindowResume(boolean windowResume) {
+        this.windowResume = windowResume;
+    }
 }

@@ -1,5 +1,9 @@
 package es.indios.markn.ui.guide;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +12,11 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,6 +26,7 @@ import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.data.model.uvigo.Location;
 import es.indios.markn.ui.base.BaseFragment;
 import es.indios.markn.R;
+import timber.log.Timber;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -39,14 +44,17 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     @BindView(R.id.search_location)                 SearchView mSearchView;
     @BindView(R.id.guide_indication_recycler)       RecyclerView mIndicationRecyclerView;
     @BindView(R.id.guide_location_recycler)         RecyclerView mLocationRecyclerView;
+    @BindView(R.id.guide_indication_container)      RelativeLayout mIndicationContainer;
+    @BindView(R.id.guide_location_container)        RelativeLayout mLocationContainer;
 
-    private RecyclerView.LayoutManager indicationLayoutManager;
+    private AlertDialog mDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentComponent().inject(this);
         mGuidePresenter.attachView(this);
+        mDialog = initialiseGPSDialog();
     }
 
     @Nullable
@@ -57,7 +65,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
 
         mIndicationRecyclerView.setAdapter(mGuideAdapter);
         mLocationRecyclerView.setAdapter(mLocationAdapter);
-        indicationLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager indicationLayoutManager = new LinearLayoutManager(getContext());
         mIndicationRecyclerView.setLayoutManager(indicationLayoutManager);
         mGuideAdapter.setManager(indicationLayoutManager);
         mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,13 +76,28 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         mSearchView.setOnQueryTextListener(mGuidePresenter);
         mSearchView.setIconifiedByDefault(false);
 
+        Timber.i("guidefragment onCreateView");
+
         return view;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mGuidePresenter.setWindowResume(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        mGuidePresenter.detachView();
+        super.onDestroy();
+    }
+
+    @Override
     public void setLocationList(ArrayList<Location> locations) {
-        mIndicationRecyclerView.setVisibility(View.GONE);
-        mLocationRecyclerView.setVisibility(View.VISIBLE);
+        mIndicationContainer.setVisibility(View.GONE);
+        mLocationContainer.setVisibility(View.VISIBLE);
+        mLocationAdapter.setResources(getResources());
         mLocationAdapter.setListener(this);
         mLocationAdapter.setLocations(locations);
     }
@@ -84,9 +107,11 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mLocationRecyclerView.setVisibility(View.GONE);
-                mIndicationRecyclerView.setVisibility(View.VISIBLE);
+                mLocationContainer.setVisibility(View.GONE);
+                mIndicationContainer.setVisibility(View.VISIBLE);
                 mGuideAdapter.setIndications(indications);
+                if(mDialog.isShowing())
+                    mDialog.cancel();
             }
         });
     }
@@ -97,10 +122,38 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
             @Override
             public void run() {
                 if(mGuideAdapter.getRoutePosition(route)!=-1){
+                    mLocationContainer.setVisibility(View.GONE);
+                    mIndicationContainer.setVisibility(View.VISIBLE);
                     mIndicationRecyclerView.smoothScrollToPosition(mGuideAdapter.getRoutePosition(route));
                 }
             }
         });
+    }
+
+    private AlertDialog initialiseGPSDialog(){
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_message)
+                .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Uri gmmIntentUri = Uri.parse("google.navigation:q=Escola+de+Enxeñaría+de+Telecomunicación");
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent);
+                    }
+                })
+                .setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    @Override
+    public void askForGPS() {
+        if(!mDialog.isShowing())
+            mDialog.show();
     }
 
     @Override
@@ -118,5 +171,12 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
 
     public void onShareButtonClick() {
 
+    }
+
+    public boolean reloadFragment(){
+        if(mLocationContainer.getVisibility()!=View.VISIBLE){
+            return true;
+        }
+        return false;
     }
 }

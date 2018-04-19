@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -88,6 +90,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
         onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_scheduler));
 
         mShareButton.setOnClickListener(this::onShareButtonClick);
+        mInitPresenter.initUser();
     }
 
     public boolean isGooglePlayServicesAvailable(Activity activity) {
@@ -133,16 +136,25 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
         switch (item.getItemId()){
             case R.id.action_scheduler:
+                if(mShareButton.getVisibility() != View.VISIBLE){
+                    mShareButton.setVisibility(View.VISIBLE);
+                }
                 transaction.replace(R.id.content_main, new SchedulerFragment(), "Scheduler");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
                 break;
             case R.id.action_teachers:
+                if(mShareButton.getVisibility() == View.VISIBLE){
+                    mShareButton.setVisibility(View.INVISIBLE);
+                }
                 transaction.replace(R.id.content_main, new TeachersFragment(), "Teachers");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
                 break;
             case R.id.action_guide:
+                if(mShareButton.getVisibility() == View.VISIBLE){
+                    mShareButton.setVisibility(View.INVISIBLE);
+                }
                 transaction.replace(R.id.content_main, new GuideFragment(), "Guide");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
@@ -189,5 +201,22 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
     @Override
     public FragmentManager getMFragmentManager() {
         return mFragmentManager;
+    }
+
+    @Override
+    public void setName(String name) {
+        RelativeLayout headerView = (RelativeLayout) mNavigationView.getHeaderView(0);
+        TextView user_name = headerView.findViewById(R.id.user_name);
+        user_name.setText(name);
+    }
+
+    @Override
+    public void onBackPressed() {
+        GuideFragment guide = (GuideFragment) mFragmentManager.findFragmentByTag("Guide");
+        if(guide!=null && guide.isVisible() && guide.reloadFragment()){
+            onNavigationItemSelected(mBottomNavigation.getMenu().findItem(R.id.action_guide));
+        }else {
+            super.onBackPressed();
+        }
     }
 }

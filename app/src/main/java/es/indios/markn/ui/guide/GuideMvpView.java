@@ -16,4 +16,6 @@ public interface GuideMvpView extends MvpView {
     void setIndicationList(ArrayList<Indication> indications);
 
     void scrollToIndication(String route);
+
+    void askForGPS();
 }
