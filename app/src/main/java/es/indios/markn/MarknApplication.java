@@ -43,8 +43,4 @@ public class MarknApplication extends Application  {
     public void setComponent(ApplicationComponent applicationComponent) {
         mApplicationComponent = applicationComponent;
     }
-
-    public static Context getContext(){
-        return getContext();
-    }
 }

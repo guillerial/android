@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,11 +29,14 @@ import timber.log.Timber;
  * Created by CristinaPosada on 22/03/2018.
  */
 
-public class SchedulerFragment extends BaseFragment {
+public class SchedulerFragment extends BaseFragment implements SchedulerMvpView{
 
     @BindView(R.id.pager)               ViewPager mViewPager;
     @BindView(R.id.pager_tab_strip)     PagerTabStrip mPagerTabStrip;
     @BindView(R.id.quarter_switch)      Switch mQuarterSwitch;
+
+    @Inject
+    SchedulerPresenter mSchedulerPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,9 @@ public class SchedulerFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_scheduler, container, false);
         ButterKnife.bind(this, view);
+        mSchedulerPresenter.attachView(this);
+
+        mSchedulerPresenter.getSchedules();
         return view;
     }
 
@@ -66,12 +75,15 @@ public class SchedulerFragment extends BaseFragment {
     }
 
     public void onShareButtonClick() {
+        mSchedulerPresenter.getShareableText(getContext(), mQuarterSwitch.isChecked());
+    }
+
+    @Override
+    public void goShareSchedules(String shareString) {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
-        String shareBodyText = "Your shearing message goes here";
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject/Title");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-        getActivity().startActivity(Intent.createChooser(intent, "Choose sharing method"));
+        intent.putExtra(Intent.EXTRA_TEXT, shareString);
+        getActivity().startActivity(Intent.createChooser(intent, ""));
     }
 
     public class SchedulesPagerAdapter extends FragmentPagerAdapter {
