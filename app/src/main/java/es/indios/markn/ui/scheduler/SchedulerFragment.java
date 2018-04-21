@@ -11,13 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.ui.base.BaseFragment;
 import es.indios.markn.R;
+import timber.log.Timber;
 
 /**
  * Created by CristinaPosada on 22/03/2018.
@@ -27,6 +30,7 @@ public class SchedulerFragment extends BaseFragment {
 
     @BindView(R.id.pager)               ViewPager mViewPager;
     @BindView(R.id.pager_tab_strip)     PagerTabStrip mPagerTabStrip;
+    @BindView(R.id.quarter_switch)      Switch mQuarterSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,12 @@ public class SchedulerFragment extends BaseFragment {
 
         SchedulesPagerAdapter adapter = new SchedulesPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(adapter);
+        mQuarterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                adapter.changeQuarter(b);
+            }
+        });
     }
 
     public void onShareButtonClick() {
@@ -67,9 +77,17 @@ public class SchedulerFragment extends BaseFragment {
     public class SchedulesPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] titles = getResources().getStringArray(R.array.scheduler_fragment_tabs);
+        private FragmentManager fragmentManager;
+        private ArrayList<DayFragment> mDayFragmentList;
 
-        public SchedulesPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public SchedulesPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+            mDayFragmentList = new ArrayList<>();
+            mDayFragmentList.add(0,new DayFragment(DayFragment.MONDAY, mQuarterSwitch.isChecked()));
+            mDayFragmentList.add(1,new DayFragment(DayFragment.TUESDAY, mQuarterSwitch.isChecked()));
+            mDayFragmentList.add(2,new DayFragment(DayFragment.WEDNESDAY, mQuarterSwitch.isChecked()));
+            mDayFragmentList.add(3,new DayFragment(DayFragment.THURSDAY, mQuarterSwitch.isChecked()));
+            mDayFragmentList.add(4,new DayFragment(DayFragment.FRIDAY, mQuarterSwitch.isChecked()));
         }
 
         @Override
@@ -84,26 +102,13 @@ public class SchedulerFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
+            return mDayFragmentList.get(position);
+        }
 
-            switch (position) {
-                case 0:
-                    return new DayFragment(
-                            DayFragment.MONDAY);
-                case 1:
-                    return new DayFragment(
-                            DayFragment.TUESDAY);
-                case 2:
-                    return new DayFragment(
-                            DayFragment.WEDNESDAY);
-                case 3:
-                    return new DayFragment(
-                            DayFragment.THURSDAY);
-                case 4:
-                    return new DayFragment(
-                            DayFragment.FRIDAY);
+        public void changeQuarter(boolean b) {
+            for(DayFragment fragment : mDayFragmentList){
+                fragment.changeQuarter(b);
             }
-
-            return null;
         }
     }
 }
