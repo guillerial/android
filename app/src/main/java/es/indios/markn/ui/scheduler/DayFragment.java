@@ -40,13 +40,15 @@ public class DayFragment extends BaseFragment implements DayMvpView {
     public static final int FRIDAY      = 5;
 
     private int mDay;
+    private boolean mQuarter;
 
     public DayFragment() {
     }
 
     @SuppressLint("ValidFragment")
-    public DayFragment(int day) {
+    public DayFragment(int day, boolean checked) {
         mDay = day;
+        mQuarter = checked;
     }
 
     @Override
@@ -68,12 +70,18 @@ public class DayFragment extends BaseFragment implements DayMvpView {
         mDayRecyclerView.setAdapter(mDayAdapter);
         mDayRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mDayPresenter.getSchedules();
+        mDayPresenter.getSchedules(mQuarter);
         return view;
     }
 
     @Override
     public void setSchedules(ArrayList<Schedule> schedules) {
         mDayAdapter.setSchedules(schedules);
+    }
+
+    public void changeQuarter(boolean b) {
+        mQuarter = b;
+        if (mDayPresenter!=null)
+            mDayPresenter.setQuarter(mQuarter);
     }
 }

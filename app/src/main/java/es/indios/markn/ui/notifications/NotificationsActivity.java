@@ -40,7 +40,8 @@ public class NotificationsActivity extends BaseActivity implements Notifications
         ButterKnife.bind(this);
         mNotificationsPresenter.attachView(this);
         setSupportActionBar(mNotificationToolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mNotificationsRecycler.setAdapter(mNotificationAdapter);
         mNotificationsRecycler.setLayoutManager(new LinearLayoutManager(this));
 

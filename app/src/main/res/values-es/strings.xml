@@ -21,6 +21,9 @@
         <item>Jueves</item>
         <item>Viernes</item>
     </string-array>
+    
+    <string name="first_quarter">Primer cuatrimestre</string>
+    <string name="second_quarter">Segundo cuatrimestre</string>
 
     <!--main-->
     <string name="navigation_drawer_open">Abrir barra lateral</string>

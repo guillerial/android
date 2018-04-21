@@ -28,7 +28,8 @@
                 android:text="@string/icon_notifications"
                 android:textAlignment="center"
                 android:textSize="23sp"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:paddingEnd="50dp"/>
 
         </RelativeLayout>
 

@@ -23,6 +23,9 @@
         <item>Friday</item>
     </string-array>
 
+    <string name="first_quarter">First quarter</string>
+    <string name="second_quarter">Second quarter</string>
+
     <!--main-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

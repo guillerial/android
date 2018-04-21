@@ -23,6 +23,8 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
     private final DataManager mDataManager;
 
     private int mDay;
+    private ArrayList<Schedule> mFirstQuarterSchedules = new ArrayList<>();
+    private ArrayList<Schedule> mSecondQuarterSchedules = new ArrayList<>();
 
     @Inject
     public DayPresenter(DataManager dataManager) {
@@ -34,7 +36,7 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
         this.mDay = day;
     }
 
-    public void getSchedules() {
+    public void getSchedules(boolean secondQuarter) {
         mDataManager.getSchedulesByDay(mDay).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Schedule>>() {
                     @Override
@@ -44,8 +46,22 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
 
                     @Override
                     public void onNext(List<Schedule> schedules) {
+                        mFirstQuarterSchedules = new ArrayList<>();
+                        mSecondQuarterSchedules = new ArrayList<>();
+                        for(Schedule schedule : schedules){
+                            int quarter = Character.getNumericValue(schedule.getGroup().getCode().trim().charAt(4));
+                            if(quarter%2==0){
+                                mSecondQuarterSchedules.add(schedule);
+                            }else{
+                                mFirstQuarterSchedules.add(schedule);
+                            }
+                        }
                         if(getMvpView()!=null)
-                            getMvpView().setSchedules(new ArrayList<>(schedules));
+                            if(secondQuarter){
+                                getMvpView().setSchedules(mSecondQuarterSchedules);
+                            }else{
+                                getMvpView().setSchedules(mFirstQuarterSchedules);
+                            }
                     }
 
                     @Override
@@ -58,5 +74,14 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
 
                     }
                 });
+    }
+
+    public void setQuarter(boolean secondQuarter){
+        if(getMvpView()!=null)
+            if(secondQuarter){
+                getMvpView().setSchedules(mSecondQuarterSchedules);
+            }else{
+                getMvpView().setSchedules(mFirstQuarterSchedules);
+            }
     }
 }
