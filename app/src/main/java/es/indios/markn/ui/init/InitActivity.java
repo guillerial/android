@@ -91,6 +91,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
 
         mShareButton.setOnClickListener(this::onShareButtonClick);
         mInitPresenter.initUser();
+        mInitPresenter.setBluetooth(this, true);
     }
 
     public boolean isGooglePlayServicesAvailable(Activity activity) {
@@ -126,6 +127,7 @@ public class InitActivity extends BaseActivity implements InitMvpView, BottomNav
     @Override
     protected void onDestroy() {
         Scanner.getInstance().deleteListener(mInitPresenter);
+        mInitPresenter.setBluetooth(this, false);
         mInitPresenter.detachView();
         super.onDestroy();
     }
