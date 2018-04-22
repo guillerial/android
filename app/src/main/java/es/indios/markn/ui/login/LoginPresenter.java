@@ -43,8 +43,12 @@ public class LoginPresenter extends BasePresenter<LoginMvpView>{
 
                     @Override
                     public void onNext(TokenResponse tokenResponse) {
-                        if(getMvpView()!=null)
-                            getMvpView().onLoggedUser();
+                        if(tokenResponse.getUser_type().equals("student")) {
+                            if (getMvpView() != null)
+                                getMvpView().onLoggedUser();
+                        }else{
+                            getMvpView().onForbiddenLogin(403);
+                        }
                     }
 
                     @Override

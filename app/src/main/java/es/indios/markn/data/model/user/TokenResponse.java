@@ -5,6 +5,7 @@ public class TokenResponse {
     private String token;
     private String email;
     private String name;
+    private String user_type;
 
     public String getToken() {
         return token;
@@ -16,5 +17,9 @@ public class TokenResponse {
 
     public String getName() {
         return name;
+    }
+
+    public String getUser_type() {
+        return user_type;
     }
 }

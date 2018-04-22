@@ -49,11 +49,13 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
                         mFirstQuarterSchedules = new ArrayList<>();
                         mSecondQuarterSchedules = new ArrayList<>();
                         for(Schedule schedule : schedules){
-                            int quarter = Character.getNumericValue(schedule.getGroup().getCode().trim().charAt(4));
-                            if(quarter%2==0){
-                                mSecondQuarterSchedules.add(schedule);
-                            }else{
-                                mFirstQuarterSchedules.add(schedule);
+                            if(schedule.getGroup()!=null) {
+                                int quarter = Character.getNumericValue(schedule.getGroup().getCode().trim().charAt(4));
+                                if (quarter % 2 == 0) {
+                                    mSecondQuarterSchedules.add(schedule);
+                                } else {
+                                    mFirstQuarterSchedules.add(schedule);
+                                }
                             }
                         }
                         if(getMvpView()!=null)

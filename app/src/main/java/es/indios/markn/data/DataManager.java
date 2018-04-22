@@ -99,7 +99,10 @@ public class DataManager {
         return mMarknApi.login(email, password).concatMap(new Function<TokenResponse, ObservableSource<? extends TokenResponse>>() {
             @Override
             public ObservableSource<? extends TokenResponse> apply(TokenResponse tokenResponse) throws Exception {
-                return mPreferencesHelper.setToken(tokenResponse);
+                if(tokenResponse.getUser_type().equals("student"))
+                    return mPreferencesHelper.setToken(tokenResponse);
+                else
+                    return Observable.just(tokenResponse);
             }
         });
     }
