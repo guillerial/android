@@ -1,9 +1,7 @@
 package es.indios.markn.ui.guide;
 
-import android.content.res.Resources;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
 
@@ -29,6 +25,7 @@ import es.indios.markn.R;
 
 public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationViewHolder> {
     private ArrayList<Indication> mIndications;
+    customRecyclerOnItemClickListener mListener;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Inject
@@ -51,16 +48,29 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
     @Override
     public void onBindViewHolder(IndicationViewHolder holder, int position) {
         Indication indication = mIndications.get(position);
-        if(!indication.getImage_url().equals(""))
+        if(!indication.getImage_url().equals("")) {
             Picasso.get().load(indication.getImage_url()).into(holder.indicationImage);
-        else
+            holder.mGuideCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener!=null)
+                        mListener.onIndicationClick(indication);
+                }
+            });
+        }else {
             holder.indicationImage.setVisibility(View.GONE);
+        }
         holder.indicationText.setText(indication.getIndication());
     }
 
     @Override
     public int getItemCount() {
         return mIndications.size();
+    }
+
+
+    public void setListener(customRecyclerOnItemClickListener mListener) {
+        this.mListener = mListener;
     }
 
     public int getRoutePosition(String route) {
@@ -76,6 +86,7 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
     }
 
     class IndicationViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.guide_cardview_item) CardView mGuideCardView;
         @BindView(R.id.indication_image) ImageView indicationImage;
         @BindView(R.id.indication_text) TextView indicationText;
 
@@ -83,5 +94,9 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface customRecyclerOnItemClickListener {
+        void onIndicationClick(Indication indication);
     }
 }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
 
@@ -32,7 +33,9 @@ import timber.log.Timber;
  * Created by CristinaPosada on 22/03/2018.
  */
 
-public class GuideFragment extends BaseFragment implements GuideMvpView, LocationAdapter.customRecyclerOnItemClickListener {
+public class GuideFragment extends BaseFragment implements GuideMvpView,
+        LocationAdapter.customRecyclerOnItemClickListener,
+        GuideAdapter.customRecyclerOnItemClickListener{
 
     @Inject
     GuidePresenter mGuidePresenter;
@@ -46,6 +49,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     @BindView(R.id.guide_location_recycler)         RecyclerView mLocationRecyclerView;
     @BindView(R.id.guide_indication_container)      RelativeLayout mIndicationContainer;
     @BindView(R.id.guide_location_container)        RelativeLayout mLocationContainer;
+    @BindView(R.id.route_title_textview)            TextView mRouteTitleTextview;
 
     private AlertDialog mDialog;
 
@@ -109,6 +113,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
             public void run() {
                 mLocationContainer.setVisibility(View.GONE);
                 mIndicationContainer.setVisibility(View.VISIBLE);
+                mGuideAdapter.setListener(GuideFragment.this);
                 mGuideAdapter.setIndications(indications);
                 if(mDialog.isShowing())
                     mDialog.cancel();
@@ -159,6 +164,8 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
     @Override
     public void onLocationClick(Location location) {
         mGuidePresenter.getIndications(location);
+
+        mRouteTitleTextview.setText(String.format("%s %s", getResources().getString(R.string.route_to), location.getName()));
     }
 
     public void onNewIndication(Indication indication) {
@@ -178,5 +185,13 @@ public class GuideFragment extends BaseFragment implements GuideMvpView, Locatio
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onIndicationClick(Indication indication) {
+        Intent indicationActivity = new Intent(getActivity(), ImageActivity.class);
+        indicationActivity.putExtra(ImageActivity.IMAGE_URL,indication.getImage_url());
+        indicationActivity.putExtra(ImageActivity.INDICATION, indication.getIndication());
+        startActivity(indicationActivity);
     }
 }

@@ -17,21 +17,17 @@
         android:elevation="3dp"
         app:elevation="3dp"
         >
-        <RelativeLayout
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/icon_notifications"
+            android:textAlignment="center"
+            android:textSize="23sp"
+            android:layout_centerInParent="true"
+            android:paddingEnd="50dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/icon_notifications"
-                android:textAlignment="center"
-                android:textSize="23sp"
-                android:layout_centerInParent="true"
-                android:paddingEnd="50dp"/>
-
-        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 

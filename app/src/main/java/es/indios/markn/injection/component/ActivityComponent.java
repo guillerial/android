@@ -3,6 +3,7 @@ package es.indios.markn.injection.component;
 import dagger.Subcomponent;
 import es.indios.markn.injection.PerActivity;
 import es.indios.markn.injection.module.ActivityModule;
+import es.indios.markn.ui.guide.ImageActivity;
 import es.indios.markn.ui.init.InitActivity;
 import es.indios.markn.ui.login.LoginActivity;
 import es.indios.markn.ui.main.MainActivity;
@@ -25,4 +26,6 @@ public interface ActivityComponent {
     void inject(SignUpActivity signUpActivity);
 
     void inject(NotificationsActivity notificationsActivity);
+
+    void inject(ImageActivity imageActivity);
 }

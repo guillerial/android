@@ -23,6 +23,9 @@
         <item>Friday</item>
     </string-array>
 
+    <!-- Guide -->
+    <string name="route_to">Route to</string>
+
     <string name="first_quarter">First quarter</string>
     <string name="second_quarter">Second quarter</string>
 

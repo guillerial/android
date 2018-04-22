@@ -30,6 +30,7 @@
 
         <activity
             android:name="es.indios.markn.ui.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="маяки">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +39,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="es.indios.markn.ui.init.InitActivity"/>
+        <activity android:name="es.indios.markn.ui.init.InitActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name="es.indios.markn.ui.signup.SignUpActivity"/>
-        <activity android:name="es.indios.markn.ui.help.HelpActivity"/>
-        <activity android:name=".ui.notifications.NotificationsActivity" />
+        <activity android:name="es.indios.markn.ui.signup.SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="es.indios.markn.ui.help.HelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.notifications.NotificationsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.guide.ImageActivity"/>
 
 
         <service android:name="es.indios.markn.data.services.IndicationsSyncService"/>

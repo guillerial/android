@@ -25,6 +25,9 @@
     <string name="first_quarter">Primer cuatrimestre</string>
     <string name="second_quarter">Segundo cuatrimestre</string>
 
+    <!-- Guide -->
+    <string name="route_to">Ruta hacia</string>
+
     <!--main-->
     <string name="navigation_drawer_open">Abrir barra lateral</string>
     <string name="navigation_drawer_close">Cerrar barra lateral</string>
