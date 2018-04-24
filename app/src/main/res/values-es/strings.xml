@@ -45,6 +45,7 @@
     <string name="bottom_login">Acceder</string>
     <string name="text_create_account">Crear cuenta</string>
     <string name="text_guest_session">Continuar como invitado</string>
+    <string name="text_test_session">Usuario de prueba</string>
     <string name="text_valid_email">Introduce un email válido</string>
     <string name="text_pass_required">Contraseña obligatoria</string>
     <string name="text_user_no_exist">El usuario no existe</string>
@@ -69,7 +70,7 @@
     <string name="help_shecule">
         En la ventana de horarios puedes ver las clases que tienes cada día de la semana: la hora de inicio y fin, la asignatura y el aula en la que se imparte.</string>
     <string name="help_teachers">
-        En la ventana de profesores puedes ver una lista de los profesores de la escuela, su correo electrónico y su despacho. Búscalos por nombre. Haz click en un profesor para enviarle un correo. </string>
+        En la ventana de profesores puedes ver una lista de los profesores de la escuela, su correo electrónico, su despacho y su horario de tutorías. Búscalos por nombre. Haz click en un profesor para enviarle un correo. </string>
     <string name="help_guide">
         En la ventana de guía puedes elegir el lugar al que deseas dirigirte. Aparecerán una serie de indicaciones con fotos de los lugares por los que debes ir para llegar a tu destino. </string>
     <string name="help_menu">Menú</string>

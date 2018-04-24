@@ -57,6 +57,8 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
 
     private AlertDialog mDialog;
 
+    private AlertDialog mWrongDialog;
+
     private boolean guide = false;
 
     @Override
@@ -97,7 +99,7 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
         if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             initialiseBLEDialog().show();
         }
-
+        mWrongDialog = initialiseWrongDirectionDialog();
         return view;
     }
 
@@ -180,7 +182,8 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
                     }
                 }, 500);
                 if(!first){
-                    initialiseWrongDirectionDialog().show();
+                    if(!mWrongDialog.isShowing())
+                        mWrongDialog.show();
                 }
                 if(mDialog.isShowing())
                     mDialog.cancel();

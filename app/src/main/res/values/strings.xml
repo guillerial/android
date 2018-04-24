@@ -46,6 +46,7 @@
     <string name="bottom_login">Log in</string>
     <string name="text_create_account">Create account</string>
     <string name="text_guest_session">Continue as guest</string>
+    <string name="text_test_session">Test user</string>
     <string name="text_valid_email">Enter a valid email</string>
     <string name="text_pass_required">Password required</string>
     <string name="text_user_no_exist">User does not exist</string>
@@ -70,7 +71,7 @@
     <string name="help_shecule">
         In the schedule window you can see the classes you have each day of the week: the start and end time, the subject and the classroom where it is taught.</string>
     <string name="help_teachers">
-        In the professors window you can see a list of the professors of the school, their email and their office. Search them by name. Click on a professor to send an email. </string>
+        In the professors window you can see a list of the professors of the school, their email, their office and their tutorial schedule. Search them by name. Click on a professor to send an email. </string>
     <string name="help_guide">
         In the guide window you can choose the place you want to go to. A series of indications will appear with photos of the places you must go to reach your destination.</string>
     <string name="help_menu">Menu</string>

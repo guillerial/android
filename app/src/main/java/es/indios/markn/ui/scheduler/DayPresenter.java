@@ -1,6 +1,8 @@
 package es.indios.markn.ui.scheduler;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,6 +60,18 @@ public class DayPresenter extends BasePresenter<DayMvpView> {
                                 }
                             }
                         }
+                        Collections.sort(mSecondQuarterSchedules, new Comparator<Schedule>() {
+                            @Override
+                            public int compare(Schedule schedule, Schedule t1) {
+                                return schedule.getStart_hour()-t1.getStart_hour();
+                            }
+                        });
+                        Collections.sort(mFirstQuarterSchedules, new Comparator<Schedule>() {
+                            @Override
+                            public int compare(Schedule schedule, Schedule t1) {
+                                return schedule.getStart_hour()-t1.getStart_hour();
+                            }
+                        });
                         if(getMvpView()!=null)
                             if(secondQuarter){
                                 getMvpView().setSchedules(mSecondQuarterSchedules);

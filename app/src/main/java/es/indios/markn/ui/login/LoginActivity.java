@@ -114,7 +114,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, View.On
                 }
                 break;
             case R.id.textview_guest_session:
-                onLoggedUser();
+                mLoginPresenter.logIn("alumno@alumno.es", "3SCU3L4");
                 break;
             case R.id.textview_create_account:
                 Intent intent = new Intent(this, SignUpActivity.class);
