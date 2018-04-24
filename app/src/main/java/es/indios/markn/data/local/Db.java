@@ -5,10 +5,13 @@ import android.database.Cursor;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.blescanner.models.Topology.Route;
@@ -124,13 +127,15 @@ public class Db {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_OFFICE = "office";
+        public static final String COLUMN_SCHEDULES = "schedules";
 
         public static final String CREATE =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_ID + " TEXT PRIMARY KEY, " +
                         COLUMN_NAME + " TEXT, " +
                         COLUMN_EMAIL + " TEXT, " +
-                        COLUMN_OFFICE + " TEXT " +
+                        COLUMN_OFFICE + " TEXT, " +
+                        COLUMN_SCHEDULES + " TEXT " +
                         " ); ";
 
         public static ContentValues toContentValues(Teacher teacher) {
@@ -139,15 +144,18 @@ public class Db {
             values.put(COLUMN_NAME, teacher.getName());
             values.put(COLUMN_EMAIL, teacher.getEmail());
             values.put(COLUMN_OFFICE, teacher.getOffice());
+            values.put(COLUMN_SCHEDULES, new Gson().toJson(teacher.getSchedules()));
             return values;
         }
 
         public static Teacher parseCursor(Cursor cursor) {
+            Type listType = new TypeToken<List<Schedule>>(){}.getType();
             return new Teacher(
                     cursor.getString(cursor.getColumnIndex(COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_NAME)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_OFFICE))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_OFFICE)),
+                    new Gson().fromJson(cursor.getString(cursor.getColumnIndex(COLUMN_SCHEDULES)), listType)
             );
         }
     }

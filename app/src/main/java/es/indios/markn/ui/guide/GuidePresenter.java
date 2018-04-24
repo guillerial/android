@@ -43,6 +43,7 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
     private boolean windowResume = false;
 
+
     @Inject
     public GuidePresenter(DataManager dataManager) {
         mDataManager = dataManager;
@@ -129,7 +130,8 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
             mActualBeacon = nearbyBeacon;
             changes = true;
         }
-        if((changes || windowResume) && mActualBeacon!=null && mActualDestination!=null){
+        if((changes || windowResume || nearbyBeacon.getDistance()<10) && mActualBeacon!=null && mActualDestination!=null){
+            mActualBeacon = nearbyBeacon;
             windowResume = false;
             generatePathIndicationList();
         }
@@ -187,13 +189,25 @@ public class GuidePresenter extends BasePresenter<GuideMvpView> implements Searc
 
         if (getMvpView() != null) {
             if (mActualIndicationMap == null || !mActualIndicationMap.containsKey(indications.get(0).getRoute())) {
+                boolean first;
+                if(mActualIndicationMap==null){
+                    first=true;
+                }else{
+                    first=false;
+                }
                 mActualIndicationMap = new HashMap<String, Indication>();
                 for (Indication indication : indications) {
                     mActualIndicationMap.put(indication.getRoute(), indication);
                 }
-                getMvpView().setIndicationList(indications);
+                getMvpView().setIndicationList(indications, first);
             } else {
-                getMvpView().scrollToIndication(indications.get(0).getRoute());
+                boolean colorear;
+                if (mActualBeacon.getDistance()<10){
+                    colorear= true;
+                }else{
+                    colorear = false;
+                }
+                getMvpView().scrollToIndication(indications.get(0).getRoute(), colorear);
 
             }
         }

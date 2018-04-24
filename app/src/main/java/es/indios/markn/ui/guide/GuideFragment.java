@@ -3,8 +3,10 @@ package es.indios.markn.ui.guide;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import javax.inject.Inject;
 
@@ -53,12 +57,16 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
 
     private AlertDialog mDialog;
 
+    private boolean guide = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentComponent().inject(this);
         mGuidePresenter.attachView(this);
         mDialog = initialiseGPSDialog();
+
+        Timber.i("onCreate");
     }
 
     @Nullable
@@ -73,48 +81,107 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
         mIndicationRecyclerView.setLayoutManager(indicationLayoutManager);
         mGuideAdapter.setManager(indicationLayoutManager);
         mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        mGuidePresenter.getLocations();
-        mGuidePresenter.getIndicationsAndTopologies();
-
+        Timber.i("Guide? "+guide);
+        if(!guide) {
+            mGuidePresenter.getLocations();
+            mGuidePresenter.getIndicationsAndTopologies();
+        }else{
+            mIndicationContainer.setVisibility(View.VISIBLE);
+            mLocationContainer.setVisibility(View.GONE);
+        }
         mSearchView.setOnQueryTextListener(mGuidePresenter);
         mSearchView.setIconifiedByDefault(false);
 
         Timber.i("guidefragment onCreateView");
 
+        if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            initialiseBLEDialog().show();
+        }
+
         return view;
     }
 
     @Override
+    public void onPause() {
+        Timber.i("onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Timber.i("onViewCreated guide?"+guide);
+        if(guide){
+            mIndicationContainer.setVisibility(View.VISIBLE);
+            mLocationContainer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        Timber.i("onStart guide?"+guide);
+        if(guide){
+            mIndicationContainer.setVisibility(View.VISIBLE);
+            mLocationContainer.setVisibility(View.GONE);
+        }
+        super.onStart();
+    }
+
+    @Override
     public void onResume() {
+        Timber.i("onResume guide?"+guide);
         super.onResume();
+        if(guide){
+            mIndicationContainer.setVisibility(View.VISIBLE);
+            mLocationContainer.setVisibility(View.GONE);
+        }
         mGuidePresenter.setWindowResume(true);
     }
 
     @Override
     public void onDestroy() {
+        Timber.i("onDestroy");
         mGuidePresenter.detachView();
         super.onDestroy();
     }
 
     @Override
     public void setLocationList(ArrayList<Location> locations) {
-        mIndicationContainer.setVisibility(View.GONE);
-        mLocationContainer.setVisibility(View.VISIBLE);
+        if(guide){
+            mIndicationContainer.setVisibility(View.VISIBLE);
+            mLocationContainer.setVisibility(View.GONE);
+        }else{
+            mIndicationContainer.setVisibility(View.GONE);
+            mLocationContainer.setVisibility(View.VISIBLE);
+        }
         mLocationAdapter.setResources(getResources());
         mLocationAdapter.setListener(this);
         mLocationAdapter.setLocations(locations);
     }
 
     @Override
-    public void setIndicationList(final ArrayList<Indication> indications) {
+    public void setIndicationList(final ArrayList<Indication> indications, boolean first) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                guide = true;
+                mGuideAdapter.setIndications(indications);
                 mLocationContainer.setVisibility(View.GONE);
                 mIndicationContainer.setVisibility(View.VISIBLE);
                 mGuideAdapter.setListener(GuideFragment.this);
-                mGuideAdapter.setIndications(indications);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mGuideAdapter.setIndicationBackground(0,
+                                first?R.color.primary:R.color.red,
+                                getResources()
+                        );
+                    }
+                }, 500);
+                if(!first){
+                    initialiseWrongDirectionDialog().show();
+                }
                 if(mDialog.isShowing())
                     mDialog.cancel();
             }
@@ -122,13 +189,20 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
     }
 
     @Override
-    public void scrollToIndication(String route) {
+    public void scrollToIndication(String route, boolean colorear) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(mGuideAdapter.getRoutePosition(route)!=-1){
                     mLocationContainer.setVisibility(View.GONE);
                     mIndicationContainer.setVisibility(View.VISIBLE);
+                    if(colorear) {
+                        mGuideAdapter.setIndicationBackground(
+                                mGuideAdapter.getRoutePosition(route),
+                                R.color.primary,
+                                getResources()
+                        );
+                    }
                     mIndicationRecyclerView.smoothScrollToPosition(mGuideAdapter.getRoutePosition(route));
                 }
             }
@@ -148,6 +222,30 @@ public class GuideFragment extends BaseFragment implements GuideMvpView,
                     }
                 })
                 .setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    private AlertDialog initialiseBLEDialog(){
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.ble_dialog_message)
+                .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    private AlertDialog initialiseWrongDirectionDialog(){
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.wrong_dialog_message)
+                .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });

@@ -13,9 +13,9 @@ import es.indios.markn.ui.base.MvpView;
 public interface GuideMvpView extends MvpView {
     void setLocationList(ArrayList<Location> locations);
 
-    void setIndicationList(ArrayList<Indication> indications);
+    void setIndicationList(ArrayList<Indication> indications, boolean first);
 
-    void scrollToIndication(String route);
+    void scrollToIndication(String route, boolean colorear);
 
     void askForGPS();
 }

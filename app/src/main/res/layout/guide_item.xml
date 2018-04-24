@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/indication_image"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="300dp"
             tools:src="@drawable/pasillo"/>
 
         <TextView

@@ -9,6 +9,8 @@
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_error_title">Sorry</string>
     <string name="dialog_message">It seems you are not in Telecommunications college.\n Do you want to open the GPS to get there?</string>
+    <string name="ble_dialog_message">It seems your device does not have Bluetooth Low Energy. At the moment, you can not use our guidance functionality.</string>
+    <string name="wrong_dialog_message">It seems that you are not following the right direction.</string>
 
 
     <string name="empty_ribots">There aren\'t any ribots</string>
@@ -26,8 +28,8 @@
     <!-- Guide -->
     <string name="route_to">Route to</string>
 
-    <string name="first_quarter">First quarter</string>
-    <string name="second_quarter">Second quarter</string>
+    <string name="first_quarter">First half</string>
+    <string name="second_quarter">Second half</string>
 
     <!--main-->
     <string name="navigation_drawer_open">Open navigation drawer</string>

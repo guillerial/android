@@ -51,7 +51,7 @@ public class TeachersFragment extends BaseFragment implements TeachersMvpView, T
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_teachers, container, false);
         ButterKnife.bind(this, view);
-
+        mTeachersAdapter.setResources(getContext());
         mTeachersRecyclerView.setAdapter(mTeachersAdapter);
         mTeachersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

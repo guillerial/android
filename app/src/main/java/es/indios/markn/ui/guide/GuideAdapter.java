@@ -1,5 +1,7 @@
 package es.indios.markn.ui.guide;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.indios.markn.blescanner.models.Topology.Indication;
 import es.indios.markn.R;
+import timber.log.Timber;
 
 /**
  * Created by guille on 11/03/18.
@@ -27,6 +30,8 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
     private ArrayList<Indication> mIndications;
     customRecyclerOnItemClickListener mListener;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private CardView mLastView;
 
     @Inject
     public GuideAdapter() {
@@ -68,6 +73,20 @@ public class GuideAdapter extends RecyclerView.Adapter<GuideAdapter.IndicationVi
         return mIndications.size();
     }
 
+
+    public void setIndicationBackground(int position, int color, Resources r){
+        Timber.i("Posicion: "+position+" color: "+color);
+        if(mLayoutManager!=null) {
+            CardView cardView = (CardView)mLayoutManager.findViewByPosition(position);
+            if(mLastView != null) {
+                mLastView.setBackgroundColor(r.getColor(R.color.white));
+            }
+            if(cardView!=null) {
+                cardView.setBackgroundColor(r.getColor(color));
+                mLastView = cardView;
+            }
+        }
+    }
 
     public void setListener(customRecyclerOnItemClickListener mListener) {
         this.mListener = mListener;

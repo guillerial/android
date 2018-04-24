@@ -9,6 +9,8 @@
     <string name="dialog_action_cancel">Cancelar</string>
     <string name="dialog_error_title">Sorry</string>
     <string name="dialog_message">Parece que no estás en la escuela de Telecomunicaciones.\n¿Quieres abrir el GPS para llegar hasta ella?</string>
+    <string name="ble_dialog_message">Parece que tu dispositivo no dispone de Bluetooth Low Energy. Por el momento, no puedes utilizar nuestra funcionalidad de guiado.</string>
+    <string name="wrong_dialog_message">Parece que no estás siguiendo la dirección correcta.</string>
 
     <string name="empty_ribots">There aren\'t any ribots</string>
     <string name="error_loading_ribots">There was a problem loading the ribots</string>
